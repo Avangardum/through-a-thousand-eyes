@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ThroughAThousandEyes.WebModule;
 using UnityEngine;
 
 namespace ThroughAThousandEyes.MainModule
@@ -11,6 +12,9 @@ namespace ThroughAThousandEyes.MainModule
 
         private List<IModuleFacade> _moduleFacades;
         private MainModuleUnityInterface _unityInterface;
+        
+        // Module facades
+        private WebModuleFacade _webModuleFacade;
 
         public void InitializeModule(MainModuleFacade mainModuleFacade, bool isLoadingSavedGame, string saveData = "")
         {
@@ -35,6 +39,8 @@ namespace ThroughAThousandEyes.MainModule
             // Create modules facades
             _moduleFacades = new List<IModuleFacade>();
             _moduleFacades.Add(this);
+            _webModuleFacade = new WebModuleFacade();
+            _moduleFacades.Add(_webModuleFacade);
             
             // Initialize modules using facades
             foreach (var facade in _moduleFacades)
