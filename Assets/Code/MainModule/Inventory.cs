@@ -5,6 +5,6 @@ namespace ThroughAThousandEyes.MainModule
 {
     public class Inventory
     {
-        public int Silk;
+        public long Silk;
     }
 }

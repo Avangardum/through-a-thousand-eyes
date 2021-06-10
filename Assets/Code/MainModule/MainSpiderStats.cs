@@ -2,12 +2,12 @@ namespace ThroughAThousandEyes.MainModule
 {
     public class MainSpiderStats
     {
-        public int Level = 1;
-        public float CurrentHp;
-        public float MaxHp;
-        public float Armor;
-        public float Damage;
-        public float Speed;
-        public float AttackSpeed;
+        public long Level = 1;
+        public decimal CurrentHp;
+        public decimal MaxHp;
+        public decimal Armor;
+        public decimal Damage;
+        public decimal Speed;
+        public decimal AttackSpeed;
     }
 }
