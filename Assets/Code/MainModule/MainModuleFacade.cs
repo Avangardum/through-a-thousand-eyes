@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace ThroughAThousandEyes.MainModule
 {
     public class MainModuleFacade : IModuleFacade
     {
+        public Inventory Inventory { get; private set; }
+
         private List<IModuleFacade> _moduleFacades;
         private MainModuleUnityInterface _unityInterface;
 
@@ -12,6 +15,11 @@ namespace ThroughAThousandEyes.MainModule
         {
             _unityInterface = new GameObject("Main Module Unity Interface").AddComponent<MainModuleUnityInterface>();
             _unityInterface.EFixedUpdate += OnFixedUpdate;
+            Inventory = new Inventory();
+            if (isLoadingSavedGame)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public string SaveModule()
