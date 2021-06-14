@@ -243,6 +243,7 @@ MonoBehaviour:
   bigFoodPrefab: {fileID: 0}
   foodWaveInterval: 1
   <AttackRange>k__BackingField: 1
+  <AttackInterval>k__BackingField: 1
 --- !u!4 &713482261
 Transform:
   m_ObjectHideFlags: 0
