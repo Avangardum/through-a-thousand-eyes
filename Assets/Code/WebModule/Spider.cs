@@ -10,10 +10,13 @@ namespace ThroughAThousandEyes.WebModule
         private Food _target;
         private bool _hasTarget;
         private float _speed = 1;
+        private float _level = 1;
+        private float _currentAttackCooldown;
         
         public void Initialize(WebModuleRoot root)
         {
             _root = root;
+            _currentAttackCooldown = _root.AttackInterval;
         }
 
         private void FixedUpdate()
@@ -34,7 +37,18 @@ namespace ThroughAThousandEyes.WebModule
                     var movementVector = vectorToTarget.normalized * movement;
                     transform.Translate(movementVector, Space.World);
                 }
+                else
+                {
+                    if (_currentAttackCooldown <= 0)
+                    {
+                        // Attack
+                        _target.Hp -= _level;
+                        _currentAttackCooldown = _root.AttackInterval;
+                    }
+                }
             }
+
+            _currentAttackCooldown -= Time.fixedDeltaTime;
         }
 
         private void GetTarget()
@@ -56,7 +70,18 @@ namespace ThroughAThousandEyes.WebModule
 
                 _target = closestTarget;
                 _hasTarget = true;
+                _target.Death += OnTargetDeletion;
+                _target.Escape += OnTargetDeletion;
             }
+        }
+
+        private void OnTargetDeletion(Food target)
+        {
+            _target.Death -= OnTargetDeletion;
+            _target.Escape -= OnTargetDeletion;
+
+            _target = null;
+            _hasTarget = false;
         }
     }
 }

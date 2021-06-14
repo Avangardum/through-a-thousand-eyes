@@ -14,6 +14,7 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private GameObject bigFoodPrefab;
         [SerializeField] private float foodWaveInterval = 1;
         [field: SerializeField] public float AttackRange { get; private set; } = 0.5f;
+        [field: SerializeField] public float AttackInterval { get; private set; } = 1f;
 
         public readonly List<Spider> _spiders = new List<Spider>();
         public readonly List<Food> _foods = new List<Food>();

@@ -23,9 +23,9 @@ namespace ThroughAThousandEyes.WebModule
             set
             {
                 _currentHp = value;
+                SetHpBar(_currentHp / _maxHp);
                 if (_currentHp <= 0)
                 {
-                    SetHpBar(_currentHp / _maxHp);
                     Die();
                 }
             }
