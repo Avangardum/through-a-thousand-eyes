@@ -39,7 +39,7 @@ namespace ThroughAThousandEyes.WebModule
 
         private void GetTarget()
         {
-            var availableTargets = _root._food.Where(x => !_root._spiders.Any(y => y._target == x));
+            var availableTargets = _root._foods.Where(x => !_root._spiders.Any(y => y._target == x));
             if (availableTargets.Any())
             {
                 Food closestTarget = null;

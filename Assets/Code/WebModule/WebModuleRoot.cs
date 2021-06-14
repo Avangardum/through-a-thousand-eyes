@@ -16,7 +16,7 @@ namespace ThroughAThousandEyes.WebModule
         [field: SerializeField] public float AttackRange { get; private set; } = 0.5f;
 
         public readonly List<Spider> _spiders = new List<Spider>();
-        public readonly List<Food> _food = new List<Food>();
+        public readonly List<Food> _foods = new List<Food>();
         private Spider _mainSpider;
 
         public void Initialize(MainModuleFacade mainModuleFacade, bool isLoadingSavedGame, string saveData = "")
@@ -30,7 +30,10 @@ namespace ThroughAThousandEyes.WebModule
         private void CreateNormalFood()
         {
             Food food = Instantiate(normalFoodPrefab, transform).GetComponent<Food>();
-            _food.Add(food);
+            food.Initialize();
+            _foods.Add(food);
+            food.Death += OnFoodDeath;
+            food.Escape += OnFoodEscape;
             food.transform.position = GetRandomPosition();
         }
 
@@ -40,6 +43,23 @@ namespace ThroughAThousandEyes.WebModule
             position.x = Random.Range(-webWidth / 2, webWidth / 2);
             position.y = Random.Range(-webHeight / 2, webHeight / 2);
             return position;
+        }
+        
+        private void OnFoodDeath(Food food)
+        {
+            OnFoodDeletion(food);
+        }
+
+        private void OnFoodEscape(Food food)
+        {
+            OnFoodDeletion(food);
+        }
+        
+        private void OnFoodDeletion(Food food)
+        {
+            food.Death -= OnFoodDeath;
+            food.Escape -= OnFoodEscape;
+            _foods.Remove(food);
         }
     }
 }
