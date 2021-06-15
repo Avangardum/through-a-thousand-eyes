@@ -17,6 +17,8 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private float foodWaveInterval = 1;
         [field: SerializeField] public float AttackRange { get; private set; } = 0.5f;
         [field: SerializeField] public float AttackInterval { get; private set; } = 1f;
+        [field: SerializeField] public decimal ExperienceToLevelUpBase { get; private set; } = 100;
+        [field: SerializeField] public decimal ExperienceToLevelUpAddition { get; private set; } = 10;
 
         public readonly List<Spider> _spiders = new List<Spider>();
         public readonly List<Food> _foods = new List<Food>();

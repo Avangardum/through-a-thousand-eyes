@@ -14,18 +14,20 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private float hpBarMinXScale;
         [SerializeField] private float hpBarMaxXScale;
         
-        private float _currentHp = 10;
-        private float _maxHp = 10;
+        private decimal _currentHp = 10;
+        public decimal MaxHp { get; private set; } = 10;
         private float _currentTimeUntilEscape = 15;
         private float _maxTimeUntilEscape = 15;
+        private bool _isDead;
+        private bool _hasEscaped;
 
-        public float Hp
+        public decimal Hp
         {
             get => _currentHp;
             set
             {
                 _currentHp = value;
-                SetHpBar(_currentHp / _maxHp);
+                SetHpBar((float)(_currentHp / MaxHp));
                 if (_currentHp <= 0)
                 {
                     Die();
@@ -37,12 +39,14 @@ namespace ThroughAThousandEyes.WebModule
         {
             EDeath?.Invoke(this);
             Destroy(gameObject);
+            _isDead = true;
         }
 
         private void Escape()
         {
             EDeath?.Invoke(this);
             Destroy(gameObject);
+            _hasEscaped = true;
         }
 
         private void SetHpBar(float amount)
@@ -58,7 +62,7 @@ namespace ThroughAThousandEyes.WebModule
 
         public void Initialize()
         {
-            SetHpBar(Hp / _maxHp);
+            SetHpBar((float)(_currentHp / MaxHp));
         }
 
         private void FixedUpdate()
@@ -69,6 +73,13 @@ namespace ThroughAThousandEyes.WebModule
             }
             
             _currentTimeUntilEscape -= Time.fixedDeltaTime;
+        }
+
+        public void DealDamage(decimal damage, out decimal damageActuallyDealt, out bool isFatal)
+        {
+            damageActuallyDealt = Math.Min(damage, Hp);
+            Hp -= damage;
+            isFatal = _isDead;
         }
     }
 }

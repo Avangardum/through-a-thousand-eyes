@@ -14,10 +14,27 @@ namespace ThroughAThousandEyes.WebModule
         private Food _target;
         private bool _hasTarget;
         private float _speed = 1;
-        private float _level = 1;
+        private int _level = 1;
         private float _currentAttackCooldown;
-        
-        
+        private decimal _experience;
+
+        private decimal ExperienceNeededForNextLevel =>
+            _root.ExperienceToLevelUpBase + _root.ExperienceToLevelUpAddition * (_level - 1);
+
+        private decimal Experience
+        {
+            get => _experience;
+            set
+            {
+                _experience = value;
+                while (_experience >= ExperienceNeededForNextLevel)
+                {
+                    _experience -= ExperienceNeededForNextLevel;
+                    _level++;
+                }
+            }
+        }
+
         public void Initialize(WebModuleRoot root)
         {
             _root = root;
@@ -46,9 +63,7 @@ namespace ThroughAThousandEyes.WebModule
                 {
                     if (_currentAttackCooldown <= 0)
                     {
-                        // Attack
-                        _target.Hp -= _level;
-                        _currentAttackCooldown = _root.AttackInterval;
+                        Attack(_target);
                     }
                 }
             }
@@ -88,6 +103,19 @@ namespace ThroughAThousandEyes.WebModule
 
             _target = null;
             _hasTarget = false;
+        }
+
+        private void Attack(Food target)
+        {
+            decimal damageActuallyDealt;
+            bool isFatal;
+            target.DealDamage(_level, out damageActuallyDealt, out isFatal);
+            Experience += damageActuallyDealt;
+            if (isFatal)
+            {
+                Experience += target.MaxHp;
+            }
+            _currentAttackCooldown = _root.AttackInterval;
         }
     }
 }
