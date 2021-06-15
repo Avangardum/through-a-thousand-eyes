@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using ThroughAThousandEyes.MainModule;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ThroughAThousandEyes.WebModule
 {
@@ -19,16 +21,18 @@ namespace ThroughAThousandEyes.WebModule
         public readonly List<Spider> _spiders = new List<Spider>();
         public readonly List<Food> _foods = new List<Food>();
         private Spider _mainSpider;
+        private float _timeUntilNewWave;
+        private float _foodSpawnChance = 0.5f;
 
         public void Initialize(MainModuleFacade mainModuleFacade, bool isLoadingSavedGame, string saveData = "")
         {
             _mainSpider = Instantiate(mainSpiderPrefab, transform).GetComponent<Spider>();
             _mainSpider.Initialize(this);
             _spiders.Add(_mainSpider);
-            CreateNormalFood();
+            _timeUntilNewWave = foodWaveInterval;
         }
 
-        private void CreateNormalFood()
+        private void SpawnNormalFood()
         {
             Food food = Instantiate(normalFoodPrefab, transform).GetComponent<Food>();
             food.Initialize();
@@ -61,6 +65,29 @@ namespace ThroughAThousandEyes.WebModule
             food.EDeath -= OnFoodDeath;
             food.EEscape -= OnFoodEscape;
             _foods.Remove(food);
+        }
+
+        private void FixedUpdate()
+        {
+            if (_timeUntilNewWave <= 0)
+            {
+                SpawnFoodWave();
+                _timeUntilNewWave = foodWaveInterval;
+            }
+
+            _timeUntilNewWave -= Time.fixedDeltaTime;
+        }
+
+        private void SpawnFoodWave()
+        {
+            int guaranteedFoodAmount = Mathf.FloorToInt(_foodSpawnChance);
+            float extraFoodChance = _foodSpawnChance - guaranteedFoodAmount;
+            bool addExtraFood = Random.Range(0f, 1f) <= extraFoodChance;
+            int foodAmount = guaranteedFoodAmount + (addExtraFood ? 1 : 0);
+            for (int i = 0; i < foodAmount; i++)
+            {
+                SpawnNormalFood();
+            }
         }
     }
 }
