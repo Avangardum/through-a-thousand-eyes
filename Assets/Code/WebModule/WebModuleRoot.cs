@@ -33,8 +33,8 @@ namespace ThroughAThousandEyes.WebModule
             Food food = Instantiate(normalFoodPrefab, transform).GetComponent<Food>();
             food.Initialize();
             _foods.Add(food);
-            food.Death += OnFoodDeath;
-            food.Escape += OnFoodEscape;
+            food.EDeath += OnFoodDeath;
+            food.EEscape += OnFoodEscape;
             food.transform.position = GetRandomPosition();
         }
 
@@ -58,8 +58,8 @@ namespace ThroughAThousandEyes.WebModule
         
         private void OnFoodDeletion(Food food)
         {
-            food.Death -= OnFoodDeath;
-            food.Escape -= OnFoodEscape;
+            food.EDeath -= OnFoodDeath;
+            food.EEscape -= OnFoodEscape;
             _foods.Remove(food);
         }
     }

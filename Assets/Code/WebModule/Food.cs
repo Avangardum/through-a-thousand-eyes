@@ -5,8 +5,8 @@ namespace ThroughAThousandEyes.WebModule
 {
     public class Food : MonoBehaviour
     {
-        public event Action<Food> Death;
-        public event Action<Food> Escape;
+        public event Action<Food> EDeath;
+        public event Action<Food> EEscape;
 
         [SerializeField] private GameObject hpBar;
         [SerializeField] private float hpBarMinXPos;
@@ -16,6 +16,8 @@ namespace ThroughAThousandEyes.WebModule
         
         private float _currentHp = 10;
         private float _maxHp = 10;
+        private float _currentTimeUntilEscape = 15;
+        private float _maxTimeUntilEscape = 15;
 
         public float Hp
         {
@@ -33,7 +35,13 @@ namespace ThroughAThousandEyes.WebModule
 
         private void Die()
         {
-            Death?.Invoke(this);
+            EDeath?.Invoke(this);
+            Destroy(gameObject);
+        }
+
+        private void Escape()
+        {
+            EDeath?.Invoke(this);
             Destroy(gameObject);
         }
 
@@ -51,6 +59,16 @@ namespace ThroughAThousandEyes.WebModule
         public void Initialize()
         {
             SetHpBar(Hp / _maxHp);
+        }
+
+        private void FixedUpdate()
+        {
+            if (_currentTimeUntilEscape <= 0)
+            {
+                Escape();
+            }
+            
+            _currentTimeUntilEscape -= Time.fixedDeltaTime;
         }
     }
 }

@@ -70,15 +70,15 @@ namespace ThroughAThousandEyes.WebModule
 
                 _target = closestTarget;
                 _hasTarget = true;
-                _target.Death += OnTargetDeletion;
-                _target.Escape += OnTargetDeletion;
+                _target.EDeath += OnTargetDeletion;
+                _target.EEscape += OnTargetDeletion;
             }
         }
 
         private void OnTargetDeletion(Food target)
         {
-            _target.Death -= OnTargetDeletion;
-            _target.Escape -= OnTargetDeletion;
+            _target.EDeath -= OnTargetDeletion;
+            _target.EEscape -= OnTargetDeletion;
 
             _target = null;
             _hasTarget = false;
