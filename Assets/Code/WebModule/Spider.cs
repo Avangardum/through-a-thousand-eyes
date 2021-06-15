@@ -1,17 +1,22 @@
 using System;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ThroughAThousandEyes.WebModule
 {
     public class Spider : MonoBehaviour
     {
+        [SerializeField] private TextMeshPro levelText;
+        
         private WebModuleRoot _root;
         private Food _target;
         private bool _hasTarget;
         private float _speed = 1;
         private float _level = 1;
         private float _currentAttackCooldown;
+        
         
         public void Initialize(WebModuleRoot root)
         {
@@ -49,6 +54,7 @@ namespace ThroughAThousandEyes.WebModule
             }
 
             _currentAttackCooldown -= Time.fixedDeltaTime;
+            levelText.text = _level.ToString();
         }
 
         private void GetTarget()

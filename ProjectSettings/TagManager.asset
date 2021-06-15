@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Food
+    uniqueID: 2692390495
+    locked: 0
+  - name: Spider
+    uniqueID: 3629521893
+    locked: 0
+  - name: Status
+    uniqueID: 2543116041
+    locked: 0
