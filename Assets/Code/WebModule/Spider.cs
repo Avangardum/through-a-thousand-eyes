@@ -17,6 +17,7 @@ namespace ThroughAThousandEyes.WebModule
         private int _level = 1;
         private float _currentAttackCooldown;
         private decimal _experience;
+        private decimal _silk = 0;
 
         private decimal ExperienceNeededForNextLevel =>
             _root.ExperienceToLevelUpBase + _root.ExperienceToLevelUpAddition * (_level - 1);
@@ -68,6 +69,14 @@ namespace ThroughAThousandEyes.WebModule
                 }
             }
 
+            _silk += (decimal)(_level * Time.deltaTime);
+            if (_silk >= 1)
+            {
+                _silk--;
+                _root.Facade.Inventory.Silk++;
+            }
+            
+            
             _currentAttackCooldown -= Time.fixedDeltaTime;
             levelText.text = _level.ToString();
         }

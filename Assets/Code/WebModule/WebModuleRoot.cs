@@ -20,18 +20,20 @@ namespace ThroughAThousandEyes.WebModule
         [field: SerializeField] public decimal ExperienceToLevelUpBase { get; private set; } = 100;
         [field: SerializeField] public decimal ExperienceToLevelUpAddition { get; private set; } = 10;
 
+        public WebModuleFacade Facade;
         public readonly List<Spider> _spiders = new List<Spider>();
         public readonly List<Food> _foods = new List<Food>();
         private Spider _mainSpider;
         private float _timeUntilNewWave;
         private float _foodSpawnChance = 0.5f;
 
-        public void Initialize(MainModuleFacade mainModuleFacade, bool isLoadingSavedGame, string saveData = "")
+        public void Initialize(WebModuleFacade facade, bool isLoadingSavedGame, string saveData = "")
         {
             _mainSpider = Instantiate(mainSpiderPrefab, transform).GetComponent<Spider>();
             _mainSpider.Initialize(this);
             _spiders.Add(_mainSpider);
             _timeUntilNewWave = foodWaveInterval;
+            Facade = facade;
         }
 
         private void SpawnNormalFood()
