@@ -13,8 +13,13 @@ namespace ThroughAThousandEyes.WebModule
 
         public void UpgradeFeedingGrounds()
         {
+            // TODO Check if has enough silk
+            // TODO Remove silk
             FeedingGroundsLevel++;
             _root.SpawnCommonSpider();
         }
+        
+        // TODO add check if can upgrade
+        // TODO add upgrade price field
     }
 }
