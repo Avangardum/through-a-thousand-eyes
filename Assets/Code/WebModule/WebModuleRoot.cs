@@ -14,6 +14,7 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private GameObject commonSpiderPrefab;
         [SerializeField] private GameObject normalFoodPrefab;
         [SerializeField] private GameObject bigFoodPrefab;
+        [field: SerializeField] public UpgradeManager UpgradeManager { get; private set; }
 
         public WebModuleFacade Facade;
         public readonly List<Spider> _spiders = new List<Spider>();
@@ -27,6 +28,7 @@ namespace ThroughAThousandEyes.WebModule
             SpawnMainSpider();
             _timeUntilNewWave = Data.FoodWaveInterval;
             Facade = facade;
+            UpgradeManager = new UpgradeManager(this);
         }
 
         private void SpawnNormalFood()
@@ -95,7 +97,7 @@ namespace ThroughAThousandEyes.WebModule
             _spiders.Add(_mainSpider);
         }
 
-        private void SpawnCommonSpider()
+        public void SpawnCommonSpider()
         {
             var spider = Instantiate(commonSpiderPrefab, transform).GetComponent<Spider>();
             spider.Initialize(this);
