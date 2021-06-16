@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ThroughAThousandEyes.MainModule;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -29,9 +30,7 @@ namespace ThroughAThousandEyes.WebModule
 
         public void Initialize(WebModuleFacade facade, bool isLoadingSavedGame, string saveData = "")
         {
-            _mainSpider = Instantiate(mainSpiderPrefab, transform).GetComponent<Spider>();
-            _mainSpider.Initialize(this);
-            _spiders.Add(_mainSpider);
+            SpawnMainSpider();
             _timeUntilNewWave = foodWaveInterval;
             Facade = facade;
         }
@@ -92,6 +91,22 @@ namespace ThroughAThousandEyes.WebModule
             {
                 SpawnNormalFood();
             }
+        }
+
+        private void SpawnMainSpider()
+        {
+            _mainSpider = Instantiate(mainSpiderPrefab, transform).GetComponent<Spider>();
+            _mainSpider.Initialize(this);
+            _mainSpider.transform.position = GetRandomPosition();
+            _spiders.Add(_mainSpider);
+        }
+
+        private void SpawnCommonSpider()
+        {
+            var spider = Instantiate(commonSpiderPrefab, transform).GetComponent<Spider>();
+            spider.Initialize(this);
+            spider.transform.position = GetRandomPosition();
+            _spiders.Add(spider);
         }
     }
 }
