@@ -14,14 +14,14 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private float hpBarMinXScale;
         [SerializeField] private float hpBarMaxXScale;
         
-        private decimal _currentHp = 10;
-        public decimal MaxHp { get; private set; } = 10;
+        private double _currentHp = 10;
+        public double MaxHp { get; private set; } = 10;
         private float _currentTimeUntilEscape = 15;
         private float _maxTimeUntilEscape = 15;
         private bool _isDead;
         private bool _hasEscaped;
 
-        public decimal Hp
+        public double Hp
         {
             get => _currentHp;
             set
@@ -75,7 +75,7 @@ namespace ThroughAThousandEyes.WebModule
             _currentTimeUntilEscape -= Time.fixedDeltaTime;
         }
 
-        public void DealDamage(decimal damage, out decimal damageActuallyDealt, out bool isFatal)
+        public void DealDamage(double damage, out double damageActuallyDealt, out bool isFatal)
         {
             damageActuallyDealt = Math.Min(damage, Hp);
             Hp -= damage;

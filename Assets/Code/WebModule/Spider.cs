@@ -16,13 +16,13 @@ namespace ThroughAThousandEyes.WebModule
         private float _speed = 1;
         private int _level = 1;
         private float _currentAttackCooldown;
-        private decimal _experience;
-        private decimal _silk = 0;
+        private double _experience;
+        private double _silk = 0;
 
-        private decimal ExperienceNeededForNextLevel =>
+        private double ExperienceNeededForNextLevel =>
             _root.Data.ExperienceToLevelUpBase + _root.Data.ExperienceToLevelUpAddition * (_level - 1);
 
-        private decimal Experience
+        private double Experience
         {
             get => _experience;
             set
@@ -69,7 +69,7 @@ namespace ThroughAThousandEyes.WebModule
                 }
             }
 
-            _silk += (decimal)(_level * Time.deltaTime);
+            _silk += (double)(_level * Time.deltaTime);
             if (_silk >= 1)
             {
                 _silk--;
@@ -116,7 +116,7 @@ namespace ThroughAThousandEyes.WebModule
 
         private void Attack(Food target)
         {
-            decimal damageActuallyDealt;
+            double damageActuallyDealt;
             bool isFatal;
             target.DealDamage(_level, out damageActuallyDealt, out isFatal);
             Experience += damageActuallyDealt;
