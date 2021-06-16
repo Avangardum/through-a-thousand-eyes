@@ -9,17 +9,11 @@ namespace ThroughAThousandEyes.WebModule
 {
     public class WebModuleRoot : MonoBehaviour
     {
-        [SerializeField] private float webWidth = 7;
-        [SerializeField] private float webHeight = 7;
+        [field: SerializeField] public WebModuleData Data { get; private set; }
         [SerializeField] private GameObject mainSpiderPrefab;
         [SerializeField] private GameObject commonSpiderPrefab;
         [SerializeField] private GameObject normalFoodPrefab;
         [SerializeField] private GameObject bigFoodPrefab;
-        [SerializeField] private float foodWaveInterval = 1;
-        [field: SerializeField] public float AttackRange { get; private set; } = 0.5f;
-        [field: SerializeField] public float AttackInterval { get; private set; } = 1f;
-        [field: SerializeField] public decimal ExperienceToLevelUpBase { get; private set; } = 100;
-        [field: SerializeField] public decimal ExperienceToLevelUpAddition { get; private set; } = 10;
 
         public WebModuleFacade Facade;
         public readonly List<Spider> _spiders = new List<Spider>();
@@ -31,7 +25,7 @@ namespace ThroughAThousandEyes.WebModule
         public void Initialize(WebModuleFacade facade, bool isLoadingSavedGame, string saveData = "")
         {
             SpawnMainSpider();
-            _timeUntilNewWave = foodWaveInterval;
+            _timeUntilNewWave = Data.FoodWaveInterval;
             Facade = facade;
         }
 
@@ -48,8 +42,8 @@ namespace ThroughAThousandEyes.WebModule
         private Vector2 GetRandomPosition()
         {
             Vector2 position;
-            position.x = Random.Range(-webWidth / 2, webWidth / 2);
-            position.y = Random.Range(-webHeight / 2, webHeight / 2);
+            position.x = Random.Range(-Data.WebWidth / 2, Data.WebWidth / 2);
+            position.y = Random.Range(-Data.WebHeight / 2, Data.WebHeight / 2);
             return position;
         }
         
@@ -75,7 +69,7 @@ namespace ThroughAThousandEyes.WebModule
             if (_timeUntilNewWave <= 0)
             {
                 SpawnFoodWave();
-                _timeUntilNewWave = foodWaveInterval;
+                _timeUntilNewWave = Data.FoodWaveInterval;
             }
 
             _timeUntilNewWave -= Time.fixedDeltaTime;

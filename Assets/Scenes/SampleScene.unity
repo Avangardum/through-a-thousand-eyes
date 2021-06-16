@@ -376,15 +376,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c630645b1494a11876fdaa66dfac3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  webWidth: 7
-  webHeight: 7
+  <Data>k__BackingField: {fileID: 11400000, guid: 050fd03e42373934786e78f6858ffea8, type: 2}
   mainSpiderPrefab: {fileID: 4677373275523253928, guid: f0f41c2e5dd131d438c04a4e30139d7a, type: 3}
   commonSpiderPrefab: {fileID: 4677373275523253928, guid: ef4d3c41843a42e42a2140ab3ecf9b9b, type: 3}
   normalFoodPrefab: {fileID: 1595012511217129418, guid: 130f104ec312123409587d01c89fd5e2, type: 3}
   bigFoodPrefab: {fileID: 0}
-  foodWaveInterval: 1
-  <AttackRange>k__BackingField: 1
-  <AttackInterval>k__BackingField: 1
 --- !u!4 &713482261
 Transform:
   m_ObjectHideFlags: 0

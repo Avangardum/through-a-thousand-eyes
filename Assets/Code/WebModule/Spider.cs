@@ -20,7 +20,7 @@ namespace ThroughAThousandEyes.WebModule
         private decimal _silk = 0;
 
         private decimal ExperienceNeededForNextLevel =>
-            _root.ExperienceToLevelUpBase + _root.ExperienceToLevelUpAddition * (_level - 1);
+            _root.Data.ExperienceToLevelUpBase + _root.Data.ExperienceToLevelUpAddition * (_level - 1);
 
         private decimal Experience
         {
@@ -39,7 +39,7 @@ namespace ThroughAThousandEyes.WebModule
         public void Initialize(WebModuleRoot root)
         {
             _root = root;
-            _currentAttackCooldown = _root.AttackInterval;
+            _currentAttackCooldown = _root.Data.AttackInterval;
         }
 
         private void FixedUpdate()
@@ -53,7 +53,7 @@ namespace ThroughAThousandEyes.WebModule
             {
                 var vectorToTarget = _target.transform.position - this.transform.position;
                 var distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
-                var extraDistance = Mathf.Max(distanceToTarget - _root.AttackRange, 0);
+                var extraDistance = Mathf.Max(distanceToTarget - _root.Data.AttackRange, 0);
                 if (extraDistance > 0)
                 {
                     var movement = Mathf.Min(_speed * Time.fixedDeltaTime, extraDistance);
@@ -124,7 +124,7 @@ namespace ThroughAThousandEyes.WebModule
             {
                 Experience += target.MaxHp;
             }
-            _currentAttackCooldown = _root.AttackInterval;
+            _currentAttackCooldown = _root.Data.AttackInterval;
         }
     }
 }
