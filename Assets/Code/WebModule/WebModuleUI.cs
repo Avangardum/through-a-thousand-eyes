@@ -17,6 +17,7 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private Button nestingGroundsButton;
         [SerializeField] private Button acidicWebButton;
         [SerializeField] private Button feedingGroundsButton;
+        [SerializeField] private Button fattyInsectsButton;
 
         private UpgradeManager _upgradeManager;
         private WebModuleRoot _root;
@@ -28,6 +29,7 @@ namespace ThroughAThousandEyes.WebModule
         private void ShowNestingGrounds() => ShowUpgrade(_upgradeManager.NestingGrounds);
         private void ShowAcidicWeb() => ShowUpgrade(_upgradeManager.AcidicWeb);
         private void ShowFeedingGrounds() => ShowUpgrade(_upgradeManager.FeedingGrounds);
+        private void ShowFattyInsects() => ShowUpgrade(_upgradeManager.FattyInsects);
 
         private void ShowUpgrade(Upgrade upgrade)
         {
@@ -63,6 +65,7 @@ namespace ThroughAThousandEyes.WebModule
             nestingGroundsButton.onClick.AddListener(ShowNestingGrounds);
             acidicWebButton.onClick.AddListener(ShowAcidicWeb);
             feedingGroundsButton.onClick.AddListener(ShowFeedingGrounds);
+            fattyInsectsButton.onClick.AddListener(ShowFattyInsects);
             
             ShowNestingGrounds();
             _isInitialized = true;

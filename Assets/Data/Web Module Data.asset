@@ -19,6 +19,8 @@ MonoBehaviour:
   <AttackInterval>k__BackingField: 1
   <ExperienceToLevelUpBase>k__BackingField: 100
   <ExperienceToLevelUpAddition>k__BackingField: 10
+  <NormalFoodBaseHp>k__BackingField: 10
+  <BigFoodBaseHp>k__BackingField: 100
   <NestingGrounds>k__BackingField:
     <Name>k__BackingField: Nesting Grounds
     <Description>k__BackingField: Adds more spiders
@@ -45,8 +47,8 @@ MonoBehaviour:
       <CommonRatioOrDifference>k__BackingField: 50
     <DamageIncreasePercentagePerLevel>k__BackingField: 0.05
   <FattyInsects>k__BackingField:
-    <Name>k__BackingField: 
-    <Description>k__BackingField: 
+    <Name>k__BackingField: Fatty Insects
+    <Description>k__BackingField: Increases food's health
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 100

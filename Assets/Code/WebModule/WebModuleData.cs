@@ -13,7 +13,9 @@ namespace ThroughAThousandEyes.WebModule
         [field: SerializeField] public float AttackInterval { get; private set; } = 1f;
         [field: SerializeField] public double ExperienceToLevelUpBase { get; private set; } = 100;
         [field: SerializeField] public double ExperienceToLevelUpAddition { get; private set; } = 10;
-
+        [field: SerializeField] public double NormalFoodBaseHp { get; private set; } = 10;
+        [field: SerializeField] public double BigFoodBaseHp { get; private set; } = 100;
+        
         [field: Header("Upgrades")]
         
         [field: SerializeField] public NestingGroundsData NestingGrounds { get; private set; }
@@ -22,8 +24,8 @@ namespace ThroughAThousandEyes.WebModule
         [field: SerializeField] public FattyInsectsData FattyInsects { get; private set; }
         [field: SerializeField] public CollectiveFeedingData CollectiveFeeding { get; private set; }
         [field: SerializeField] public StickierWebData StickierWeb { get; private set; }
-
-    [Serializable]
+        
+        [Serializable]
         public class UpgradeData
         {
             [field: SerializeField] public string Name { get; private set; }

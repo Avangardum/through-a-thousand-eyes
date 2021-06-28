@@ -14,12 +14,13 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private float hpBarMinXScale;
         [SerializeField] private float hpBarMaxXScale;
         
-        private double _currentHp = 10;
-        public double MaxHp { get; private set; } = 10;
+        private double _currentHp;
+        public double MaxHp { get; private set; }
         private float _currentTimeUntilEscape = 15;
         private float _maxTimeUntilEscape = 15;
         private bool _isDead;
         private bool _hasEscaped;
+        private WebModuleRoot _root;
 
         public double Hp
         {
@@ -60,8 +61,11 @@ namespace ThroughAThousandEyes.WebModule
             hpBar.transform.localScale = scale;
         }
 
-        public void Initialize()
+        public void Initialize(WebModuleRoot root)
         {
+            _root = root;
+            MaxHp = _root.Data.NormalFoodBaseHp * _root.UpgradeManager.FattyInsects.HpMultiplier;
+            _currentHp = MaxHp;
             SetHpBar((float)(_currentHp / MaxHp));
         }
 

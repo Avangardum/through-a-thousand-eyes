@@ -38,7 +38,7 @@ namespace ThroughAThousandEyes.WebModule
         private void SpawnNormalFood()
         {
             Food food = Instantiate(normalFoodPrefab, transform).GetComponent<Food>();
-            food.Initialize();
+            food.Initialize(this);
             _foods.Add(food);
             food.EDeath += OnFoodDeath;
             food.EEscape += OnFoodEscape;
