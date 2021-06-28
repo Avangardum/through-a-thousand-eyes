@@ -18,6 +18,7 @@ namespace ThroughAThousandEyes.WebModule
         private float _currentAttackCooldown;
         private double _experience;
         private double _silk = 0;
+        private bool _isMainSpider;
 
         private double ExperienceNeededForNextLevel =>
             _root.Data.ExperienceToLevelUpBase + _root.Data.ExperienceToLevelUpAddition * (_level - 1);
@@ -36,10 +37,11 @@ namespace ThroughAThousandEyes.WebModule
             }
         }
 
-        public void Initialize(WebModuleRoot root)
+        public void Initialize(WebModuleRoot root, bool isMainSpider)
         {
             _root = root;
             _currentAttackCooldown = _root.Data.AttackInterval;
+            _isMainSpider = isMainSpider;
         }
 
         private void FixedUpdate()
@@ -64,7 +66,7 @@ namespace ThroughAThousandEyes.WebModule
                 {
                     if (_currentAttackCooldown <= 0)
                     {
-                        Attack(_target);
+                        Attack(_target, _level);
                     }
                 }
             }
@@ -79,6 +81,16 @@ namespace ThroughAThousandEyes.WebModule
             
             _currentAttackCooldown -= Time.fixedDeltaTime;
             levelText.text = _level.ToString();
+
+            AcidicWebFixedUpdate();
+        }
+
+        private void AcidicWebFixedUpdate()
+        {
+            foreach (var food in _root._foods)
+            {
+                Attack(food, _root.UpgradeManager.AcidicWeb.DamagePerSecond * Time.fixedDeltaTime);
+            }
         }
 
         private void GetTarget()
@@ -114,11 +126,11 @@ namespace ThroughAThousandEyes.WebModule
             _hasTarget = false;
         }
 
-        private void Attack(Food target)
+        private void Attack(Food target, double damage)
         {
             double damageActuallyDealt;
             bool isFatal;
-            target.DealDamage(_level, out damageActuallyDealt, out isFatal);
+            target.DealDamage(damage, out damageActuallyDealt, out isFatal);
             Experience += damageActuallyDealt;
             if (isFatal)
             {

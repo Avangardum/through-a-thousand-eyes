@@ -8,20 +8,23 @@ namespace ThroughAThousandEyes.WebModule
         public IntegerProgressionData PriceProgression;
 
         public long GetNextUpgradePrice() => PriceProgression.GetElement(Level + 1);
+
+        protected readonly WebModuleRoot _root;
+
         public abstract string GetCurrentEffectText();
 
-        public virtual void Initialize(WebModuleData.UpgradeData data)
+        public virtual void LevelUp()
         {
-            Name = data.Name;
-            Description = data.Description;
-            PriceProgression = data.Price;
+            _root.UpgradeManager.SpendSilk(GetNextUpgradePrice());
+            Level++;
         }
-
-        public Upgrade(WebModuleData.UpgradeData data)
+        
+        public Upgrade(WebModuleData.UpgradeData data, WebModuleRoot root)
         {
             Name = data.Name;
             Description = data.Description;
             PriceProgression = data.Price;
+            _root = root;
         }
     }
 }

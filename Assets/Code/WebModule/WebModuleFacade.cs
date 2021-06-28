@@ -25,7 +25,7 @@ namespace ThroughAThousandEyes.WebModule
 
         public void Tick(float deltaTime)
         {
-            
+            _root.Tick(deltaTime);
         }
     }
 }

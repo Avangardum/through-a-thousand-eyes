@@ -23,6 +23,8 @@ namespace ThroughAThousandEyes.WebModule
         private Spider _mainSpider;
         private float _timeUntilNewWave;
         private float _foodSpawnChance = 0.5f;
+        
+        public long SilkInInventory => Facade.Inventory.Silk;
 
         public void Initialize(WebModuleFacade facade, bool isLoadingSavedGame, string saveData = "")
         {
@@ -94,7 +96,7 @@ namespace ThroughAThousandEyes.WebModule
         private void SpawnMainSpider()
         {
             _mainSpider = Instantiate(mainSpiderPrefab, transform).GetComponent<Spider>();
-            _mainSpider.Initialize(this);
+            _mainSpider.Initialize(this, true);
             _mainSpider.transform.position = GetRandomPosition();
             _spiders.Add(_mainSpider);
         }
@@ -102,9 +104,24 @@ namespace ThroughAThousandEyes.WebModule
         public void SpawnCommonSpider()
         {
             var spider = Instantiate(commonSpiderPrefab, transform).GetComponent<Spider>();
-            spider.Initialize(this);
+            spider.Initialize(this, false);
             spider.transform.position = GetRandomPosition();
             _spiders.Add(spider);
+        }
+        
+        public void SpendSilk(long amount)
+        {
+            if (SilkInInventory < amount)
+            {
+                throw new Exception("Not enough silk");
+            }
+
+            Facade.Inventory.Silk -= amount;
+        }
+
+        public void Tick(float deltaTime)
+        {
+            
         }
     }
 }

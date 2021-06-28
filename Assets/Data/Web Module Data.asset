@@ -21,15 +21,16 @@ MonoBehaviour:
   <ExperienceToLevelUpAddition>k__BackingField: 10
   <NestingGrounds>k__BackingField:
     <Name>k__BackingField: Nesting Grounds
-    <Description>k__BackingField: Nesting grounds description
+    <Description>k__BackingField: Adds more spiders
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 1
       <InitialTerm>k__BackingField: 1000
       <CommonRatioOrDifference>k__BackingField: 2
     <SpidersPerLevel>k__BackingField: 1
   <AcidicWeb>k__BackingField:
-    <Name>k__BackingField: 
-    <Description>k__BackingField: 
+    <Name>k__BackingField: Acidic Web
+    <Description>k__BackingField: Deals damage to all food in the net (Exp is awarded
+      to the main spider)
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 1
       <InitialTerm>k__BackingField: 10000

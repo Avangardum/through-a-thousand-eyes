@@ -7,32 +7,19 @@ namespace ThroughAThousandEyes.WebModule
         private WebModuleRoot _root;
 
         public readonly NestingGrounds NestingGrounds;
-        private long SilkInInventory => _root.Facade.Inventory.Silk;
+        public readonly AcidicWeb AcidicWeb;
+        private long SilkInInventory => _root.SilkInInventory;
 
         public UpgradeManager(WebModuleRoot root) // Initialize here
         {
             _root = root;
 
-            NestingGrounds = new NestingGrounds(_root.Data.NestingGrounds);
+            NestingGrounds = new NestingGrounds(_root.Data.NestingGrounds, root);
+            AcidicWeb = new AcidicWeb(_root.Data.AcidicWeb, root);
         }
-
-        public void LevelUpNestingGrounds()
-        {
-            SpendSilk(NestingGrounds.GetNextUpgradePrice());
-            NestingGrounds.Level++;
-            _root.SpawnCommonSpider();
-        }
-
-        public void SpendSilk(long amount)
-        {
-            if (SilkInInventory < amount)
-            {
-                throw new Exception("Not enough silk");
-            }
-
-            _root.Facade.Inventory.Silk -= amount;
-        }
-
+        
+        public void SpendSilk(long amount) => _root.SpendSilk(amount);
+        
         public bool CanAffordUpgrade(Upgrade upgrade) => SilkInInventory >= upgrade.GetNextUpgradePrice();
     }
 }

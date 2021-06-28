@@ -12,9 +12,10 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private TextMeshProUGUI upgradeDescription;
         [SerializeField] private TextMeshProUGUI upgradeCurrentLevel;
         [SerializeField] private TextMeshProUGUI upgradeCurrentEffect;
-        [FormerlySerializedAs("upgradeButton")] [SerializeField] private Button levelUpButton;
-        [FormerlySerializedAs("upgradeButtonText")] [SerializeField] private TextMeshProUGUI levelUpButtonText;
+        [SerializeField] private Button levelUpButton;
+        [SerializeField] private TextMeshProUGUI levelUpButtonText;
         [SerializeField] private Button nestingGroundsButton;
+        [SerializeField] private Button acidicWebButton;
 
         private UpgradeManager _upgradeManager;
         private WebModuleRoot _root;
@@ -28,6 +29,8 @@ namespace ThroughAThousandEyes.WebModule
             ShowUpgrade(_upgradeManager.NestingGrounds);
         }
 
+        private void ShowAcidicWeb() => ShowUpgrade(_upgradeManager.AcidicWeb);
+
         private void ShowUpgrade(Upgrade upgrade)
         {
             _currentUpgrade = upgrade;
@@ -36,7 +39,7 @@ namespace ThroughAThousandEyes.WebModule
             upgradeCurrentLevel.text = $"Current Level: {upgrade.Level}";
             upgradeCurrentEffect.text = $"Current Effect: {upgrade.GetCurrentEffectText()}";
             levelUpButtonText.text = $"Level Up ({upgrade.GetNextUpgradePrice()})";
-            _levelUp = _upgradeManager.LevelUpNestingGrounds;
+            _levelUp = upgrade.LevelUp;
             _canAffordUpgrade = () => _upgradeManager.CanAffordUpgrade(upgrade);
         }
 
@@ -60,6 +63,7 @@ namespace ThroughAThousandEyes.WebModule
             _upgradeManager = _root.UpgradeManager;
             levelUpButton.onClick.AddListener(LevelUp);
             nestingGroundsButton.onClick.AddListener(ShowNestingGrounds);
+            acidicWebButton.onClick.AddListener(ShowAcidicWeb);
             
             ShowNestingGrounds();
             _isInitialized = true;
