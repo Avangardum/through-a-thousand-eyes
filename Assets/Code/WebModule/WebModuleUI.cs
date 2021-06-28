@@ -16,6 +16,7 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private TextMeshProUGUI levelUpButtonText;
         [SerializeField] private Button nestingGroundsButton;
         [SerializeField] private Button acidicWebButton;
+        [SerializeField] private Button feedingGroundsButton;
 
         private UpgradeManager _upgradeManager;
         private WebModuleRoot _root;
@@ -24,12 +25,9 @@ namespace ThroughAThousandEyes.WebModule
         private bool _isInitialized;
         private Upgrade _currentUpgrade;
         
-        private void ShowNestingGrounds()
-        {
-            ShowUpgrade(_upgradeManager.NestingGrounds);
-        }
-
+        private void ShowNestingGrounds() => ShowUpgrade(_upgradeManager.NestingGrounds);
         private void ShowAcidicWeb() => ShowUpgrade(_upgradeManager.AcidicWeb);
+        private void ShowFeedingGrounds() => ShowUpgrade(_upgradeManager.FeedingGrounds);
 
         private void ShowUpgrade(Upgrade upgrade)
         {
@@ -64,6 +62,7 @@ namespace ThroughAThousandEyes.WebModule
             levelUpButton.onClick.AddListener(LevelUp);
             nestingGroundsButton.onClick.AddListener(ShowNestingGrounds);
             acidicWebButton.onClick.AddListener(ShowAcidicWeb);
+            feedingGroundsButton.onClick.AddListener(ShowFeedingGrounds);
             
             ShowNestingGrounds();
             _isInitialized = true;

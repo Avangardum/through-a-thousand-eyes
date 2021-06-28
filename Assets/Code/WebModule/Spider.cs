@@ -66,7 +66,7 @@ namespace ThroughAThousandEyes.WebModule
                 {
                     if (_currentAttackCooldown <= 0)
                     {
-                        Attack(_target, _level);
+                        Attack(_target, _level * _root.UpgradeManager.FeedingGrounds.DamageMultiplier);
                     }
                 }
             }
@@ -89,7 +89,7 @@ namespace ThroughAThousandEyes.WebModule
         {
             foreach (var food in _root._foods)
             {
-                Attack(food, _root.UpgradeManager.AcidicWeb.DamagePerSecond * Time.fixedDeltaTime);
+                Attack(food, _root.UpgradeManager.AcidicWeb.DamagePerSecond * Time.fixedDeltaTime, true);
             }
         }
 
@@ -126,7 +126,7 @@ namespace ThroughAThousandEyes.WebModule
             _hasTarget = false;
         }
 
-        private void Attack(Food target, double damage)
+        private void Attack(Food target, double damage, bool isAcidicWeb = false)
         {
             double damageActuallyDealt;
             bool isFatal;
@@ -136,7 +136,11 @@ namespace ThroughAThousandEyes.WebModule
             {
                 Experience += target.MaxHp;
             }
-            _currentAttackCooldown = _root.Data.AttackInterval;
+
+            if (!isAcidicWeb)
+            {
+                _currentAttackCooldown = _root.Data.AttackInterval;
+            }
         }
     }
 }

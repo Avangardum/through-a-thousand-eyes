@@ -37,8 +37,8 @@ MonoBehaviour:
       <CommonRatioOrDifference>k__BackingField: 2
     <DpsPerLevel>k__BackingField: 1
   <FeedingGrounds>k__BackingField:
-    <Name>k__BackingField: 
-    <Description>k__BackingField: 
+    <Name>k__BackingField: Feeding Grounds
+    <Description>k__BackingField: Increases damage dealt by spiders
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 100

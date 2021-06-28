@@ -8,6 +8,7 @@ namespace ThroughAThousandEyes.WebModule
 
         public readonly NestingGrounds NestingGrounds;
         public readonly AcidicWeb AcidicWeb;
+        public readonly FeedingGrounds FeedingGrounds;
         private long SilkInInventory => _root.SilkInInventory;
 
         public UpgradeManager(WebModuleRoot root) // Initialize here
@@ -16,6 +17,7 @@ namespace ThroughAThousandEyes.WebModule
 
             NestingGrounds = new NestingGrounds(_root.Data.NestingGrounds, root);
             AcidicWeb = new AcidicWeb(_root.Data.AcidicWeb, root);
+            FeedingGrounds = new FeedingGrounds(_root.Data.FeedingGrounds, root);
         }
         
         public void SpendSilk(long amount) => _root.SpendSilk(amount);
