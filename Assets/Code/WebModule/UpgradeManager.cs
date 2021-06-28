@@ -1,25 +1,38 @@
+using System;
+
 namespace ThroughAThousandEyes.WebModule
 {
     public class UpgradeManager
     {
-        public int FeedingGroundsLevel { get; private set; }
-        
         private WebModuleRoot _root;
 
-        public UpgradeManager(WebModuleRoot root)
+        public readonly NestingGrounds NestingGrounds;
+        private long SilkInInventory => _root.Facade.Inventory.Silk;
+
+        public UpgradeManager(WebModuleRoot root) // Initialize here
         {
             _root = root;
+
+            NestingGrounds = new NestingGrounds(_root.Data.NestingGrounds);
         }
 
-        public void UpgradeFeedingGrounds()
+        public void LevelUpNestingGrounds()
         {
-            // TODO Check if has enough silk
-            // TODO Remove silk
-            FeedingGroundsLevel++;
+            SpendSilk(NestingGrounds.GetNextUpgradePrice());
+            NestingGrounds.Level++;
             _root.SpawnCommonSpider();
         }
-        
-        // TODO add check if can upgrade
-        // TODO add upgrade price field
+
+        public void SpendSilk(long amount)
+        {
+            if (SilkInInventory < amount)
+            {
+                throw new Exception("Not enough silk");
+            }
+
+            _root.Facade.Inventory.Silk -= amount;
+        }
+
+        public bool CanAffordUpgrade(Upgrade upgrade) => SilkInInventory >= upgrade.GetNextUpgradePrice();
     }
 }

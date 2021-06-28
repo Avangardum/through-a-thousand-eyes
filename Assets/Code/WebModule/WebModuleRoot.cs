@@ -15,6 +15,7 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private GameObject normalFoodPrefab;
         [SerializeField] private GameObject bigFoodPrefab;
         [field: SerializeField] public UpgradeManager UpgradeManager { get; private set; }
+        [field: SerializeField] public WebModuleUI WebModuleUI { get; private set; }
 
         public WebModuleFacade Facade;
         public readonly List<Spider> _spiders = new List<Spider>();
@@ -29,6 +30,7 @@ namespace ThroughAThousandEyes.WebModule
             _timeUntilNewWave = Data.FoodWaveInterval;
             Facade = facade;
             UpgradeManager = new UpgradeManager(this);
+            WebModuleUI.Initialize(this);
         }
 
         private void SpawnNormalFood()

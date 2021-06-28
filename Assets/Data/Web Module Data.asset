@@ -20,36 +20,48 @@ MonoBehaviour:
   <ExperienceToLevelUpBase>k__BackingField: 100
   <ExperienceToLevelUpAddition>k__BackingField: 10
   <NestingGrounds>k__BackingField:
+    <Name>k__BackingField: Nesting Grounds
+    <Description>k__BackingField: Nesting grounds description
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 1
       <InitialTerm>k__BackingField: 1000
       <CommonRatioOrDifference>k__BackingField: 2
     <SpidersPerLevel>k__BackingField: 1
   <AcidicWeb>k__BackingField:
+    <Name>k__BackingField: 
+    <Description>k__BackingField: 
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 1
       <InitialTerm>k__BackingField: 10000
       <CommonRatioOrDifference>k__BackingField: 2
     <DpsPerLevel>k__BackingField: 1
   <FeedingGrounds>k__BackingField:
+    <Name>k__BackingField: 
+    <Description>k__BackingField: 
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 100
       <CommonRatioOrDifference>k__BackingField: 50
     <DamageIncreasePercentagePerLevel>k__BackingField: 0.05
   <FattyInsects>k__BackingField:
+    <Name>k__BackingField: 
+    <Description>k__BackingField: 
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 100
       <CommonRatioOrDifference>k__BackingField: 50
     <HpIncreasePercentagePerLevel>k__BackingField: 0.05
   <CollectiveFeeding>k__BackingField:
+    <Name>k__BackingField: 
+    <Description>k__BackingField: 
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 1000
       <CommonRatioOrDifference>k__BackingField: 500
     <DamageIncreasePercentagePerSpiderPerLevel>k__BackingField: 0.1
   <StickierWeb>k__BackingField:
+    <Name>k__BackingField: 
+    <Description>k__BackingField: 
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 2000

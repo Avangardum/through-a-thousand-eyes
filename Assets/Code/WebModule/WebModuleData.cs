@@ -26,6 +26,8 @@ namespace ThroughAThousandEyes.WebModule
     [Serializable]
         public class UpgradeData
         {
+            [field: SerializeField] public string Name { get; private set; }
+            [field: TextArea(10, 20)] [field: SerializeField] public string Description { get; private set; }
             [field: SerializeField] public IntegerProgressionData Price { get; private set; }
         }
         
