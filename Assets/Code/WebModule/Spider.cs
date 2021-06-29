@@ -138,10 +138,10 @@ namespace ThroughAThousandEyes.WebModule
             double damageActuallyDealt;
             bool isFatal;
             target.DealDamage(damage, this, out damageActuallyDealt, out isFatal);
-            Experience += damageActuallyDealt;
+            Experience += damageActuallyDealt * target.ExpMultiplier;
             if (isFatal && !target.IsBig)
             {
-                Experience += target.MaxHp;
+                Experience += target.MaxHp * target.ExpMultiplier;
             }
 
             if (!isAcidicWeb)

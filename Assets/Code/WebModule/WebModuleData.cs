@@ -19,6 +19,8 @@ namespace ThroughAThousandEyes.WebModule
         [field: SerializeField] public float BigFoodBaseEscapeTime { get; private set; } = 20;
         [field: SerializeField] public float BigFoodBaseChance { get; private set; } = 0.1f;
         [field: SerializeField] public float BaseFoodSpawnChance { get; private set; } = 0.5f;
+        [field: SerializeField] public float RareFoodExpMultiplier { get; private set; } = 3;
+        [field: SerializeField] public float ShinyFoodExpMultiplier { get; private set; } = 10;
 
         [field: Header("Upgrades")]
         
