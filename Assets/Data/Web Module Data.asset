@@ -55,16 +55,17 @@ MonoBehaviour:
       <CommonRatioOrDifference>k__BackingField: 50
     <HpIncreasePercentagePerLevel>k__BackingField: 0.05
   <CollectiveFeeding>k__BackingField:
-    <Name>k__BackingField: 
-    <Description>k__BackingField: 
+    <Name>k__BackingField: Collective Feeding
+    <Description>k__BackingField: Increases damage dealt to food per each spider
+      also feeding on the same food
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 1000
       <CommonRatioOrDifference>k__BackingField: 500
     <DamageIncreasePercentagePerSpiderPerLevel>k__BackingField: 0.1
   <StickierWeb>k__BackingField:
-    <Name>k__BackingField: 
-    <Description>k__BackingField: 
+    <Name>k__BackingField: Stickier Web
+    <Description>k__BackingField: Large food remains for extra time before fleeing.
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 2000
