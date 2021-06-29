@@ -23,7 +23,7 @@ namespace ThroughAThousandEyes.WebModule
         private double ExperienceNeededForNextLevel =>
             _root.Data.ExperienceToLevelUpBase + _root.Data.ExperienceToLevelUpAddition * (_level - 1);
 
-        private double Experience
+        public double Experience
         {
             get => _experience;
             set
@@ -66,7 +66,13 @@ namespace ThroughAThousandEyes.WebModule
                 {
                     if (_currentAttackCooldown <= 0)
                     {
-                        Attack(_target, _level * _root.UpgradeManager.FeedingGrounds.DamageMultiplier);
+                        double damage = _level * _root.UpgradeManager.FeedingGrounds.DamageMultiplier;
+                        if (_target.IsBig)
+                        {
+                            damage *= 1 + 
+                                (_root.UpgradeManager.CollectiveFeeding.DamageIncreasePerSpider * (_target.AttackingSpidersCount - 1));
+                        }
+                        Attack(_target, damage);
                     }
                 }
             }
@@ -95,7 +101,8 @@ namespace ThroughAThousandEyes.WebModule
 
         private void GetTarget()
         {
-            var availableTargets = _root._foods.Where(x => !_root._spiders.Any(y => y._target == x));
+            var availableTargets = // Target is available if it is not targeted by other spiders or if is is big
+                _root._foods.Where(x => _root._spiders.All(y => y._target != x) || x.IsBig);
             if (availableTargets.Any())
             {
                 Food closestTarget = null;
@@ -130,9 +137,9 @@ namespace ThroughAThousandEyes.WebModule
         {
             double damageActuallyDealt;
             bool isFatal;
-            target.DealDamage(damage, out damageActuallyDealt, out isFatal);
+            target.DealDamage(damage, this, out damageActuallyDealt, out isFatal);
             Experience += damageActuallyDealt;
-            if (isFatal)
+            if (isFatal && !target.IsBig)
             {
                 Experience += target.MaxHp;
             }

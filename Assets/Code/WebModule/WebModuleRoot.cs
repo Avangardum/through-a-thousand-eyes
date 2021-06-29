@@ -35,16 +35,17 @@ namespace ThroughAThousandEyes.WebModule
             WebModuleUI.Initialize(this);
         }
 
-        private void SpawnNormalFood()
+        private void SpawnFood(bool _isBig)
         {
-            Food food = Instantiate(normalFoodPrefab, transform).GetComponent<Food>();
-            food.Initialize(this);
+            var prefab = _isBig ? bigFoodPrefab : normalFoodPrefab;
+            Food food = Instantiate(prefab, transform).GetComponent<Food>();
+            food.Initialize(this, _isBig);
             _foods.Add(food);
             food.EDeath += OnFoodDeath;
             food.EEscape += OnFoodEscape;
             food.transform.position = GetRandomPosition();
         }
-
+        
         private Vector2 GetRandomPosition()
         {
             Vector2 position;
@@ -89,7 +90,8 @@ namespace ThroughAThousandEyes.WebModule
             int foodAmount = guaranteedFoodAmount + (addExtraFood ? 1 : 0);
             for (int i = 0; i < foodAmount; i++)
             {
-                SpawnNormalFood();
+                bool isBig = Data.BigFoodBaseChance >= Random.Range(0f, 1f);
+                SpawnFood(isBig);
             }
         }
 

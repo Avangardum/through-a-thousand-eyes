@@ -15,6 +15,9 @@ namespace ThroughAThousandEyes.WebModule
         [field: SerializeField] public double ExperienceToLevelUpAddition { get; private set; } = 10;
         [field: SerializeField] public double NormalFoodBaseHp { get; private set; } = 10;
         [field: SerializeField] public double BigFoodBaseHp { get; private set; } = 100;
+        [field: SerializeField] public float NormalFoodBaseEscapeTime { get; private set; } = 15;
+        [field: SerializeField] public float BigFoodBaseEscapeTime { get; private set; } = 20;
+        [field: SerializeField] public float BigFoodBaseChance { get; private set; } = 0.1f;
         
         [field: Header("Upgrades")]
         
@@ -66,7 +69,7 @@ namespace ThroughAThousandEyes.WebModule
         [Serializable]
         public class StickierWebData : UpgradeData
         {
-            [field: SerializeField] public double ExtraTimePerLevel { get; private set; }
+            [field: SerializeField] public float ExtraTimePerLevel { get; private set; }
         }
     }
 }

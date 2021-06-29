@@ -982,7 +982,7 @@ MonoBehaviour:
   mainSpiderPrefab: {fileID: 4677373275523253928, guid: f0f41c2e5dd131d438c04a4e30139d7a, type: 3}
   commonSpiderPrefab: {fileID: 4677373275523253928, guid: ef4d3c41843a42e42a2140ab3ecf9b9b, type: 3}
   normalFoodPrefab: {fileID: 1595012511217129418, guid: 130f104ec312123409587d01c89fd5e2, type: 3}
-  bigFoodPrefab: {fileID: 0}
+  bigFoodPrefab: {fileID: 1595012511217129418, guid: 8c015a00724935a42805826f2d042ced, type: 3}
   <WebModuleUI>k__BackingField: {fileID: 757058133}
 --- !u!4 &713482261
 Transform:
