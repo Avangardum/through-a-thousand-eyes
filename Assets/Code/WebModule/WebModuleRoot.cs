@@ -22,8 +22,7 @@ namespace ThroughAThousandEyes.WebModule
         public readonly List<Food> _foods = new List<Food>();
         private Spider _mainSpider;
         private float _timeUntilNewWave;
-        private float _foodSpawnChance = 0.5f;
-        
+
         public long SilkInInventory => Facade.Inventory.Silk;
 
         public void Initialize(WebModuleFacade facade, bool isLoadingSavedGame, string saveData = "")
@@ -84,8 +83,9 @@ namespace ThroughAThousandEyes.WebModule
 
         private void SpawnFoodWave()
         {
-            int guaranteedFoodAmount = Mathf.FloorToInt(_foodSpawnChance);
-            float extraFoodChance = _foodSpawnChance - guaranteedFoodAmount;
+            float foodSpawnChance = UpgradeManager.FoodSpawnChanceUpgrade.TotalChance;
+            int guaranteedFoodAmount = Mathf.FloorToInt(foodSpawnChance);
+            float extraFoodChance = foodSpawnChance - guaranteedFoodAmount;
             bool addExtraFood = Random.Range(0f, 1f) <= extraFoodChance;
             int foodAmount = guaranteedFoodAmount + (addExtraFood ? 1 : 0);
             for (int i = 0; i < foodAmount; i++)

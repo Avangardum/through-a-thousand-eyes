@@ -21,6 +21,10 @@ MonoBehaviour:
   <ExperienceToLevelUpAddition>k__BackingField: 10
   <NormalFoodBaseHp>k__BackingField: 10
   <BigFoodBaseHp>k__BackingField: 100
+  <NormalFoodBaseEscapeTime>k__BackingField: 15
+  <BigFoodBaseEscapeTime>k__BackingField: 20
+  <BigFoodBaseChance>k__BackingField: 0.1
+  <BaseFoodSpawnChance>k__BackingField: 0.5
   <NestingGrounds>k__BackingField:
     <Name>k__BackingField: Nesting Grounds
     <Description>k__BackingField: Adds more spiders
@@ -71,3 +75,27 @@ MonoBehaviour:
       <InitialTerm>k__BackingField: 2000
       <CommonRatioOrDifference>k__BackingField: 1000
     <ExtraTimePerLevel>k__BackingField: 3
+  <FoodSpawnChanceUpgrade>k__BackingField:
+    <Name>k__BackingField: 
+    <Description>k__BackingField: Increases food spawn chance
+    <Price>k__BackingField:
+      <ProgressionType>k__BackingField: 0
+      <InitialTerm>k__BackingField: 0
+      <CommonRatioOrDifference>k__BackingField: 0
+    <ChanceIncreasePerLevel>k__BackingField: 0.1
+  <RareFoodSpawnChanceUpgrade>k__BackingField:
+    <Name>k__BackingField: 
+    <Description>k__BackingField: Increases rare food spawn chance
+    <Price>k__BackingField:
+      <ProgressionType>k__BackingField: 0
+      <InitialTerm>k__BackingField: 0
+      <CommonRatioOrDifference>k__BackingField: 0
+    <ChancePerLevel>k__BackingField: 0.0001
+  <ShinyFoodSpawnChanceUpgrade>k__BackingField:
+    <Name>k__BackingField: 
+    <Description>k__BackingField: Increases shiny food spawn chance
+    <Price>k__BackingField:
+      <ProgressionType>k__BackingField: 0
+      <InitialTerm>k__BackingField: 0
+      <CommonRatioOrDifference>k__BackingField: 0
+    <ChancePerLevel>k__BackingField: 0.0001

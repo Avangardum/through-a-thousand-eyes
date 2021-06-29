@@ -20,6 +20,9 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private Button fattyInsectsButton;
         [SerializeField] private Button collectiveFeedingButton;
         [SerializeField] private Button stickierWebButton;
+        [SerializeField] private Button foodChanceUpgradeButton;
+        [SerializeField] private Button rareFoodChanceUpgradeButton;
+        [SerializeField] private Button shinyFoodChanceUpgradeButton;
 
         private UpgradeManager _upgradeManager;
         private WebModuleRoot _root;
@@ -34,6 +37,9 @@ namespace ThroughAThousandEyes.WebModule
         private void ShowFattyInsects() => ShowUpgrade(_upgradeManager.FattyInsects);
         private void ShowCollectiveFeeding() => ShowUpgrade(_upgradeManager.CollectiveFeeding);
         private void ShowStickierWeb() => ShowUpgrade(_upgradeManager.StickierWeb);
+        private void ShowFoodChanceUpgrade() => ShowUpgrade(_upgradeManager.FoodSpawnChanceUpgrade);
+        private void ShowRareFoodChanceUpgrade() => ShowUpgrade(_upgradeManager.RareFoodSpawnChangeUpgrade);
+        private void ShowShinyFoodChanceUpgrade() => ShowUpgrade(_upgradeManager.ShinyFoodSpawnChangeUpgrade);
 
         private void ShowUpgrade(Upgrade upgrade)
         {
@@ -72,6 +78,9 @@ namespace ThroughAThousandEyes.WebModule
             fattyInsectsButton.onClick.AddListener(ShowFattyInsects);
             collectiveFeedingButton.onClick.AddListener(ShowCollectiveFeeding);
             stickierWebButton.onClick.AddListener(ShowStickierWeb);
+            foodChanceUpgradeButton.onClick.AddListener(ShowFoodChanceUpgrade);
+            rareFoodChanceUpgradeButton.onClick.AddListener(ShowRareFoodChanceUpgrade);
+            shinyFoodChanceUpgradeButton.onClick.AddListener(ShowShinyFoodChanceUpgrade);
             
             ShowNestingGrounds();
             _isInitialized = true;

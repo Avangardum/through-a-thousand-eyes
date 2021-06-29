@@ -18,7 +18,8 @@ namespace ThroughAThousandEyes.WebModule
         [field: SerializeField] public float NormalFoodBaseEscapeTime { get; private set; } = 15;
         [field: SerializeField] public float BigFoodBaseEscapeTime { get; private set; } = 20;
         [field: SerializeField] public float BigFoodBaseChance { get; private set; } = 0.1f;
-        
+        [field: SerializeField] public float BaseFoodSpawnChance { get; private set; } = 0.5f;
+
         [field: Header("Upgrades")]
         
         [field: SerializeField] public NestingGroundsData NestingGrounds { get; private set; }
@@ -27,6 +28,9 @@ namespace ThroughAThousandEyes.WebModule
         [field: SerializeField] public FattyInsectsData FattyInsects { get; private set; }
         [field: SerializeField] public CollectiveFeedingData CollectiveFeeding { get; private set; }
         [field: SerializeField] public StickierWebData StickierWeb { get; private set; }
+        [field: SerializeField] public FoodSpawnChanceUpgradeData FoodSpawnChanceUpgrade { get; private set; }
+        [field: SerializeField] public RareOrShinyFoodSpawnChanceUpgradeData RareFoodSpawnChanceUpgrade { get; private set; }
+        [field: SerializeField] public RareOrShinyFoodSpawnChanceUpgradeData ShinyFoodSpawnChanceUpgrade { get; private set; }
         
         [Serializable]
         public class UpgradeData
@@ -70,6 +74,18 @@ namespace ThroughAThousandEyes.WebModule
         public class StickierWebData : UpgradeData
         {
             [field: SerializeField] public float ExtraTimePerLevel { get; private set; }
+        }
+        
+        [Serializable]
+        public class FoodSpawnChanceUpgradeData : UpgradeData
+        {
+            [field: SerializeField] public float ChanceIncreasePerLevel { get; private set; }
+        }
+
+        [Serializable]
+        public class RareOrShinyFoodSpawnChanceUpgradeData : UpgradeData
+        {
+            [field: SerializeField] public float ChancePerLevel { get; private set; }
         }
     }
 }
