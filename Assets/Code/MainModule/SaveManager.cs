@@ -12,6 +12,8 @@ namespace ThroughAThousandEyes.MainModule
         
         private List<IModuleFacade> _moduleFacades;
         
+        private static string fullPath => Application.persistentDataPath + '/' + SaveFileName;
+        
         public SaveManager(List<IModuleFacade> moduleFacades)
         {
             _moduleFacades = moduleFacades;
@@ -22,9 +24,12 @@ namespace ThroughAThousandEyes.MainModule
             JObject save = new JObject(
                 _moduleFacades.Select(x => new JProperty(x.GetJsonPropertyName(), x.SaveModuleToJson()))
                 );
-            string fullPath = Application.persistentDataPath + '/' + SaveFileName;
-            Debug.Log(fullPath);
             File.WriteAllText(fullPath, save.ToString());
+        }
+
+        public static JObject LoadSaveData()
+        {
+            return JObject.Parse(File.ReadAllText(fullPath));
         }
     }
 }

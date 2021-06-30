@@ -10,7 +10,11 @@ namespace ThroughAThousandEyes.MainModule
 {
     public class MainModuleFacade : IModuleFacade
     {
+        private const string InventoryTokenName = "inventory";
+        private const string MainSpiderStatsTokenName = "mainSpiderStats";
+        
         public Inventory Inventory { get; private set; }
+        public SaveManager SaveManager { get; private set; }
         public MainSpiderStats MainSpiderStats { get; private set; }
 
         private List<IModuleFacade> _moduleFacades;
@@ -21,17 +25,21 @@ namespace ThroughAThousandEyes.MainModule
         private GeneralUIModuleFacade _generalUIModuleFacade;
         private CheatsModuleFacade _cheatsModuleFacade;
 
-        public void InitializeModule(MainModuleFacade mainModuleFacade, bool isLoadingSavedGame, string saveData = "")
+        public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
             _unityInterface = new GameObject("Main Module Unity Interface").AddComponent<MainModuleUnityInterface>();
             _unityInterface.EFixedUpdate += OnFixedUpdate;
-            Inventory = new Inventory();
-            MainSpiderStats = new MainSpiderStats();
+            Inventory = new Inventory(mainModuleFacade, saveData?[InventoryTokenName].ToObject<JObject>());
+            MainSpiderStats = new MainSpiderStats(mainModuleFacade, saveData?[MainSpiderStatsTokenName].ToObject<JObject>());
+            SaveManager = new SaveManager(_moduleFacades);
         }
 
         public JObject SaveModuleToJson()
         {
-            return new JObject();
+            return new JObject(
+                new JProperty(InventoryTokenName, Inventory.SaveToJson()),
+                new JProperty(MainSpiderStatsTokenName, MainSpiderStats.SaveToJson())
+                );
         }
 
         public string GetJsonPropertyName()
@@ -44,7 +52,7 @@ namespace ThroughAThousandEyes.MainModule
             
         }
 
-        public void InitializeGame(bool isLoadingSavedGame, string saveData = "")
+        public void InitializeGame(JObject saveData = null)
         {
             // Create modules facades
             _moduleFacades = new List<IModuleFacade>();
@@ -59,7 +67,7 @@ namespace ThroughAThousandEyes.MainModule
             // Initialize modules using facades
             foreach (var facade in _moduleFacades)
             {
-                facade.InitializeModule(this, isLoadingSavedGame, saveData);
+                facade.InitializeModule(this, saveData?[facade.GetJsonPropertyName()].ToObject<JObject>());
             }
         }
         

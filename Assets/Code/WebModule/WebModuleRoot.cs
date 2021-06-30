@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using ThroughAThousandEyes.MainModule;
 using TMPro;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace ThroughAThousandEyes.WebModule
 
         public long SilkInInventory => Facade.Inventory.Silk;
 
-        public void Initialize(WebModuleFacade facade, bool isLoadingSavedGame, string saveData = "")
+        public void Initialize(WebModuleFacade facade, JObject saveData = null)
         {
             SpawnMainSpider();
             _timeUntilNewWave = Data.FoodWaveInterval;

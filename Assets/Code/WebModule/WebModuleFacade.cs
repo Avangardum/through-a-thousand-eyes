@@ -12,10 +12,10 @@ namespace ThroughAThousandEyes.WebModule
         public Inventory Inventory => _mainModuleFacade.Inventory;
         public MainSpiderStats MainSpiderStats => _mainModuleFacade.MainSpiderStats;
         
-        public void InitializeModule(MainModuleFacade mainModuleFacade, bool isLoadingSavedGame, string saveData = "")
+        public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
             _root = Object.FindObjectOfType<WebModuleRoot>();
-            _root.Initialize(this, isLoadingSavedGame, saveData);
+            _root.Initialize(this, saveData);
             _mainModuleFacade = mainModuleFacade;
         }
 

@@ -11,11 +11,11 @@ namespace ThroughAThousandEyes.GeneralUIModule
 
         public Inventory Inventory => _mainModuleFacade.Inventory;
         
-        public void InitializeModule(MainModuleFacade mainModuleFacade, bool isLoadingSavedGame, string saveData = "")
+        public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
             _mainModuleFacade = mainModuleFacade;
             _root = UnityEngine.Object.FindObjectOfType<GeneralUIRoot>();
-            _root.Initialize(this, isLoadingSavedGame, saveData);
+            _root.Initialize(this, saveData);
         }
 
         public JObject SaveModuleToJson()

@@ -12,7 +12,7 @@ namespace ThroughAThousandEyes.CheatsModule
 
         public MainModuleFacade MainModuleFacade { get; private set; }
 
-        public void InitializeModule(MainModuleFacade mainModuleFacade, bool isLoadingSavedGame, string saveData = "")
+        public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
             MainModuleFacade = mainModuleFacade;
             Instance = this;

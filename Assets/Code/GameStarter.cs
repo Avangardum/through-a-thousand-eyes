@@ -18,7 +18,7 @@ namespace ThroughAThousandEyes
         private void StartGame()
         {
             _mainModuleFacade = new MainModuleFacade();
-            _mainModuleFacade.InitializeGame(false);
+            _mainModuleFacade.InitializeGame();
         }
     }
 }

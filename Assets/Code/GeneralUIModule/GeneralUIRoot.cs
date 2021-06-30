@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace ThroughAThousandEyes.GeneralUIModule
             _silkCounterNumber.text = Facade.Inventory.Silk.ToString();
         }
 
-        public void Initialize(GeneralUIModuleFacade facade, bool isLoadingSavedGame, string saveData = "")
+        public void Initialize(GeneralUIModuleFacade facade, JObject saveData = null)
         {
             Facade = facade;
         }
