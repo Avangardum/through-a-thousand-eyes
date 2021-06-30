@@ -13,6 +13,8 @@ namespace ThroughAThousandEyes.MainModule
         private List<IModuleFacade> _moduleFacades;
         
         private static string fullPath => Application.persistentDataPath + '/' + SaveFileName;
+
+        public static bool SaveDataExists => File.Exists(fullPath);
         
         public SaveManager(List<IModuleFacade> moduleFacades)
         {
