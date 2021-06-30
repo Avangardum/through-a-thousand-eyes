@@ -14,14 +14,14 @@ namespace ThroughAThousandEyes.WebModule
         private Food _target;
         private bool _hasTarget;
         private float _speed = 1;
-        private int _level = 1;
+        private long _level = 1; // Only for small spiders
         private float _currentAttackCooldown;
         private double _experience;
         private double _silk = 0;
         private bool _isMainSpider;
 
         private double ExperienceNeededForNextLevel =>
-            _root.Data.ExperienceToLevelUpBase + _root.Data.ExperienceToLevelUpAddition * (_level - 1);
+            _root.Data.ExperienceToLevelUpBase + _root.Data.ExperienceToLevelUpAddition * (Level - 1);
 
         public double Experience
         {
@@ -32,7 +32,23 @@ namespace ThroughAThousandEyes.WebModule
                 while (_experience >= ExperienceNeededForNextLevel)
                 {
                     _experience -= ExperienceNeededForNextLevel;
-                    _level++;
+                    Level++;
+                }
+            }
+        }
+
+        public long Level
+        {
+            get => _isMainSpider ? _root.Facade.MainSpiderStats.Level : _level;
+            set
+            {
+                if (_isMainSpider)
+                {
+                    _root.Facade.MainSpiderStats.Level = value;
+                }
+                else
+                {
+                    _level = value;
                 }
             }
         }
@@ -66,7 +82,7 @@ namespace ThroughAThousandEyes.WebModule
                 {
                     if (_currentAttackCooldown <= 0)
                     {
-                        double damage = _level * _root.UpgradeManager.FeedingGrounds.DamageMultiplier;
+                        double damage = Level * _root.UpgradeManager.FeedingGrounds.DamageMultiplier;
                         if (_target.IsBig)
                         {
                             damage *= 1 + 
@@ -77,7 +93,7 @@ namespace ThroughAThousandEyes.WebModule
                 }
             }
 
-            _silk += (double)(_level * Time.deltaTime);
+            _silk += (double)(Level * Time.deltaTime);
             if (_silk >= 1)
             {
                 _silk--;
@@ -86,7 +102,7 @@ namespace ThroughAThousandEyes.WebModule
             
             
             _currentAttackCooldown -= Time.fixedDeltaTime;
-            levelText.text = _level.ToString();
+            levelText.text = Level.ToString();
 
             AcidicWebFixedUpdate();
         }
