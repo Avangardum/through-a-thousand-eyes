@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using ThroughAThousandEyes.MainModule;
 
 namespace ThroughAThousandEyes.CheatsModule
@@ -17,9 +18,14 @@ namespace ThroughAThousandEyes.CheatsModule
             Instance = this;
         }
 
-        public string SaveModule()
+        public JObject SaveModuleToJson()
         {
-            throw new System.NotImplementedException();
+            return new JObject();
+        }
+
+        public string GetJsonPropertyName()
+        {
+            return "cheatsModule";
         }
 
         public void Tick(float deltaTime)

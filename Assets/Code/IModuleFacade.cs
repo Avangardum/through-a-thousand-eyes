@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using ThroughAThousandEyes.MainModule;
 
 namespace ThroughAThousandEyes
@@ -5,7 +6,8 @@ namespace ThroughAThousandEyes
     public interface IModuleFacade
     {
         void InitializeModule(MainModuleFacade mainModuleFacade, bool isLoadingSavedGame, string saveData = "");
-        string SaveModule();
+        JObject SaveModuleToJson();
+        string GetJsonPropertyName();
         void Tick(float deltaTime);
     }
 }

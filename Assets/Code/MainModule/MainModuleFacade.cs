@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using ThroughAThousandEyes.CheatsModule;
 using ThroughAThousandEyes.GeneralUIModule;
 using ThroughAThousandEyes.WebModule;
@@ -28,9 +29,14 @@ namespace ThroughAThousandEyes.MainModule
             MainSpiderStats = new MainSpiderStats();
         }
 
-        public string SaveModule()
+        public JObject SaveModuleToJson()
         {
-            throw new System.NotImplementedException();
+            return new JObject();
+        }
+
+        public string GetJsonPropertyName()
+        {
+            return "mainModule";
         }
 
         public void Tick(float deltaTime)
@@ -56,12 +62,7 @@ namespace ThroughAThousandEyes.MainModule
                 facade.InitializeModule(this, isLoadingSavedGame, saveData);
             }
         }
-
-        public void SaveGame()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         private void OnFixedUpdate()
         {
             foreach (var facade in _moduleFacades)

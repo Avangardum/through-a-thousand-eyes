@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using ThroughAThousandEyes.MainModule;
 using UnityEngine;
 
@@ -18,9 +19,14 @@ namespace ThroughAThousandEyes.WebModule
             _mainModuleFacade = mainModuleFacade;
         }
 
-        public string SaveModule()
+        public JObject SaveModuleToJson()
         {
-            throw new System.NotImplementedException();
+            return new JObject();
+        }
+
+        public string GetJsonPropertyName()
+        {
+            return "webModule";
         }
 
         public void Tick(float deltaTime)

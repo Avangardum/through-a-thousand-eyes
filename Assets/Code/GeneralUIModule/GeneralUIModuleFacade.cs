@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using ThroughAThousandEyes.MainModule;
 using UnityEngine;
 
@@ -17,9 +18,14 @@ namespace ThroughAThousandEyes.GeneralUIModule
             _root.Initialize(this, isLoadingSavedGame, saveData);
         }
 
-        public string SaveModule()
+        public JObject SaveModuleToJson()
         {
-            throw new System.NotImplementedException();
+            return new JObject();
+        }
+
+        public string GetJsonPropertyName()
+        {
+            return "generalUiModule";
         }
 
         public void Tick(float deltaTime)
