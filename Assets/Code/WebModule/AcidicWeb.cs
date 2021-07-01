@@ -15,5 +15,10 @@ namespace ThroughAThousandEyes.WebModule
         {
             return $"{DamagePerSecond} damage per second";
         }
+
+        public override string GetJsonTokenName()
+        {
+            return "acidicWeb";
+        }
     }
 }

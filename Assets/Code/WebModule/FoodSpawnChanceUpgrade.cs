@@ -24,5 +24,10 @@ namespace ThroughAThousandEyes.WebModule
         {
             base.LevelUp();
         }
+
+        public override string GetJsonTokenName()
+        {
+            return "foodSpawnChanceUpgrade";
+        }
     }
 }

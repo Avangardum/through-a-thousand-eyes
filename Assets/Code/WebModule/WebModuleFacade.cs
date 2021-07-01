@@ -21,7 +21,7 @@ namespace ThroughAThousandEyes.WebModule
 
         public JObject SaveModuleToJson()
         {
-            return new JObject();
+            return _root.SaveModuleToJson();
         }
 
         public string GetJsonPropertyName()

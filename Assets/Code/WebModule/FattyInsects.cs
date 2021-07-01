@@ -17,5 +17,10 @@ namespace ThroughAThousandEyes.WebModule
         {
             return $"+{HpBonus * 100}% health";
         }
+
+        public override string GetJsonTokenName()
+        {
+            return "fattyInsects";
+        }
     }
 }

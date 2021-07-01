@@ -18,7 +18,7 @@ namespace ThroughAThousandEyes.WebModule
         private float _currentAttackCooldown;
         private double _experience;
         private double _silk = 0;
-        private bool _isMainSpider;
+        public bool IsMainSpider { get; private set; }
 
         private double ExperienceNeededForNextLevel =>
             _root.Data.ExperienceToLevelUpBase + _root.Data.ExperienceToLevelUpAddition * (Level - 1);
@@ -39,10 +39,10 @@ namespace ThroughAThousandEyes.WebModule
 
         public long Level
         {
-            get => _isMainSpider ? _root.Facade.MainSpiderStats.Level : _level;
+            get => IsMainSpider ? _root.Facade.MainSpiderStats.Level : _level;
             set
             {
-                if (_isMainSpider)
+                if (IsMainSpider)
                 {
                     _root.Facade.MainSpiderStats.Level = value;
                 }
@@ -57,7 +57,7 @@ namespace ThroughAThousandEyes.WebModule
         {
             _root = root;
             _currentAttackCooldown = _root.Data.AttackInterval;
-            _isMainSpider = isMainSpider;
+            IsMainSpider = isMainSpider;
         }
 
         private void FixedUpdate()

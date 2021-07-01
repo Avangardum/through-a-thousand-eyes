@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ThroughAThousandEyes.WebModule
 {
-    public class RareOrShinyFoodChanceUpgrade : Upgrade
+    public abstract class RareOrShinyFoodChanceUpgrade : Upgrade
     {
         public float Chance => _chancePerLevel * Level;
         

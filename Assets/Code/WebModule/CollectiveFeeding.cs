@@ -16,5 +16,10 @@ namespace ThroughAThousandEyes.WebModule
         {
             return $"+{DamageIncreasePerSpider * 100}% damage per spider";
         }
+
+        public override string GetJsonTokenName()
+        {
+            return "collectiveFeeding";
+        }
     }
 }

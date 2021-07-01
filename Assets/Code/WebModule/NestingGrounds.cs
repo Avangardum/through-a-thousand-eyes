@@ -13,6 +13,11 @@ namespace ThroughAThousandEyes.WebModule
             _root.SpawnCommonSpider();
         }
 
+        public override string GetJsonTokenName()
+        {
+            return "nestingGrounds";
+        }
+
         public NestingGrounds(WebModuleData.UpgradeData data, WebModuleRoot root) : base(data, root)
         {
         }

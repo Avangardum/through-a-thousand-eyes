@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 using ThroughAThousandEyes.MainModule;
 using TMPro;
@@ -10,6 +11,9 @@ namespace ThroughAThousandEyes.WebModule
 {
     public class WebModuleRoot : MonoBehaviour
     {
+        private const string UpgradeManagerJsonTokenName = "upgrades";
+        private const string CommonSpidersLevelsJsonTokenName = "commonSpidersLevels";
+        
         [field: SerializeField] public WebModuleData Data { get; private set; }
         [SerializeField] private GameObject mainSpiderPrefab;
         [SerializeField] private GameObject commonSpiderPrefab;
@@ -31,10 +35,19 @@ namespace ThroughAThousandEyes.WebModule
             SpawnMainSpider();
             _timeUntilNewWave = Data.FoodWaveInterval;
             Facade = facade;
-            UpgradeManager = new UpgradeManager(this);
+            UpgradeManager = new UpgradeManager(this, saveData?[UpgradeManagerJsonTokenName]?.ToObject<JObject>());
             WebModuleUI.Initialize(this);
+            if (saveData?[CommonSpidersLevelsJsonTokenName] != null)
+            {
+                int[] commonSpidersLevels = saveData[CommonSpidersLevelsJsonTokenName].ToObject<int[]>();
+                foreach (int i in commonSpidersLevels)
+                {
+                    var spider = SpawnCommonSpider();
+                    spider.Level = i;
+                }
+            }
         }
-
+        
         private void SpawnFood(bool _isBig)
         {
             var prefab = _isBig ? bigFoodPrefab : normalFoodPrefab;
@@ -104,12 +117,13 @@ namespace ThroughAThousandEyes.WebModule
             _spiders.Add(_mainSpider);
         }
 
-        public void SpawnCommonSpider()
+        public Spider SpawnCommonSpider()
         {
             var spider = Instantiate(commonSpiderPrefab, transform).GetComponent<Spider>();
             spider.Initialize(this, false);
             spider.transform.position = GetRandomPosition();
             _spiders.Add(spider);
+            return spider;
         }
         
         public void SpendSilk(long amount)
@@ -125,6 +139,16 @@ namespace ThroughAThousandEyes.WebModule
         public void Tick(float deltaTime)
         {
             
+        }
+
+        public JObject SaveModuleToJson()
+        {
+            return new JObject
+            (
+                new JProperty(UpgradeManagerJsonTokenName, UpgradeManager.SaveToJson()),
+                new JProperty(CommonSpidersLevelsJsonTokenName, 
+                    new JArray(_spiders.Where(x => !x.IsMainSpider).Select(x => x.Level)))
+            );
         }
     }
 }

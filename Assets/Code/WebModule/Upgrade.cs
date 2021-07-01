@@ -26,5 +26,7 @@ namespace ThroughAThousandEyes.WebModule
             PriceProgression = data.Price;
             _root = root;
         }
+
+        public abstract string GetJsonTokenName();
     }
 }

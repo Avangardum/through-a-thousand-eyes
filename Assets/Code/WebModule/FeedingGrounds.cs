@@ -17,5 +17,10 @@ namespace ThroughAThousandEyes.WebModule
         {
             return $"+{DamageBonus * 100}% damage";
         }
+
+        public override string GetJsonTokenName()
+        {
+            return "feedingGrounds";
+        }
     }
 }

@@ -15,5 +15,10 @@ namespace ThroughAThousandEyes.WebModule
         {
             return $"+{ExtraTime} seconds";
         }
+
+        public override string GetJsonTokenName()
+        {
+            return "stickierWeb";
+        }
     }
 }
