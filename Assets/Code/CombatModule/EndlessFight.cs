@@ -4,14 +4,23 @@ namespace ThroughAThousandEyes.CombatModule
 {
     public class EndlessFight : IEncounter
     {
+        private CombatModuleRoot _root;
         private EndlessFightData _data;
+
+        public int LastWaveNumber => -1;
         
-        public EndlessFight(EndlessFightData data)
+        public EndlessFight(CombatModuleRoot root, EndlessFightData data)
         {
+            _root = root;
             _data = data;
         }
         
-        // Returns a wave by its number (starts from 1)
+        /// <summary>
+        /// Returns a wave by its number (starts from 1)
+        /// </summary>
+        /// <param name="waveNumber"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public Wave GetWave(int waveNumber)
         {
             if (waveNumber < 1)
@@ -21,13 +30,14 @@ namespace ThroughAThousandEyes.CombatModule
             
             Wave wave = new Wave();
             wave.AddEnemy(new Unit
-            {
-                MaxHp = _data.EnemyHp.GetElement(waveNumber),
-                CurrentHp = _data.EnemyHp.GetElement(waveNumber),
-                Armor = _data.EnemyArmor.GetElement(waveNumber),
-                Damage = _data.EnemyDamage.GetElement(waveNumber),
-                AttackSpeed = _data.EnemyAttackSpeed.GetElement(waveNumber)
-            });
+            (
+                root: _root,
+                maxHp: _data.EnemyHp.GetElement(waveNumber),
+                armor: _data.EnemyArmor.GetElement(waveNumber),
+                damage: _data.EnemyDamage.GetElement(waveNumber),
+                attackSpeed: _data.EnemyAttackSpeed.GetElement(waveNumber),
+                side: Side.Enemies
+            ));
 
             return wave;
         }

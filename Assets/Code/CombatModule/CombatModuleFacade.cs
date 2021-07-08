@@ -6,13 +6,15 @@ namespace ThroughAThousandEyes.CombatModule
 {
     public class CombatModuleFacade : IModuleFacade
     {
-        private MainModuleFacade _mainModuleFacade;
+        public MainModuleFacade MainModuleFacade;
+        
         private CombatModuleRoot _root;
         
         public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
-            _mainModuleFacade = mainModuleFacade;
+            MainModuleFacade = mainModuleFacade;
             _root = UnityEngine.Object.FindObjectOfType<CombatModuleRoot>();
+            _root.Initialize(this, saveData);
         }
 
         public JObject SaveModuleToJson()
@@ -27,7 +29,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         public void Tick(float deltaTime)
         {
-            
+            _root.Tick();
         }
     }
 }
