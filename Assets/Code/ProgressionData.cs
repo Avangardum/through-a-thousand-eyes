@@ -20,6 +20,20 @@ namespace ThroughAThousandEyes
         [field: SerializeField] public T InitialTerm { get; private set; }
         [field: SerializeField] public T CommonRatioOrDifference { get; private set; }
 
+        private static Func<T, T, T> _add;
+        private static Func<T, T, T> _multiply;
+
+        public static void Initialize(Func<T, T, T> add, Func<T, T, T> multiply)
+        {
+            _add = add;
+            _multiply = multiply;
+        }
+        
+        static ProgressionData()
+        {
+            ProgressionDataInitializer.Initialize();
+        }
+        
         /// <summary>
         /// Returns the progression term by its number (numbers start with 1)
         /// </summary>
@@ -36,8 +50,14 @@ namespace ThroughAThousandEyes
             switch (ProgressionType)
             {
                 case ProgressionTypeEnum.Arithmetic:
-                    return (dynamic)InitialTerm + ((dynamic)termNumber - 1) * (dynamic)CommonRatioOrDifference;
-                    break;
+                    if (termNumber == 1)
+                    {
+                        return InitialTerm;
+                    }
+                    else
+                    {
+                        return _add(GetElement(termNumber - 1), CommonRatioOrDifference);
+                    }
                 case ProgressionTypeEnum.Geometric:
                     if (termNumber == 1)
                     {
@@ -45,9 +65,8 @@ namespace ThroughAThousandEyes
                     }
                     else
                     {
-                        return (dynamic)GetElement(termNumber - 1) * (dynamic)CommonRatioOrDifference;
+                        return _multiply(GetElement(termNumber - 1), CommonRatioOrDifference);
                     }
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
