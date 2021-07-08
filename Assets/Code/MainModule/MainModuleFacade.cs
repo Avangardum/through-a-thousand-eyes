@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using ThroughAThousandEyes.CheatsModule;
+using ThroughAThousandEyes.CombatModule;
 using ThroughAThousandEyes.GeneralUIModule;
 using ThroughAThousandEyes.WebModule;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace ThroughAThousandEyes.MainModule
         private WebModuleFacade _webModuleFacade;
         private GeneralUIModuleFacade _generalUIModuleFacade;
         private CheatsModuleFacade _cheatsModuleFacade;
+        private CombatModuleFacade _combatModuleFacade;
 
         public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
@@ -54,7 +56,7 @@ namespace ThroughAThousandEyes.MainModule
 
         public void InitializeGame(JObject saveData = null)
         {
-            // Create modules facades
+            // Create module facades
             _moduleFacades = new List<IModuleFacade>();
             _moduleFacades.Add(this);
             _webModuleFacade = new WebModuleFacade();
@@ -63,11 +65,13 @@ namespace ThroughAThousandEyes.MainModule
             _moduleFacades.Add(_generalUIModuleFacade);
             _cheatsModuleFacade = new CheatsModuleFacade();
             _moduleFacades.Add(_cheatsModuleFacade);
+            _combatModuleFacade = new CombatModuleFacade();
+            _moduleFacades.Add(_combatModuleFacade);
 
             // Initialize modules using facades
             foreach (var facade in _moduleFacades)
             {
-                facade.InitializeModule(this, saveData?[facade.GetJsonPropertyName()].ToObject<JObject>());
+                facade.InitializeModule(this, saveData?[facade.GetJsonPropertyName()]?.ToObject<JObject>());
             }
         }
         
