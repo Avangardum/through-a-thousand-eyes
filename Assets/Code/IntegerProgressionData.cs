@@ -4,6 +4,7 @@ using UnityEngine;
 namespace ThroughAThousandEyes
 {
     [Serializable]
+    [Obsolete]
     public class IntegerProgressionData
     {
         public enum ProgressionTypeEnum
