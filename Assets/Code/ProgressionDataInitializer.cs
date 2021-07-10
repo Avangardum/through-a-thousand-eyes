@@ -14,6 +14,8 @@ namespace ThroughAThousandEyes
             ProgressionData<float>.Initialize((x, y) => x + y, (x, y) => x * y);
             ProgressionData<double>.Initialize((x, y) => x + y, (x, y) => x * y);
             ProgressionData<decimal>.Initialize((x, y) => x + y, (x, y) => x * y);
+
+            _isInitialized = true;
         }
     }
 }

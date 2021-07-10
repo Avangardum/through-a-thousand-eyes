@@ -5,7 +5,7 @@ namespace ThroughAThousandEyes.CombatModule
 {
     public class Wave : IEnumerable<Unit>
     {
-        private List<Unit> _enemies;
+        private List<Unit> _enemies = new List<Unit>();
         
         public IEnumerator<Unit> GetEnumerator()
         {

@@ -13,7 +13,7 @@ namespace ThroughAThousandEyes.CombatModule
         public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
             MainModuleFacade = mainModuleFacade;
-            _root = UnityEngine.Object.FindObjectOfType<CombatModuleRoot>();
+            _root = Object.FindObjectOfType<CombatModuleRoot>();
             _root.Initialize(this, saveData);
         }
 
@@ -29,7 +29,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         public void Tick(float deltaTime)
         {
-            _root.Tick();
+            _root.Tick(deltaTime);
         }
     }
 }

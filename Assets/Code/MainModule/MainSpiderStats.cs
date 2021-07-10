@@ -13,12 +13,12 @@ namespace ThroughAThousandEyes.MainModule
         private const string AttackSpeedTokenName = "attackSpeed";
         
         public long Level = 1;
-        public double CurrentHp;
-        public double MaxHp;
-        public double Armor;
-        public double Damage;
-        public double Speed;
-        public double AttackSpeed;
+        public double CurrentHp = 100;
+        public double MaxHp = 100;
+        public double Armor = 1;
+        public double Damage = 10;
+        public double Speed = 1;
+        public double AttackSpeed = 1;
 
         public JObject SaveToJson()
         {

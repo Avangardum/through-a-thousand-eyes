@@ -33,7 +33,7 @@ namespace ThroughAThousandEyes.CombatModule
             get => MainSpiderStats.AttackSpeed;
         }
 
-        public MainSpider() : base()
+        public MainSpider(CombatModuleRoot root) : base(root)
         {
             
         }

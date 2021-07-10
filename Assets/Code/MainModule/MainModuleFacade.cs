@@ -32,7 +32,7 @@ namespace ThroughAThousandEyes.MainModule
             _unityInterface = new GameObject("Main Module Unity Interface").AddComponent<MainModuleUnityInterface>();
             _unityInterface.EFixedUpdate += OnFixedUpdate;
             Inventory = new Inventory(mainModuleFacade, saveData?[InventoryTokenName].ToObject<JObject>());
-            MainSpiderStats = new MainSpiderStats(mainModuleFacade, saveData?[MainSpiderStatsTokenName].ToObject<JObject>());
+            MainSpiderStats = new MainSpiderStats(mainModuleFacade, saveData?[MainSpiderStatsTokenName]?.ToObject<JObject>());
             SaveManager = new SaveManager(_moduleFacades);
         }
 

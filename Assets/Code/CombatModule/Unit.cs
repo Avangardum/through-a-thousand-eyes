@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ThroughAThousandEyes.CombatModule
 {
@@ -15,7 +17,12 @@ namespace ThroughAThousandEyes.CombatModule
         public Side Side { get; set; }
         public UnitView View { get; set; }
 
-        protected CombatModuleRoot _root;
+        protected readonly CombatModuleRoot _root;
+        private double _timeUntilAttack;
+        private bool _wasStartCalled;
+        private bool _isDead;
+
+        private double AttackInterval => 1 / AttackSpeed; 
 
         public Unit(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, Side side)
         {
@@ -31,19 +38,55 @@ namespace ThroughAThousandEyes.CombatModule
         /// <summary>
         /// Constructor for the main spider
         /// </summary>
-        protected Unit()
+        protected Unit(CombatModuleRoot root)
         {
+            _root = root;
             Side = Side.Allies;
         }
-
-        public virtual void Tick()
+        
+        public virtual void Tick(float deltaTime)
         {
+            if (_isDead)
+            {
+                return;
+            }
             
+            if (_wasStartCalled)
+            {
+                Start();
+            }
+
+            _timeUntilAttack -= deltaTime;
+            if (_timeUntilAttack <= 0)
+            {
+                var target = GetRandomTarget();
+                if (target != null)
+                {
+                    AttackUnit(target);
+                    ResetTimeUntilAttack();
+                }
+            }
         }
 
-        public void ReceiveDamage(int damage)
+        /// <summary>
+        /// Called in the beginning of the first tick
+        /// </summary>
+        private void Start()
         {
-            damage = Mathf.Max(damage, 0);
+            _wasStartCalled = true;
+            ResetTimeUntilAttack();
+        }
+
+        private void ResetTimeUntilAttack()
+        {
+            _timeUntilAttack = AttackInterval;
+        }
+
+        public void ReceiveDamage(double damage)
+        {
+            Debug.Log($"{Name} recieves {damage} damage"); // TODO remove
+            damage = ApplyArmor(damage);
+            damage = Math.Max(damage, 0);
             CurrentHp -= damage;
             if (CurrentHp <= 0)
             {
@@ -53,8 +96,37 @@ namespace ThroughAThousandEyes.CombatModule
 
         private void Die()
         {
-            GameObject.Destroy(View.gameObject);
+            Debug.Log($"{Name} died"); // TODO remove
+            Object.Destroy(View.gameObject);
             Death?.Invoke(this);
+            _isDead = true;
         }
+
+        private Unit GetRandomTarget()
+        {
+            switch (Side)
+            {
+                case Side.Allies:
+                    return _root.GetRandomEnemy();
+                case Side.Enemies:
+                    return _root.GetRandomAlly();
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void AttackUnit(Unit unit)
+        {
+            Debug.Log($"{Name} attacks {unit.Name}"); // TODO remove
+            unit.ReceiveDamage(Damage);
+            
+        }
+
+        private double ApplyArmor(double damage)
+        {
+            return Math.Max(damage - Armor, 0);
+        }
+
+       public string Name => GetType().ToString().Split('.').Last(); // TODO remove
     }
 }

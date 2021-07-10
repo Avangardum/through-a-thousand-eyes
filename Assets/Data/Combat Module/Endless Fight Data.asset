@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EnemyHp>k__BackingField:
     <ProgressionType>k__BackingField: 0
-    <InitialTerm>k__BackingField: 0
-    <CommonRatioOrDifference>k__BackingField: 0
+    <InitialTerm>k__BackingField: 100
+    <CommonRatioOrDifference>k__BackingField: 20
   <EnemyArmor>k__BackingField:
     <ProgressionType>k__BackingField: 0
-    <InitialTerm>k__BackingField: 0
-    <CommonRatioOrDifference>k__BackingField: 0
-  <Damage>k__BackingField:
+    <InitialTerm>k__BackingField: 1
+    <CommonRatioOrDifference>k__BackingField: 0.2
+  <EnemyDamage>k__BackingField:
     <ProgressionType>k__BackingField: 0
-    <InitialTerm>k__BackingField: 0
-    <CommonRatioOrDifference>k__BackingField: 0
-  <AttackSpeed>k__BackingField:
+    <InitialTerm>k__BackingField: 10
+    <CommonRatioOrDifference>k__BackingField: 2
+  <EnemyAttackSpeed>k__BackingField:
     <ProgressionType>k__BackingField: 0
-    <InitialTerm>k__BackingField: 0
-    <CommonRatioOrDifference>k__BackingField: 0
+    <InitialTerm>k__BackingField: 1
+    <CommonRatioOrDifference>k__BackingField: 0.2
