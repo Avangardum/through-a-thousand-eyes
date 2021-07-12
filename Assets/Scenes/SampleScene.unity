@@ -205,8 +205,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1583860093}
   m_HandleRect: {fileID: 1583860092}
   m_Direction: 2
-  m_Value: 1.0000184
-  m_Size: 0.9175761
+  m_Value: 1.1351155
+  m_Size: 0.30239448
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1981,7 +1981,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -8.500084, y: -15.000552}
+  m_AnchoredPosition: {x: -8.500084, y: -19.053486}
   m_SizeDelta: {x: -18.570593, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &557458840
@@ -3438,6 +3438,7 @@ MonoBehaviour:
     mainSpider: {fileID: 4305128788532774792, guid: fef5a1cc672606546bafc958af313147, type: 3}
     endlessFightEnemy: {fileID: 4305128788532774792, guid: 699f87ef57f045a4299c2c70a4fbb1ec, type: 3}
   _endlessFightData: {fileID: 11400000, guid: 8c701fee998dd45459cd28af41734889, type: 2}
+  logToConsole: 1
 --- !u!1 &836876604
 GameObject:
   m_ObjectHideFlags: 0

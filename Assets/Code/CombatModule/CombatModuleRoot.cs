@@ -15,6 +15,8 @@ namespace ThroughAThousandEyes.CombatModule
         [SerializeField] private Transform[] _enemyPositions;
         [SerializeField] private UnitViewPrefabLibrary unitViewPrefabs;
         [SerializeField] private EndlessFightData _endlessFightData;
+        [Header("Logging")]
+        [SerializeField] private bool logToConsole;
         
         private bool _isCombatActive;
         private IEncounter _currentEncounter;
@@ -43,7 +45,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         private void StartEncounter(IEncounter encounter)
         {
-            Debug.Log("Combat started"); // TODO remove
+            Log("Combat started");
             _isCombatActive = true;
             _currentEncounter = encounter;
             SpawnMainSpider();
@@ -166,7 +168,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         private void EndCombat()
         {
-            Debug.Log("Combat finished"); // TODO remove
+            Log("Combat finished");
             _isCombatActive = false;
             ClearAllies();
             ClearEnemies();
@@ -217,5 +219,15 @@ namespace ThroughAThousandEyes.CombatModule
         public Unit GetRandomEnemy() => GetRandomUnitFromCollection(_enemies);
 
         public Unit GetRandomUnit() => GetRandomUnitFromCollection(Units);
+
+        public void Log(string message)
+        {
+            if (logToConsole)
+            {
+                Debug.Log(message);
+            }
+        }
+
+        public void Log(object message) => Log(message.ToString());
     }
 }

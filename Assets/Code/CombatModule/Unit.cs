@@ -85,7 +85,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         public void ReceiveDamage(double damage)
         {
-            Debug.Log($"{Name} recieves {damage} damage"); // TODO remove
+            _root.Log($"{Name} recieves {damage} damage");
             damage = ApplyArmor(damage);
             damage = Math.Max(damage, 0);
             CurrentHp -= damage;
@@ -97,7 +97,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         private void Die()
         {
-            Debug.Log($"{Name} died"); // TODO remove
+            _root.Log($"{Name} died");
             _isDead = true;
             Object.Destroy(View.gameObject);
             Death?.Invoke(this);
@@ -118,7 +118,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         private void AttackUnit(Unit unit)
         {
-            Debug.Log($"{Name} attacks {unit.Name}"); // TODO remove
+            _root.Log($"{Name} attacks {unit.Name}");
             unit.ReceiveDamage(Damage);
             
         }
