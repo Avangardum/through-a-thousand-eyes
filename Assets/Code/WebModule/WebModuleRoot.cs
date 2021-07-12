@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace ThroughAThousandEyes.WebModule
 {
-    public class WebModuleRoot : MonoBehaviour
+    public class WebModuleRoot : MonoBehaviour, IFocusable
     {
         private const string UpgradeManagerJsonTokenName = "upgrades";
         private const string CommonSpidersLevelsJsonTokenName = "commonSpidersLevels";
@@ -21,6 +21,7 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private GameObject bigFoodPrefab;
         [field: SerializeField] public UpgradeManager UpgradeManager { get; private set; }
         [field: SerializeField] public WebModuleUI WebModuleUI { get; private set; }
+        [SerializeField] private Transform cameraPosition;
 
         public WebModuleFacade Facade;
         public readonly List<Spider> _spiders = new List<Spider>();
@@ -149,6 +150,21 @@ namespace ThroughAThousandEyes.WebModule
                 new JProperty(CommonSpidersLevelsJsonTokenName, 
                     new JArray(_spiders.Where(x => !x.IsMainSpider).Select(x => x.Level)))
             );
+        }
+
+        public void OnGetFocus()
+        {
+            WebModuleUI.gameObject.SetActive(true);
+        }
+
+        public void OnLoseFocus()
+        {
+            WebModuleUI.gameObject.SetActive(false);
+        }
+
+        public Vector3 GetCameraPosition()
+        {
+            return cameraPosition.position;
         }
     }
 }

@@ -7,10 +7,11 @@ using Random = UnityEngine.Random;
 
 namespace ThroughAThousandEyes.CombatModule
 {
-    public class CombatModuleRoot : MonoBehaviour
+    public class CombatModuleRoot : MonoBehaviour, IFocusable
     {
         public CombatModuleFacade Facade { get; private set; }
 
+        [SerializeField] private Transform cameraPosition;
         [SerializeField] private Transform[] _allyPositions;
         [SerializeField] private Transform[] _enemyPositions;
         [SerializeField] private UnitViewPrefabLibrary unitViewPrefabs;
@@ -230,5 +231,19 @@ namespace ThroughAThousandEyes.CombatModule
         }
 
         public void Log(object message) => Log(message.ToString());
+        public void OnGetFocus()
+        {
+            
+        }
+
+        public void OnLoseFocus()
+        {
+            
+        }
+
+        public Vector3 GetCameraPosition()
+        {
+            return cameraPosition.position;
+        }
     }
 }

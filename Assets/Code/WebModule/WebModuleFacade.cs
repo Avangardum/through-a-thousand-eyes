@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ThroughAThousandEyes.WebModule
 {
-    public class WebModuleFacade : IModuleFacade
+    public class WebModuleFacade : IModuleFacade, IFocusable
     {
         private WebModuleRoot _root;
         private MainModuleFacade _mainModuleFacade;
@@ -32,6 +32,21 @@ namespace ThroughAThousandEyes.WebModule
         public void Tick(float deltaTime)
         {
             _root.Tick(deltaTime);
+        }
+
+        public void OnGetFocus()
+        {
+            _root.OnGetFocus();
+        }
+
+        public void OnLoseFocus()
+        {
+            _root.OnLoseFocus();
+        }
+
+        public Vector3 GetCameraPosition()
+        {
+            return _root.GetCameraPosition();
         }
     }
 }

@@ -32,5 +32,7 @@ namespace ThroughAThousandEyes.GeneralUIModule
         {
             
         }
+
+        public void SetActive(bool isActive) => _root.gameObject.SetActive(isActive);
     }
 }

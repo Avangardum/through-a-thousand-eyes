@@ -6,6 +6,7 @@ using ThroughAThousandEyes.CombatModule;
 using ThroughAThousandEyes.GeneralUIModule;
 using ThroughAThousandEyes.WebModule;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ThroughAThousandEyes.MainModule
 {
@@ -20,15 +21,18 @@ namespace ThroughAThousandEyes.MainModule
 
         private List<IModuleFacade> _moduleFacades;
         private MainModuleUnityInterface _unityInterface;
+        private MainModuleRoot _root;
         
         // Module facades
-        private WebModuleFacade _webModuleFacade;
-        private GeneralUIModuleFacade _generalUIModuleFacade;
-        private CheatsModuleFacade _cheatsModuleFacade;
-        private CombatModuleFacade _combatModuleFacade;
+        public WebModuleFacade _webModuleFacade;
+        public GeneralUIModuleFacade _generalUIModuleFacade;
+        public CheatsModuleFacade _cheatsModuleFacade;
+        public CombatModuleFacade _combatModuleFacade;
 
         public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
+            _root = Object.FindObjectOfType<MainModuleRoot>();
+            _root.Initialize(this, saveData);
             _unityInterface = new GameObject("Main Module Unity Interface").AddComponent<MainModuleUnityInterface>();
             _unityInterface.EFixedUpdate += OnFixedUpdate;
             Inventory = new Inventory(mainModuleFacade, saveData?[InventoryTokenName].ToObject<JObject>());
