@@ -29,14 +29,13 @@ namespace ThroughAThousandEyes.CombatModule
             }
             
             Wave wave = new Wave();
-            wave.AddEnemy(new Unit
+            wave.AddEnemy(new EndlessFightEnemy
             (
                 root: _root,
                 maxHp: _data.EnemyHp.GetElement(waveNumber),
                 armor: _data.EnemyArmor.GetElement(waveNumber),
                 damage: _data.EnemyDamage.GetElement(waveNumber),
-                attackSpeed: _data.EnemyAttackSpeed.GetElement(waveNumber),
-                side: Side.Enemies
+                attackSpeed: _data.EnemyAttackSpeed.GetElement(waveNumber)
             ));
 
             return wave;

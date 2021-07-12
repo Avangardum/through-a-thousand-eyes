@@ -13,7 +13,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         [SerializeField] private Transform[] _allyPositions;
         [SerializeField] private Transform[] _enemyPositions;
-        [SerializeField] private UnitView _unitViewPrefab;
+        [SerializeField] private UnitViewPrefabLibrary unitViewPrefabs;
         [SerializeField] private EndlessFightData _endlessFightData;
         
         private bool _isCombatActive;
@@ -35,6 +35,7 @@ namespace ThroughAThousandEyes.CombatModule
         public void Initialize(CombatModuleFacade facade, JObject saveData)
         {
             Facade = facade;
+            unitViewPrefabs.Initialize();
             _areAllyPositionsTaken = new bool[_allyPositions.Length];
             _areEnemyPositionsTaken = new bool[_enemyPositions.Length];
             StartEncounter(new EndlessFight(this, _endlessFightData));
@@ -107,7 +108,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         private void SpawnUnit(Unit unit)
         {
-            UnitView view = Instantiate(_unitViewPrefab, transform).GetComponent<UnitView>();
+            UnitView view = Instantiate(unitViewPrefabs.GetPrefab(unit), transform).GetComponent<UnitView>();
             unit.View = view;
             view.Unit = unit;
             Transform[] positions;

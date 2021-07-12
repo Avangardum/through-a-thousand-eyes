@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace ThroughAThousandEyes.CombatModule
 {
-    public class Unit
+    public abstract class Unit
     {
         public event Action<Unit> Death;
         
@@ -22,7 +22,8 @@ namespace ThroughAThousandEyes.CombatModule
         private bool _wasStartCalled;
         private bool _isDead;
 
-        private double AttackInterval => 1 / AttackSpeed; 
+        private double AttackInterval => 1 / AttackSpeed;
+        public virtual string Name => GetType().ToString().Split('.').Last();
 
         public Unit(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, Side side)
         {
@@ -97,9 +98,9 @@ namespace ThroughAThousandEyes.CombatModule
         private void Die()
         {
             Debug.Log($"{Name} died"); // TODO remove
+            _isDead = true;
             Object.Destroy(View.gameObject);
             Death?.Invoke(this);
-            _isDead = true;
         }
 
         private Unit GetRandomTarget()
@@ -126,7 +127,5 @@ namespace ThroughAThousandEyes.CombatModule
         {
             return Math.Max(damage - Armor, 0);
         }
-
-       public string Name => GetType().ToString().Split('.').Last(); // TODO remove
     }
 }

@@ -1,0 +1,5 @@
+1. Create a class derived from Unit
+2. Create a prefab for that unit's view
+3. In UnitViewPrefabLibrary add a serialized field for that prefab
+4. In the Initialize method of UnitViewPrefabLibrary add a "Unit type - View prefab" pair to the dictionary
+5. Add your prefab to the field created in the step 3 using inspector
