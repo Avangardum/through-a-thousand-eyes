@@ -40,7 +40,7 @@ namespace ThroughAThousandEyes.CombatModule
             unitViewPrefabs.Initialize();
             _areAllyPositionsTaken = new bool[_allyPositions.Length];
             _areEnemyPositionsTaken = new bool[_enemyPositions.Length];
-            StartEncounter(new EndlessFight(this, _endlessFightData));
+            // StartEncounter(new EndlessFight(this, _endlessFightData));
         }
 
         private void StartEncounter(IEncounter encounter)
@@ -54,6 +54,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         private void GoToWave(int waveNumber)
         {
+            Log($"Wave {waveNumber} started");
             _currentWaveNumber = waveNumber;
             Wave wave = _currentEncounter.GetWave(waveNumber);
             ClearEnemies();
