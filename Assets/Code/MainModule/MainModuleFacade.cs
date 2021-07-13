@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using ThroughAThousandEyes.AdventureMapModule;
 using ThroughAThousandEyes.CheatsModule;
 using ThroughAThousandEyes.CombatModule;
 using ThroughAThousandEyes.GeneralUIModule;
@@ -28,6 +29,7 @@ namespace ThroughAThousandEyes.MainModule
         public GeneralUIModuleFacade _generalUIModuleFacade;
         public CheatsModuleFacade _cheatsModuleFacade;
         public CombatModuleFacade _combatModuleFacade;
+        public AdventureMapModuleFacade _adventureMapModuleFacade;
         
         public ActivitySwitcher ActivitySwitcher => _root.ActivitySwitcher;
 
@@ -73,6 +75,8 @@ namespace ThroughAThousandEyes.MainModule
             _moduleFacades.Add(_cheatsModuleFacade);
             _combatModuleFacade = new CombatModuleFacade();
             _moduleFacades.Add(_combatModuleFacade);
+            _adventureMapModuleFacade = new AdventureMapModuleFacade();
+            _moduleFacades.Add(_adventureMapModuleFacade);
 
             // Initialize modules using facades
             foreach (var facade in _moduleFacades)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ThroughAThousandEyes.AdventureMapModule
 {
-    public class AdventureMapRoot : MonoBehaviour, IFocusable
+    public class AdventureMapModuleRoot : MonoBehaviour, IFocusable
     {
         [SerializeField] private Transform cameraPosition;
         

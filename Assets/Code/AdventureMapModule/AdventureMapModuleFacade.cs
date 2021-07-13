@@ -7,12 +7,12 @@ namespace ThroughAThousandEyes.AdventureMapModule
     public class AdventureMapModuleFacade : IModuleFacade, IFocusable
     {
         public MainModuleFacade MainModuleFacade;
-        private AdventureMapRoot _root;
+        private AdventureMapModuleRoot _root;
         
         public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
             MainModuleFacade = mainModuleFacade;
-            _root = Object.FindObjectOfType<AdventureMapRoot>();
+            _root = Object.FindObjectOfType<AdventureMapModuleRoot>();
         }
 
         public JObject SaveModuleToJson()
