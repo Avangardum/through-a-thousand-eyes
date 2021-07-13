@@ -245,5 +245,10 @@ namespace ThroughAThousandEyes.CombatModule
         {
             return cameraPosition.position;
         }
+
+        public void StartEndlessFight()
+        {
+            StartEncounter(new EndlessFight(this, _endlessFightData));
+        }
     }
 }

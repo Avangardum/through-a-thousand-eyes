@@ -28,6 +28,8 @@ namespace ThroughAThousandEyes.MainModule
         public GeneralUIModuleFacade _generalUIModuleFacade;
         public CheatsModuleFacade _cheatsModuleFacade;
         public CombatModuleFacade _combatModuleFacade;
+        
+        public ActivitySwitcher ActivitySwitcher => _root.ActivitySwitcher;
 
         public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {

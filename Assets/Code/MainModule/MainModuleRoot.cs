@@ -5,7 +5,8 @@ namespace ThroughAThousandEyes.MainModule
 {
     public class MainModuleRoot : MonoBehaviour
     {
-        [SerializeField] private FocusManager focusManager;
+        public FocusManager focusManager;
+        public ActivitySwitcher ActivitySwitcher;
 
         public MainModuleFacade Facade;
         
@@ -13,6 +14,7 @@ namespace ThroughAThousandEyes.MainModule
         {
             Facade = facade;
             focusManager.Initialize(facade._generalUIModuleFacade ,facade._webModuleFacade, facade._combatModuleFacade);
+            ActivitySwitcher = new ActivitySwitcher(this);
         }
     }
 }

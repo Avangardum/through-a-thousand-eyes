@@ -46,5 +46,7 @@ namespace ThroughAThousandEyes.CombatModule
         {
             return _root.GetCameraPosition();
         }
+
+        public void StartEndlessFight() => _root.StartEndlessFight();
     }
 }
