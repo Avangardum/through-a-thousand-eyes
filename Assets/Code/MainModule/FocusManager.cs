@@ -14,19 +14,22 @@ namespace ThroughAThousandEyes.MainModule
         private GeneralUIModuleFacade _generalUIModuleFacade;
         private WebModuleFacade _webModuleFacade;
         private CombatModuleFacade _combatModuleFacade;
+        private MainModuleRoot _root;
         
-        public void Initialize(GeneralUIModuleFacade generalUIModuleFacade, WebModuleFacade webModuleFacade, CombatModuleFacade combatModuleFacade)
+        public void Initialize(GeneralUIModuleFacade generalUIModuleFacade, WebModuleFacade webModuleFacade, CombatModuleFacade combatModuleFacade, MainModuleRoot root)
         {
+            _root = root;
             _generalUIModuleFacade = generalUIModuleFacade;
             _webModuleFacade = webModuleFacade;
             _combatModuleFacade = combatModuleFacade;
             
-            _focusableFacades = new IFocusable[] {_webModuleFacade, _combatModuleFacade};
+            _focusableFacades = new IFocusable[] {_webModuleFacade, _combatModuleFacade, _root.Facade._adventureMapModuleFacade};
         }
 
         public void FocusOnWeb() => FocusOnModule(_webModuleFacade, true);
 
         public void FocusOnCombat() => FocusOnModule(_combatModuleFacade,false);
+        public void FocusOnAdventureMap() => FocusOnModule(_root.Facade._adventureMapModuleFacade, true);
 
         private void FocusOnModule(IFocusable module, bool showGeneralUI)
         {
@@ -46,7 +49,7 @@ namespace ThroughAThousandEyes.MainModule
 
         private void Start()
         {
-            FocusOnWeb();
+            FocusOnAdventureMap();
         }
     }
 }

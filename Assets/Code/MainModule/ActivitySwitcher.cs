@@ -19,5 +19,10 @@ namespace ThroughAThousandEyes.MainModule
             _root.focusManager.FocusOnCombat();
             _root.Facade._combatModuleFacade.StartEndlessFight();
         }
+
+        public void SwitchToAdventureMap()
+        {
+            _root.focusManager.FocusOnAdventureMap();
+        }
     }
 }

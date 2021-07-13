@@ -13,7 +13,7 @@ namespace ThroughAThousandEyes.MainModule
         public void Initialize(MainModuleFacade facade, JObject saveData = null)
         {
             Facade = facade;
-            focusManager.Initialize(facade._generalUIModuleFacade ,facade._webModuleFacade, facade._combatModuleFacade);
+            focusManager.Initialize(facade._generalUIModuleFacade ,facade._webModuleFacade, facade._combatModuleFacade, this);
             ActivitySwitcher = new ActivitySwitcher(this);
         }
     }
