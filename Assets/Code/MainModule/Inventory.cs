@@ -17,7 +17,7 @@ namespace ThroughAThousandEyes.MainModule
             );
         }
 
-        public Inventory(MainModuleFacade facade, JObject saveData = null)
+        public Inventory(MainModuleRoot root, JObject saveData = null)
         {
             if (saveData != null)
             {

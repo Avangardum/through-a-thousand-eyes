@@ -11,32 +11,31 @@ namespace ThroughAThousandEyes.MainModule
         [SerializeField] private GameObject mainCamera;
         
         private IFocusable[] _focusableFacades;
-        private GeneralUIModuleFacade _generalUIModuleFacade;
-        private WebModuleFacade _webModuleFacade;
-        private CombatModuleFacade _combatModuleFacade;
         private MainModuleRoot _root;
         
-        public void Initialize(GeneralUIModuleFacade generalUIModuleFacade, WebModuleFacade webModuleFacade, CombatModuleFacade combatModuleFacade, MainModuleRoot root)
+        public void Initialize(MainModuleRoot root)
         {
             _root = root;
-            _generalUIModuleFacade = generalUIModuleFacade;
-            _webModuleFacade = webModuleFacade;
-            _combatModuleFacade = combatModuleFacade;
             
-            _focusableFacades = new IFocusable[] {_webModuleFacade, _combatModuleFacade, _root.Facade._adventureMapModuleFacade};
+            _focusableFacades = new IFocusable[]
+            {
+                _root.WebModuleFacade,
+                _root.CombatModuleFacade,
+                _root.AdventureMapModuleFacade
+            };
         }
 
-        public void FocusOnWeb() => FocusOnModule(_webModuleFacade, true);
+        public void FocusOnWeb() => FocusOnModule(_root.WebModuleFacade, true);
 
-        public void FocusOnCombat() => FocusOnModule(_combatModuleFacade,false);
-        public void FocusOnAdventureMap() => FocusOnModule(_root.Facade._adventureMapModuleFacade, true);
+        public void FocusOnCombat() => FocusOnModule(_root.CombatModuleFacade,false);
+        public void FocusOnAdventureMap() => FocusOnModule(_root.AdventureMapModuleFacade, true);
 
         private void FocusOnModule(IFocusable module, bool showGeneralUI)
         {
             RemoveFocus();
             module.OnGetFocus();
             mainCamera.transform.position = module.GetCameraPosition();
-            _generalUIModuleFacade.SetActive(showGeneralUI);
+            _root.GeneralUIModuleFacade.SetActive(showGeneralUI);
         }
 
         private void RemoveFocus()

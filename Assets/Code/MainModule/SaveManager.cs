@@ -11,12 +11,12 @@ namespace ThroughAThousandEyes.MainModule
         private const string SaveFileName = "save.txt";
         private const float AutosaveInterval = 60;
         
-        private List<IModuleFacade> _moduleFacades;
-        private float timeUntilAutosave = AutosaveInterval;
+        private readonly List<IModuleFacade> _moduleFacades;
+        private float _timeUntilAutosave = AutosaveInterval;
         
-        private static string fullPath => Application.persistentDataPath + '/' + SaveFileName;
+        private static string FullPath => Application.persistentDataPath + '/' + SaveFileName;
 
-        public static bool SaveDataExists => File.Exists(fullPath);
+        public static bool SaveDataExists => File.Exists(FullPath);
         
         public SaveManager(List<IModuleFacade> moduleFacades)
         {
@@ -28,21 +28,21 @@ namespace ThroughAThousandEyes.MainModule
             JObject save = new JObject(
                 _moduleFacades.Select(x => new JProperty(x.GetJsonPropertyName(), x.SaveModuleToJson()))
                 );
-            File.WriteAllText(fullPath, save.ToString());
+            File.WriteAllText(FullPath, save.ToString());
         }
 
         public static JObject LoadSaveData()
         {
-            return JObject.Parse(File.ReadAllText(fullPath));
+            return JObject.Parse(File.ReadAllText(FullPath));
         }
 
         public void Tick(float deltaTime)
         {
-            timeUntilAutosave -= deltaTime;
-            if (timeUntilAutosave <= 0)
+            _timeUntilAutosave -= deltaTime;
+            if (_timeUntilAutosave <= 0)
             {
                 SaveGame();
-                timeUntilAutosave = AutosaveInterval;
+                _timeUntilAutosave = AutosaveInterval;
             }
         }
     }

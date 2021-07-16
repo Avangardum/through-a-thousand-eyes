@@ -33,7 +33,7 @@ namespace ThroughAThousandEyes.MainModule
             );
         }
 
-        public MainSpiderStats(MainModuleFacade facade, JObject saveData = null)
+        public MainSpiderStats(MainModuleRoot root, JObject saveData = null)
         {
             if (saveData != null)
             {

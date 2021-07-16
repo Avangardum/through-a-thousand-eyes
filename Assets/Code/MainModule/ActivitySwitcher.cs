@@ -2,7 +2,7 @@ namespace ThroughAThousandEyes.MainModule
 {
     public class ActivitySwitcher
     {
-        private MainModuleRoot _root;
+        private readonly MainModuleRoot _root;
 
         public ActivitySwitcher(MainModuleRoot root)
         {
@@ -11,18 +11,18 @@ namespace ThroughAThousandEyes.MainModule
 
         public void SwitchToWeb()
         {
-            _root.focusManager.FocusOnWeb();
+            _root.FocusManager.FocusOnWeb();
         }
 
         public void StartEndlessFight()
         {
-            _root.focusManager.FocusOnCombat();
-            _root.Facade._combatModuleFacade.StartEndlessFight();
+            _root.FocusManager.FocusOnCombat();
+            _root.CombatModuleFacade.StartEndlessFight();
         }
 
         public void SwitchToAdventureMap()
         {
-            _root.focusManager.FocusOnAdventureMap();
+            _root.FocusManager.FocusOnAdventureMap();
         }
     }
 }
