@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ThroughAThousandEyes.WebModule
@@ -15,7 +16,7 @@ namespace ThroughAThousandEyes.WebModule
 
         public override string GetCurrentEffectText()
         {
-            return $"{Mathf.Floor(Chance)} guaranteed, {(Chance - Mathf.Floor(Chance)) * 100}% chance of an extra one";
+            return $"{Mathf.Floor(Chance)} guaranteed, {Math.Round((Chance - Mathf.Floor(Chance)) * 100, 2)}% chance of an extra one";
         }
     }
 }

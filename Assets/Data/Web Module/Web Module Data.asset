@@ -25,6 +25,8 @@ MonoBehaviour:
   <BigFoodBaseEscapeTime>k__BackingField: 20
   <BigFoodBaseChance>k__BackingField: 0.1
   <BaseFoodSpawnChance>k__BackingField: 0.5
+  <RareFoodExpMultiplier>k__BackingField: 3
+  <ShinyFoodExpMultiplier>k__BackingField: 10
   <NestingGrounds>k__BackingField:
     <Name>k__BackingField: Nesting Grounds
     <Description>k__BackingField: Adds more spiders

@@ -1,3 +1,5 @@
+using System;
+
 namespace ThroughAThousandEyes.WebModule
 {
     public class FattyInsects : Upgrade
@@ -15,7 +17,7 @@ namespace ThroughAThousandEyes.WebModule
 
         public override string GetCurrentEffectText()
         {
-            return $"+{HpBonus * 100}% health";
+            return $"+{Math.Round(HpBonus * 100, 2)}% health";
         }
 
         public override string GetJsonTokenName()

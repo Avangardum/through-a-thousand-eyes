@@ -1,3 +1,5 @@
+using System;
+
 namespace ThroughAThousandEyes.WebModule
 {
     public class FeedingGrounds : Upgrade
@@ -15,7 +17,7 @@ namespace ThroughAThousandEyes.WebModule
 
         public override string GetCurrentEffectText()
         {
-            return $"+{DamageBonus * 100}% damage";
+            return $"+{Math.Round(DamageBonus * 100, 2)}% damage";
         }
 
         public override string GetJsonTokenName()

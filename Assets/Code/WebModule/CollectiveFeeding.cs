@@ -1,3 +1,5 @@
+using System;
+
 namespace ThroughAThousandEyes.WebModule
 {
     public class CollectiveFeeding : Upgrade
@@ -14,7 +16,7 @@ namespace ThroughAThousandEyes.WebModule
 
         public override string GetCurrentEffectText()
         {
-            return $"+{DamageIncreasePerSpider * 100}% damage per spider";
+            return $"+{Math.Round(DamageIncreasePerSpider * 100, 2)}% damage per spider";
         }
 
         public override string GetJsonTokenName()
