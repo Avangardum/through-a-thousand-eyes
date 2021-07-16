@@ -5,7 +5,7 @@ namespace ThroughAThousandEyes.WebModule
         public string Name;
         public string Description;
         public int Level = 0;
-        public IntegerProgressionData PriceProgression;
+        public ProgressionData<long> PriceProgression;
 
         public long GetNextUpgradePrice() => PriceProgression.GetElement(Level + 1);
 

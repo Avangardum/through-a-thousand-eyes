@@ -3,10 +3,6 @@ using UnityEngine;
 
 namespace ThroughAThousandEyes
 {
-    /// <summary>
-    /// Stores data of an arithmetic or geometric progression
-    /// </summary>
-    /// <typeparam name="T">Requirement for the T type : T * T and T + T operations should be defined</typeparam>
     [Serializable]
     public class ProgressionData<T>
     {
