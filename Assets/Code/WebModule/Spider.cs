@@ -96,8 +96,9 @@ namespace ThroughAThousandEyes.WebModule
             _silk += (double)(Level * Time.deltaTime);
             if (_silk >= 1)
             {
-                _silk--;
-                _root.Facade.Inventory.Silk++;
+                long silkToTransfer = (long)Math.Floor(_silk);
+                _silk -= silkToTransfer;
+                _root.Facade.Inventory.Silk += silkToTransfer;
             }
             
             
