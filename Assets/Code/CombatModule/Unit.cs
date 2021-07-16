@@ -16,7 +16,7 @@ namespace ThroughAThousandEyes.CombatModule
         public virtual double AttackSpeed { get; }
         public Side Side { get; set; }
         public UnitView View { get; set; }
-
+        public bool IsOnFrontLine { get; set; }
         protected readonly CombatModuleRoot _root;
         private double _timeUntilAttack;
         private bool _wasStartCalled;
@@ -108,9 +108,9 @@ namespace ThroughAThousandEyes.CombatModule
             switch (Side)
             {
                 case Side.Allies:
-                    return _root.GetRandomEnemy();
+                    return _root.GetRandomFrontEnemy();
                 case Side.Enemies:
-                    return _root.GetRandomAlly();
+                    return _root.GetRandomFrontAlly();
                 default:
                     throw new ArgumentOutOfRangeException();
             }
