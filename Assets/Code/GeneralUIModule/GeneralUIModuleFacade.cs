@@ -17,22 +17,7 @@ namespace ThroughAThousandEyes.GeneralUIModule
             _root = UnityEngine.Object.FindObjectOfType<GeneralUIRoot>();
             _root.Initialize(this, saveData);
         }
-
-        public JObject SaveModuleToJson()
-        {
-            return new JObject();
-        }
-
-        public string GetJsonPropertyName()
-        {
-            return "generalUiModule";
-        }
-
-        public void Tick(float deltaTime)
-        {
-            
-        }
-
+        
         public void SetActive(bool isActive) => _root.gameObject.SetActive(isActive);
     }
 }

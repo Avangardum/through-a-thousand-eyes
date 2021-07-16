@@ -11,7 +11,7 @@ using Object = UnityEngine.Object;
 
 namespace ThroughAThousandEyes.MainModule
 {
-    public class MainModuleFacade : IModuleFacade
+    public class MainModuleFacade : IModuleFacade, ISavable, ITickable
     {
         public Inventory Inventory => _root.Inventory;
         public MainSpiderStats MainSpiderStats => _root.MainSpiderStats;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 using ThroughAThousandEyes.AdventureMapModule;
 using ThroughAThousandEyes.CheatsModule;
@@ -22,6 +23,9 @@ namespace ThroughAThousandEyes.MainModule
         public ActivitySwitcher ActivitySwitcher { get; private set; }
 
         private List<IModuleFacade> _moduleFacades;
+        private List<ISavable> _savableFacades;
+        private List<ITickable> _tickableFacades;
+        private List<IStartable> _startableFacades;
         private MainModuleRoot _root;
         
         // Module facades
@@ -39,7 +43,7 @@ namespace ThroughAThousandEyes.MainModule
             ActivitySwitcher = new ActivitySwitcher(this);
             Inventory = new Inventory(this, saveData?[InventoryTokenName].ToObject<JObject>());
             MainSpiderStats = new MainSpiderStats(this, saveData?[MainSpiderStatsTokenName]?.ToObject<JObject>());
-            SaveManager = new SaveManager(_moduleFacades);
+            SaveManager = new SaveManager(_savableFacades);
         }
         
         public JObject SaveModuleToJson()
@@ -72,16 +76,23 @@ namespace ThroughAThousandEyes.MainModule
             AdventureMapModuleFacade = new AdventureMapModuleFacade();
             _moduleFacades.Add(AdventureMapModuleFacade);
 
+            _savableFacades = _moduleFacades.Select(x => x as ISavable).Where(x => x != null).ToList();
+            _tickableFacades = _moduleFacades.Select(x => x as ITickable).Where(x => x != null).ToList();
+            _startableFacades = _moduleFacades.Select(x => x as IStartable).Where(x => x != null).ToList();
+            
             // Initialize modules using facades
             foreach (var facade in _moduleFacades)
             {
-                facade.InitializeModule(MainModuleFacade, saveData?[facade.GetJsonPropertyName()]?.ToObject<JObject>());
+                JObject sd = facade is ISavable savableFacade
+                    ? saveData?[savableFacade.GetJsonPropertyName()]?.ToObject<JObject>()
+                    : null;
+                facade.InitializeModule(MainModuleFacade, sd);
             }
         }
         
         private void FixedUpdate()
         {
-            foreach (var facade in _moduleFacades)
+            foreach (var facade in _tickableFacades)
             {
                 facade.Tick(Time.fixedDeltaTime);
             }
@@ -90,6 +101,14 @@ namespace ThroughAThousandEyes.MainModule
         private void Awake()
         {
             InitializeGame(SaveManager.SaveDataExists ? SaveManager.LoadSaveData() : null);
+        }
+
+        private void Start()
+        {
+            foreach (var facade in _startableFacades)
+            {
+                facade.Start();
+            }
         }
     }
 }

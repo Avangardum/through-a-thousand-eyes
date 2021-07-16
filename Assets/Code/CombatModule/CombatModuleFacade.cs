@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ThroughAThousandEyes.CombatModule
 {
-    public class CombatModuleFacade : IModuleFacade, IFocusable
+    public class CombatModuleFacade : IModuleFacade, IFocusable, ITickable, ISavable
     {
         public MainModuleFacade MainModuleFacade;
         

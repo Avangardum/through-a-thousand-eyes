@@ -15,22 +15,7 @@ namespace ThroughAThousandEyes.AdventureMapModule
             _root = Object.FindObjectOfType<AdventureMapModuleRoot>();
             _root.Initialize(this, saveData);
         }
-
-        public JObject SaveModuleToJson()
-        {
-            return new JObject();
-        }
-
-        public string GetJsonPropertyName()
-        {
-            return "adventureMapModule";
-        }
-
-        public void Tick(float deltaTime)
-        {
-            
-        }
-
+        
         public void OnGetFocus()
         {
             _root.OnGetFocus();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ThroughAThousandEyes.WebModule
 {
-    public class WebModuleFacade : IModuleFacade, IFocusable
+    public class WebModuleFacade : IModuleFacade, IFocusable, ITickable, ISavable
     {
         private WebModuleRoot _root;
         private MainModuleFacade _mainModuleFacade;

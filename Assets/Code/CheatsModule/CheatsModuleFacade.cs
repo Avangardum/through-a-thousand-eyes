@@ -17,20 +17,5 @@ namespace ThroughAThousandEyes.CheatsModule
             MainModuleFacade = mainModuleFacade;
             Instance = this;
         }
-
-        public JObject SaveModuleToJson()
-        {
-            return new JObject();
-        }
-
-        public string GetJsonPropertyName()
-        {
-            return "cheatsModule";
-        }
-
-        public void Tick(float deltaTime)
-        {
-            
-        }
     }
 }
