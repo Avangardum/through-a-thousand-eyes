@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 4305128788532774794}
   - component: {fileID: 4305128788532774795}
   - component: {fileID: -8737587265344584842}
+  - component: {fileID: 2416664705198454275}
   m_Layer: 0
   m_Name: Generic Unit View
   m_TagString: Untagged
@@ -180,7 +181,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PositionIndex: 0
   hpBar: {fileID: 298127583272733974}
+  attackImpactPoint: 0.25
   hpBarMinXPos: -0.5
   hpBarMaxXPos: 0
   hpBarMinXScale: 0
   hpBarMaxXScale: 1
+--- !u!95 &2416664705198454275
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4305128788532774792}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e8439091468a00147af13cb884147908, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

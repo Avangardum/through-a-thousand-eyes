@@ -210,6 +210,7 @@ namespace ThroughAThousandEyes.CombatModule
             UnitView view = Instantiate(unitViewPrefabs.GetPrefab(unit), transform).GetComponent<UnitView>();
             unit.View = view;
             view.Unit = unit;
+            view.Initialize();
             ArrayWithOccupiedFlags<Transform> positions;
             switch (unit.Side)
             {

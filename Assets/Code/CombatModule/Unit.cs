@@ -18,7 +18,7 @@ namespace ThroughAThousandEyes.CombatModule
         public UnitView View { get; set; }
         public bool IsOnFrontLine { get; set; }
         protected readonly CombatModuleRoot _root;
-        private double _timeUntilAttack;
+        public double TimeUntilAttack { get; private set; }
         private bool _wasStartCalled;
         private bool _isDead;
 
@@ -57,8 +57,8 @@ namespace ThroughAThousandEyes.CombatModule
                 Start();
             }
 
-            _timeUntilAttack -= deltaTime;
-            if (_timeUntilAttack <= 0)
+            TimeUntilAttack -= deltaTime;
+            if (TimeUntilAttack <= 0)
             {
                 var target = GetRandomTarget();
                 if (target != null)
@@ -80,7 +80,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         private void ResetTimeUntilAttack()
         {
-            _timeUntilAttack = AttackInterval;
+            TimeUntilAttack = AttackInterval;
         }
 
         public void ReceiveDamage(double damage)

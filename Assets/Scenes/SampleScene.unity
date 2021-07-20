@@ -3914,8 +3914,8 @@ MonoBehaviour:
     - {fileID: 1374015239}
     - {fileID: 158475339}
   unitViewPrefabs:
-    mainSpider: {fileID: 4305128788532774792, guid: fef5a1cc672606546bafc958af313147, type: 3}
-    endlessFightEnemy: {fileID: 4305128788532774792, guid: 699f87ef57f045a4299c2c70a4fbb1ec, type: 3}
+    mainSpider: {fileID: 4305128788532774792, guid: ac6544cca486c194dbddb4f9a8d50a51, type: 3}
+    endlessFightEnemy: {fileID: 4305128788532774792, guid: ac6544cca486c194dbddb4f9a8d50a51, type: 3}
   endlessFightData: {fileID: 11400000, guid: 8c701fee998dd45459cd28af41734889, type: 2}
   logToConsole: 1
 --- !u!1 &836876604
