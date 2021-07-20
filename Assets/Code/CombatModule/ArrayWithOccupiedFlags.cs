@@ -8,7 +8,7 @@ namespace ThroughAThousandEyes.CombatModule
     [Serializable]
     public class ArrayWithOccupiedFlags<T> : IEnumerable<T>
     {
-        public readonly int Length;
+        public int Length { get; private set; }
         [SerializeField] private T[] _array;
         private bool[] _occupiedFlags;
 
@@ -45,6 +45,25 @@ namespace ThroughAThousandEyes.CombatModule
             Length = length;
             _array = new T[length];
             _occupiedFlags = new bool[length];
+        }
+
+        public int GetFirstFreeIndex()
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                if (!IsElementOccupied(i))
+                {
+                    return i;
+                } 
+            }
+
+            return -1;
+        }
+
+        public void InitializeSerialized()
+        {
+            Length = _array.Length;
+            _occupiedFlags = new bool[Length];
         }
     }
 }

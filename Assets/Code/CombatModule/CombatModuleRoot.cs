@@ -47,6 +47,10 @@ namespace ThroughAThousandEyes.CombatModule
         {
             Facade = facade;
             unitViewPrefabs.Initialize();
+            allyFrontPositions.InitializeSerialized();
+            allyBackPositions.InitializeSerialized();
+            enemyFrontPositions.InitializeSerialized();
+            enemyBackPositions.InitializeSerialized();
         }
 
         private void StartEncounter(IEncounter encounter)
@@ -95,7 +99,6 @@ namespace ThroughAThousandEyes.CombatModule
             ClearUnitsInList(ref _backAllies);
         }
 
-        // TODO adapt for the back line
         public void Tick(float deltaTime)
         {
             if (_isCombatActive)
@@ -105,14 +108,14 @@ namespace ThroughAThousandEyes.CombatModule
                     unit.Tick(deltaTime);
                 }
 
-                if (_backAllies.Any() || _frontAllies.Count < frontLineCapacity)
+                if (_backAllies.Any() && _frontAllies.Count < frontLineCapacity)
                 {
-                    // TODO Move ally from back to front
+                    MoveUnitFromBackToFront(_backAllies.First());
                 }
 
-                if (_backEnemies.Any() || _frontEnemies.Count < frontLineCapacity)
+                if (_backEnemies.Any() && _frontEnemies.Count < frontLineCapacity)
                 {
-                    // TODO Move enemy from back to front
+                    MoveUnitFromBackToFront(_backEnemies.First());
                 }
                 
                 if (!AllEnemies.Any())
@@ -132,6 +135,50 @@ namespace ThroughAThousandEyes.CombatModule
                     EndCombat();
                 }
             }
+        }
+
+        private void MoveUnitFromBackToFront(Unit unit)
+        {
+            List<Unit> back;
+            List<Unit> front;
+            switch (unit.Side)
+            {
+                case Side.Allies:
+                    back = _backAllies;
+                    front = _frontAllies;
+                    break;
+                case Side.Enemies:
+                    back = _backEnemies;
+                    front = _frontEnemies;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            if (front.Count >= frontLineCapacity) throw new Exception("Front line is full");
+            bool removeSuccess = back.Remove(unit);
+            if (!removeSuccess) throw new ArgumentException();
+            front.Add(unit);
+            unit.IsOnFrontLine = true;
+
+            ArrayWithOccupiedFlags<Transform> backPositions;
+            ArrayWithOccupiedFlags<Transform> frontPositions;
+            switch (unit.Side)
+            {
+                case Side.Allies:
+                    backPositions = allyBackPositions;
+                    frontPositions = allyFrontPositions;
+                    break;
+                case Side.Enemies:
+                    backPositions = enemyBackPositions;
+                    frontPositions = enemyFrontPositions;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            backPositions.MarkSlotAsFree(unit.View.PositionIndex);
+            unit.View.PositionIndex = frontPositions.GetFirstFreeIndex();
+            unit.View.transform.position = frontPositions[unit.View.PositionIndex].position;
+            frontPositions.MarkSlotAsOccupied(unit.View.PositionIndex);
         }
 
         private void SpawnUnit(Unit unit)
@@ -205,7 +252,7 @@ namespace ThroughAThousandEyes.CombatModule
             _isCombatActive = false;
             ClearAllies();
             ClearEnemies();
-            // TODO go to adventure map
+            Facade.MainModuleFacade.ActivitySwitcher.SwitchToAdventureMap();
         }
 
         private void OnUnitDeath(Unit unit)
@@ -262,6 +309,7 @@ namespace ThroughAThousandEyes.CombatModule
         }
 
         public void Log(object message) => Log(message.ToString());
+        
         public void OnGetFocus()
         {
             
