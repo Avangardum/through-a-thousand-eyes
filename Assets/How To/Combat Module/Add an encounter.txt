@@ -1,2 +1,7 @@
 1. Create a class implementing IEncounter
-To be continued...
+2. In CombatModuleRoot add a method to start your encounter. In should create an instance of it and call StartEncounter 
+with that instance as the argument
+3. In CombatModuleFacade create a module that starts your encounter by calling the method created in step 2
+4. In MainModule.ActivitySwitcher add a method that starts your encounter by focusing on the combat module 
+(_root.FocusManager.FocusOnCombat();) and then starting the encounter using the method in the facade created in step 3
+5. Call this method whenever you want to start your encounter

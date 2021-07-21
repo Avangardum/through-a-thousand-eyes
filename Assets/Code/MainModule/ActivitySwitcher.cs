@@ -20,6 +20,12 @@ namespace ThroughAThousandEyes.MainModule
             _root.CombatModuleFacade.StartEndlessFight();
         }
 
+        public void StartStressTestFight()
+        {
+            _root.FocusManager.FocusOnCombat();
+            _root.CombatModuleFacade.StartStressTest();
+        }
+
         public void SwitchToAdventureMap()
         {
             _root.FocusManager.FocusOnAdventureMap();

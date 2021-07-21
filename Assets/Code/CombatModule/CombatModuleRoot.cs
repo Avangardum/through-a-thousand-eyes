@@ -110,12 +110,14 @@ namespace ThroughAThousandEyes.CombatModule
         {
             ClearUnitsInList(ref _frontEnemies);
             ClearUnitsInList(ref _backEnemies);
+            ClearUnitsInList(ref _idleEnemies);
         }
 
         private void ClearAllies()
         {
             ClearUnitsInList(ref _frontAllies);
             ClearUnitsInList(ref _backAllies);
+            ClearUnitsInList(ref _idleAllies);
         }
         
         private void MoveUnitFromBackToFront(Unit unit)
@@ -183,7 +185,9 @@ namespace ThroughAThousandEyes.CombatModule
             if (back.Count >= backLineCapacity) throw new Exception("Back line is full");
             bool removeSuccess = idle.Remove(unit);
             if (!removeSuccess) throw new ArgumentException("Unit is not on the idle line");
+            back.Add(unit);
             unit.Line = Line.Back;
+            CreateViewForUnit(unit);
         }
         
         private void SpawnUnit(Unit unit)
@@ -423,12 +427,12 @@ namespace ThroughAThousandEyes.CombatModule
         
         public void OnGetFocus()
         {
-            
+            ui.gameObject.SetActive(true);
         }
 
         public void OnLoseFocus()
         {
-            
+            ui.gameObject.SetActive(false);
         }
 
         public Vector3 GetCameraPosition()
@@ -439,6 +443,22 @@ namespace ThroughAThousandEyes.CombatModule
         public void StartEndlessFight()
         {
             StartEncounter(new EndlessFight(this, endlessFightData));
+        }
+
+        public void StartStressTest()
+        {
+            StartEncounter(new StressTestEncounter(this));
+            for (int i = 0; i < 105; i++)
+            {
+                SpawnUnit(new TestUnit(
+                    root: this,
+                    maxHp: 100,
+                    armor: 1,
+                    damage: 10,
+                    attackSpeed: 1,
+                    side: Side.Allies
+                    ));
+            }
         }
 
         #endregion
