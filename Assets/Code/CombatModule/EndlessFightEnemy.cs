@@ -5,8 +5,8 @@ namespace ThroughAThousandEyes.CombatModule
     /// </summary>
     public class EndlessFightEnemy : Unit
     {
-        public EndlessFightEnemy(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed) : 
-            base(root, maxHp, armor, damage, attackSpeed, Side.Enemies)
+        public EndlessFightEnemy(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, long expReward) : 
+            base(root, maxHp, armor, damage, attackSpeed, Side.Enemies, expReward)
         {
             
         }

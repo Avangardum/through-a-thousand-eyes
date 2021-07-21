@@ -6,5 +6,10 @@ namespace ThroughAThousandEyes.CombatModule
             : base(root, maxHp, armor, damage, attackSpeed, side)
         {
         }
+        
+        public TestUnit(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, Side side, long expReward)
+            : base(root, maxHp, armor, damage, attackSpeed, side, expReward)
+        {
+        }
     }
 }

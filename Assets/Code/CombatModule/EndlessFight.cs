@@ -35,7 +35,8 @@ namespace ThroughAThousandEyes.CombatModule
                 maxHp: _data.EnemyHp.GetElement(waveNumber),
                 armor: _data.EnemyArmor.GetElement(waveNumber),
                 damage: _data.EnemyDamage.GetElement(waveNumber),
-                attackSpeed: _data.EnemyAttackSpeed.GetElement(waveNumber)
+                attackSpeed: _data.EnemyAttackSpeed.GetElement(waveNumber),
+                expReward: _data.EnemyExpReward.GetElement(waveNumber)
             ));
 
             return wave;

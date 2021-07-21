@@ -9,5 +9,6 @@ namespace ThroughAThousandEyes.CombatModule
         [field: SerializeField] public ProgressionData<double> EnemyArmor { get; private set; }
         [field: SerializeField] public ProgressionData<double> EnemyDamage { get; private set; }
         [field: SerializeField] public ProgressionData<double> EnemyAttackSpeed { get; private set; }
+        [field: SerializeField] public ProgressionData<long> EnemyExpReward { get; private set; }
     }
 }

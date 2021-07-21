@@ -17,6 +17,7 @@ namespace ThroughAThousandEyes.CombatModule
         public Side Side { get; set; }
         public UnitView View { get; set; }
         public Line Line { get; set; }
+        public long ExpReward { get; private set; }
         protected readonly CombatModuleRoot _root;
         public double TimeUntilAttack { get; private set; }
         private bool _wasStartCalled;
@@ -34,6 +35,12 @@ namespace ThroughAThousandEyes.CombatModule
             Damage = damage;
             AttackSpeed = attackSpeed;
             Side = side;
+        }
+
+        public Unit(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, Side side, long expReward)
+        : this(root, maxHp, armor, damage, attackSpeed, side)
+        {
+            ExpReward = expReward;
         }
 
         /// <summary>
@@ -99,6 +106,10 @@ namespace ThroughAThousandEyes.CombatModule
         {
             _root.Log($"{Name} died");
             _isDead = true;
+            if (Side == Side.Enemies)
+            {
+                // TODO give exp
+            }
             Death?.Invoke(this);
         }
 
