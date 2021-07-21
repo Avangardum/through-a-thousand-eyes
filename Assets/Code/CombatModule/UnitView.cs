@@ -6,7 +6,7 @@ namespace ThroughAThousandEyes.CombatModule
     public class UnitView : MonoBehaviour
     {
         [HideInInspector] public int PositionIndex;
-        public Unit Unit;
+        private Unit _unit;
 
         [SerializeField] private GameObject hpBar;
         [SerializeField] private float attackImpactPoint;
@@ -21,17 +21,17 @@ namespace ThroughAThousandEyes.CombatModule
 
         private void Update()
         {
-            SetHpBar((float)Unit.CurrentHp / (float)Unit.MaxHp);
+            SetHpBar((float)_unit.CurrentHp / (float)_unit.MaxHp);
             if (_isAttackAnimationPlaying)
             {
-                if (Unit.TimeUntilAttack > attackImpactPoint)
+                if (_unit.TimeUntilAttack > attackImpactPoint)
                 {
                     _isAttackAnimationPlaying = false;
                 }
             }
             else
             {
-                if (Unit.TimeUntilAttack <= attackImpactPoint)
+                if (_unit.TimeUntilAttack <= attackImpactPoint)
                 {
                     _animator.Play(_attackHash);
                     _isAttackAnimationPlaying = true;
@@ -50,9 +50,16 @@ namespace ThroughAThousandEyes.CombatModule
             hpBar.transform.localScale = scale;
         }
 
-        public void Initialize()
+        public void Initialize(Unit unit)
         {
+            _unit = unit;
+            _unit.Death += OnDeath;
             _animator = GetComponent<Animator>();
+        }
+
+        private void OnDeath(Unit unit)
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace ThroughAThousandEyes.CombatModule
         public virtual double AttackSpeed { get; }
         public Side Side { get; set; }
         public UnitView View { get; set; }
-        public bool IsOnFrontLine { get; set; }
+        public Line Line { get; set; }
         protected readonly CombatModuleRoot _root;
         public double TimeUntilAttack { get; private set; }
         private bool _wasStartCalled;
@@ -99,7 +99,6 @@ namespace ThroughAThousandEyes.CombatModule
         {
             _root.Log($"{Name} died");
             _isDead = true;
-            Object.Destroy(View.gameObject);
             Death?.Invoke(this);
         }
 
