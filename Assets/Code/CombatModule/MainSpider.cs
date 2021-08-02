@@ -37,5 +37,10 @@ namespace ThroughAThousandEyes.CombatModule
         {
             
         }
+
+        public override void GiveExp(double amount)
+        {
+            _root.Facade.MainModuleFacade.MainSpiderStats.Experience += amount;
+        }
     }
 }

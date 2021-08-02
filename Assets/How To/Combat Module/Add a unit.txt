@@ -1,4 +1,4 @@
-1. Create a class derived from Unit
+1. Create a class derived from Unit (if your unit can gain Exp, override the GiveExp method)
 2. Create a prefab for that unit's view
 3. In UnitViewPrefabLibrary add a serialized field for that prefab
 4. In the Initialize method of UnitViewPrefabLibrary add a "Unit type - View prefab" pair to the dictionary

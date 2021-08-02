@@ -16,23 +16,30 @@ namespace ThroughAThousandEyes.WebModule
         private float _speed = 1;
         private long _level = 1; // Only for small spiders
         private float _currentAttackCooldown;
-        private double _experience;
+        private double _experience; // Only for small spiders
         private double _silk = 0;
         public bool IsMainSpider { get; private set; }
 
         private double ExperienceNeededForNextLevel =>
-            _root.Data.ExperienceToLevelUpBase + _root.Data.ExperienceToLevelUpAddition * (Level - 1);
+            _root.Facade.MainModuleFacade.Data.ExperienceToGetLevelN.GetElement(Level + 1);
 
         public double Experience
         {
-            get => _experience;
+            get => IsMainSpider ? _root.Facade.MainSpiderStats.Experience : _experience;
             set
             {
-                _experience = value;
-                while (_experience >= ExperienceNeededForNextLevel)
+                if (IsMainSpider)
                 {
-                    _experience -= ExperienceNeededForNextLevel;
-                    Level++;
+                    _root.Facade.MainSpiderStats.Experience = value;
+                }
+                else
+                {
+                    _experience = value;
+                    while (_experience >= ExperienceNeededForNextLevel)
+                    {
+                        _experience -= ExperienceNeededForNextLevel;
+                        Level++;
+                    }
                 }
             }
         }

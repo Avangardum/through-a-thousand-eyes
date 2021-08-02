@@ -7,16 +7,16 @@ namespace ThroughAThousandEyes.WebModule
     public class WebModuleFacade : IModuleFacade, IFocusable, ITickable, ISavable
     {
         private WebModuleRoot _root;
-        private MainModuleFacade _mainModuleFacade;
+        public MainModuleFacade MainModuleFacade { get; private set; }
 
-        public Inventory Inventory => _mainModuleFacade.Inventory;
-        public MainSpiderStats MainSpiderStats => _mainModuleFacade.MainSpiderStats;
+        public Inventory Inventory => MainModuleFacade.Inventory;
+        public MainSpiderStats MainSpiderStats => MainModuleFacade.MainSpiderStats;
         
         public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
             _root = Object.FindObjectOfType<WebModuleRoot>();
             _root.Initialize(this, saveData);
-            _mainModuleFacade = mainModuleFacade;
+            MainModuleFacade = mainModuleFacade;
         }
 
         public JObject SaveModuleToJson()

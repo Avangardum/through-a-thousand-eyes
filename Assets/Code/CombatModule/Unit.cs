@@ -59,7 +59,7 @@ namespace ThroughAThousandEyes.CombatModule
                 return;
             }
             
-            if (_wasStartCalled)
+            if (!_wasStartCalled)
             {
                 Start();
             }
@@ -90,25 +90,25 @@ namespace ThroughAThousandEyes.CombatModule
             TimeUntilAttack = AttackInterval;
         }
 
-        public void ReceiveDamage(double damage)
+        public void ReceiveDamage(double damage, Unit source)
         {
-            _root.Log($"{Name} recieves {damage} damage");
+            _root.Log($"{Name} recieves {damage} damage from {source.Name}");
             damage = ApplyArmor(damage);
             damage = Math.Max(damage, 0);
             CurrentHp -= damage;
             if (CurrentHp <= 0)
             {
-                Die();
+                Die(source);
             }
         }
 
-        private void Die()
+        private void Die(Unit killer)
         {
-            _root.Log($"{Name} died");
+            _root.Log($"{Name} died, killer is {killer.Name}");
             _isDead = true;
             if (Side == Side.Enemies)
             {
-                // TODO give exp
+                killer.GiveExp(ExpReward);
             }
             Death?.Invoke(this);
         }
@@ -129,13 +129,22 @@ namespace ThroughAThousandEyes.CombatModule
         private void AttackUnit(Unit unit)
         {
             _root.Log($"{Name} attacks {unit.Name}");
-            unit.ReceiveDamage(Damage);
+            unit.ReceiveDamage(Damage, this);
             
         }
 
         private double ApplyArmor(double damage)
         {
             return Math.Max(damage - Armor, 0);
+        }
+
+        /// <summary>
+        /// If a unit should get Exp, override this method
+        /// </summary>
+        /// <param name="amount"></param>
+        public virtual void GiveExp(double amount)
+        {
+            
         }
     }
 }

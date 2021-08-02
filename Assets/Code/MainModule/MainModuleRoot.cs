@@ -20,6 +20,7 @@ namespace ThroughAThousandEyes.MainModule
         public SaveManager SaveManager { get; private set; }
         public MainSpiderStats MainSpiderStats { get; private set; }
         [field: SerializeField] public FocusManager FocusManager { get; private set; }
+        [field: SerializeField] public MainModuleData Data { get; private set; }
         public ActivitySwitcher ActivitySwitcher { get; private set; }
 
         private List<IModuleFacade> _moduleFacades;

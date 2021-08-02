@@ -17,6 +17,7 @@ namespace ThroughAThousandEyes.MainModule
         public MainSpiderStats MainSpiderStats => _root.MainSpiderStats;
         public ActivitySwitcher ActivitySwitcher => _root.ActivitySwitcher;
         public SaveManager SaveManager => _root.SaveManager;
+        public MainModuleData Data => _root.Data;
 
         private MainModuleRoot _root;
 

@@ -11,8 +11,6 @@ namespace ThroughAThousandEyes.WebModule
         [field: SerializeField] public float FoodWaveInterval { get; private set; } = 1;
         [field: SerializeField] public float AttackRange { get; private set; } = 0.5f;
         [field: SerializeField] public float AttackInterval { get; private set; } = 1f;
-        [field: SerializeField] public double ExperienceToLevelUpBase { get; private set; } = 100;
-        [field: SerializeField] public double ExperienceToLevelUpAddition { get; private set; } = 10;
         [field: SerializeField] public double NormalFoodBaseHp { get; private set; } = 10;
         [field: SerializeField] public double BigFoodBaseHp { get; private set; } = 100;
         [field: SerializeField] public float NormalFoodBaseEscapeTime { get; private set; } = 15;
