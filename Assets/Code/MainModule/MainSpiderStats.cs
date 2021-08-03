@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json.Linq;
 
 namespace ThroughAThousandEyes.MainModule
@@ -12,18 +13,20 @@ namespace ThroughAThousandEyes.MainModule
         private const string DamageTokenName = "damage";
         private const string SpeedTokenName = "speed";
         private const string AttackSpeedTokenName = "attackSpeed";
+        private const string SkillPointsTokenName = "skillPoints";
 
         private MainModuleRoot _root;
         
         private double _experience;
-        
-        public long Level = 1;
+
+        private long _level = 1;
         public double CurrentHp = 100;
         public double MaxHp = 100;
         public double Armor = 1;
         public double Damage = 10;
         public double Speed = 1;
         public double AttackSpeed = 1;
+        public long SkillPoints;
 
         public double Experience
         {
@@ -48,6 +51,21 @@ namespace ThroughAThousandEyes.MainModule
             }
         }
 
+        public long Level
+        {
+            get => _level;
+            set
+            {
+                var delta = value - _level;
+                if (delta <= 0)
+                {
+                    throw new InvalidOperationException("Can't decrease level");
+                }
+                _level = value;
+                SkillPoints += delta;
+            }
+        }
+
         public JObject SaveToJson()
         {
             return new JObject(
@@ -58,7 +76,8 @@ namespace ThroughAThousandEyes.MainModule
                 new JProperty(ArmorTokenName, Armor),
                 new JProperty(DamageTokenName, Damage),
                 new JProperty(SpeedTokenName, Speed),
-                new JProperty(AttackSpeedTokenName, AttackSpeed)
+                new JProperty(AttackSpeedTokenName, AttackSpeed),
+                new JProperty(SkillPointsTokenName, SkillPoints)
             );
         }
 
@@ -76,6 +95,7 @@ namespace ThroughAThousandEyes.MainModule
                 Damage = saveData[DamageTokenName]?.ToObject<double>() ?? Damage;
                 Speed = saveData[SpeedTokenName]?.ToObject<double>() ?? Speed;
                 AttackSpeed = saveData[AttackSpeedTokenName]?.ToObject<double>() ?? AttackSpeed;
+                SkillPoints = saveData[SkillPointsTokenName]?.ToObject<long>() ?? SkillPoints;
             }
         }
     }
