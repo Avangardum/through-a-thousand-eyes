@@ -4,21 +4,30 @@ namespace ThroughAThousandEyes.MainSpiderUpgradingModule
 {
     public class MainSpiderUpgradingModuleRoot : MonoBehaviour, IFocusable
     {
-        [SerializeField] private Transform cameraPosition;
+        public MainSpiderUpgradingModuleFacade Facade;
+        
+        [SerializeField] private Transform _cameraPosition;
+        [SerializeField] private MainSpiderUpgradingModuleUI _ui;
         
         public void OnGetFocus()
         {
-            throw new System.NotImplementedException();
+            _ui.gameObject.SetActive(true);
         }
 
         public void OnLoseFocus()
         {
-            throw new System.NotImplementedException();
+            _ui.gameObject.SetActive(false);
         }
 
         public Vector3 GetCameraPosition()
         {
-            return cameraPosition.position;
+            return _cameraPosition.position;
+        }
+
+        public void Initialize(MainSpiderUpgradingModuleFacade facade)
+        {
+            Facade = facade;
+            _ui.Initialize(this);
         }
     }
 }

@@ -6,6 +6,7 @@ using ThroughAThousandEyes.AdventureMapModule;
 using ThroughAThousandEyes.CheatsModule;
 using ThroughAThousandEyes.CombatModule;
 using ThroughAThousandEyes.GeneralUIModule;
+using ThroughAThousandEyes.MainSpiderUpgradingModule;
 using ThroughAThousandEyes.WebModule;
 using UnityEngine;
 
@@ -36,6 +37,7 @@ namespace ThroughAThousandEyes.MainModule
         public CheatsModuleFacade CheatsModuleFacade;
         public CombatModuleFacade CombatModuleFacade;
         public AdventureMapModuleFacade AdventureMapModuleFacade;
+        public MainSpiderUpgradingModuleFacade MainSpiderUpgradingModuleFacade;
         
         public void Initialize(MainModuleFacade facade, JObject saveData = null)
         {
@@ -76,6 +78,8 @@ namespace ThroughAThousandEyes.MainModule
             _moduleFacades.Add(CombatModuleFacade);
             AdventureMapModuleFacade = new AdventureMapModuleFacade();
             _moduleFacades.Add(AdventureMapModuleFacade);
+            MainSpiderUpgradingModuleFacade = new MainSpiderUpgradingModuleFacade();
+            _moduleFacades.Add(MainSpiderUpgradingModuleFacade);
 
             _savableFacades = _moduleFacades.Select(x => x as ISavable).Where(x => x != null).ToList();
             _tickableFacades = _moduleFacades.Select(x => x as ITickable).Where(x => x != null).ToList();

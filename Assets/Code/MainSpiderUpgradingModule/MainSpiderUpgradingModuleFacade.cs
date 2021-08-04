@@ -6,12 +6,14 @@ namespace ThroughAThousandEyes.MainSpiderUpgradingModule
 {
     public class MainSpiderUpgradingModuleFacade : IModuleFacade, IFocusable
     {
-        private MainModuleFacade _mainModuleFacade;
+        public MainModuleFacade MainModuleFacade;
         private MainSpiderUpgradingModuleRoot _root;
         
         public void InitializeModule(MainModuleFacade mainModuleFacade, JObject saveData = null)
         {
-            _mainModuleFacade = mainModuleFacade;
+            MainModuleFacade = mainModuleFacade;
+            _root = Object.FindObjectOfType<MainSpiderUpgradingModuleRoot>();
+            _root.Initialize(this);
         }
 
         public void OnGetFocus()
