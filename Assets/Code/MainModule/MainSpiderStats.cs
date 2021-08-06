@@ -57,7 +57,7 @@ namespace ThroughAThousandEyes.MainModule
             set
             {
                 var delta = value - _level;
-                if (delta <= 0)
+                if (delta < 0)
                 {
                     throw new InvalidOperationException("Can't decrease level");
                 }

@@ -1,26 +1,45 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ThroughAThousandEyes.MainModule
 {
     public class SaveManager
     {
         private const string SaveFileName = "save.txt";
+        private const string SaveDataPlayerPrefsKey = "SaveData";
         private const float AutosaveInterval = 60;
         
         private readonly List<ISavable> _savableFacades;
         private float _timeUntilAutosave = AutosaveInterval;
-        
+        private readonly MainModuleRoot _root;
+
         private static string FullPath => Application.persistentDataPath + '/' + SaveFileName;
 
-        public static bool SaveDataExists => File.Exists(FullPath);
+        public static bool SaveDataExists
+        {
+            get
+            {
+                switch (Object.FindObjectOfType<MainModuleRoot>().SaveMethod)
+                {
+                    case SaveMethod.File:
+                        return File.Exists(FullPath);
+                    case SaveMethod.PlayerPrefs:
+                        return PlayerPrefs.HasKey(SaveDataPlayerPrefsKey);
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
         
-        public SaveManager(List<ISavable> savableFacades)
+        public SaveManager(List<ISavable> savableFacades, MainModuleRoot root)
         {
             _savableFacades = savableFacades;
+            _root = root;
         }
 
         public void SaveGame()
@@ -28,12 +47,30 @@ namespace ThroughAThousandEyes.MainModule
             JObject save = new JObject(
                 _savableFacades.Select(x => new JProperty(x.GetJsonPropertyName(), x.SaveModuleToJson()))
                 );
-            File.WriteAllText(FullPath, save.ToString());
+            switch (_root.SaveMethod)
+            {
+                case SaveMethod.File:
+                    File.WriteAllText(FullPath, save.ToString());
+                    break;
+                case SaveMethod.PlayerPrefs:
+                    PlayerPrefs.SetString(SaveDataPlayerPrefsKey, save.ToString());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public static JObject LoadSaveData()
         {
-            return JObject.Parse(File.ReadAllText(FullPath));
+            switch (Object.FindObjectOfType<MainModuleRoot>().SaveMethod)
+            {
+                case SaveMethod.File:
+                    return JObject.Parse(File.ReadAllText(FullPath));
+                case SaveMethod.PlayerPrefs:
+                    return JObject.Parse(PlayerPrefs.GetString(SaveDataPlayerPrefsKey));
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void Tick(float deltaTime)

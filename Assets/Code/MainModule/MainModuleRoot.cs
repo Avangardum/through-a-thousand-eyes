@@ -22,6 +22,7 @@ namespace ThroughAThousandEyes.MainModule
         public MainSpiderStats MainSpiderStats { get; private set; }
         [field: SerializeField] public FocusManager FocusManager { get; private set; }
         [field: SerializeField] public MainModuleData Data { get; private set; }
+        [field: SerializeField] public SaveMethod SaveMethod { get; private set; }
         public ActivitySwitcher ActivitySwitcher { get; private set; }
 
         private List<IModuleFacade> _moduleFacades;
@@ -46,7 +47,7 @@ namespace ThroughAThousandEyes.MainModule
             ActivitySwitcher = new ActivitySwitcher(this);
             Inventory = new Inventory(this, saveData?[InventoryTokenName].ToObject<JObject>());
             MainSpiderStats = new MainSpiderStats(this, saveData?[MainSpiderStatsTokenName]?.ToObject<JObject>());
-            SaveManager = new SaveManager(_savableFacades);
+            SaveManager = new SaveManager(_savableFacades, this);
         }
         
         public JObject SaveModuleToJson()

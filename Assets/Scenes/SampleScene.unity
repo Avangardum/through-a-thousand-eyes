@@ -6509,6 +6509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FocusManager>k__BackingField: {fileID: 1329201023}
   <Data>k__BackingField: {fileID: 11400000, guid: bcde9b0dc57235446accfb4612dcce8b, type: 2}
+  <SaveMethod>k__BackingField: 1
 --- !u!4 &1069080938
 Transform:
   m_ObjectHideFlags: 0
