@@ -30,5 +30,10 @@ namespace ThroughAThousandEyes.MainModule
         {
             _root.FocusManager.FocusOnAdventureMap();
         }
+
+        public void SwitchToMainSpiderUpgrading()
+        {
+            _root.FocusManager.FocusOnMainSpiderUpgrading();
+        }
     }
 }

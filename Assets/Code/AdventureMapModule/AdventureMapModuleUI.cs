@@ -9,6 +9,7 @@ namespace ThroughAThousandEyes.AdventureMapModule
         [SerializeField] private Button webButton;
         [SerializeField] private Button endlessFightButton;
         [SerializeField] private Button combatStressTestButton;
+        [SerializeField] private Button mainSpiderUpgradingButton;
 
         private AdventureMapModuleRoot _root;
         
@@ -29,12 +30,18 @@ namespace ThroughAThousandEyes.AdventureMapModule
             ActivitySwitcher.StartStressTestFight();
         }
 
+        private void OnClickMainSpiderUpgradingButton()
+        {
+            ActivitySwitcher.SwitchToMainSpiderUpgrading();
+        }
+
         public void Initialize(AdventureMapModuleRoot root)
         {
             _root = root;
             webButton.onClick.AddListener(OnClickWebButton);
             endlessFightButton.onClick.AddListener(OnClickEndlessFightButton);
             combatStressTestButton.onClick.AddListener(OnClickCombatStressTestButton);
+            mainSpiderUpgradingButton.onClick.AddListener(OnClickMainSpiderUpgradingButton);
         }
     }
 }

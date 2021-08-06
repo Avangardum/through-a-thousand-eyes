@@ -18,12 +18,12 @@ namespace ThroughAThousandEyes.MainSpiderUpgradingModule
 
         public void OnGetFocus()
         {
-            throw new System.NotImplementedException();
+            _root.OnGetFocus();
         }
 
         public void OnLoseFocus()
         {
-            throw new System.NotImplementedException();
+            _root.OnLoseFocus();
         }
 
         public Vector3 GetCameraPosition()

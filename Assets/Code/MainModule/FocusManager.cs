@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ThroughAThousandEyes.CombatModule;
 using ThroughAThousandEyes.GeneralUIModule;
 using ThroughAThousandEyes.WebModule;
@@ -16,19 +17,15 @@ namespace ThroughAThousandEyes.MainModule
         public void Initialize(MainModuleRoot root)
         {
             _root = root;
-            
-            _focusableFacades = new IFocusable[]
-            {
-                _root.WebModuleFacade,
-                _root.CombatModuleFacade,
-                _root.AdventureMapModuleFacade
-            };
+
+            _focusableFacades = _root.ModuleFacades.Select(x => x as IFocusable).Where(x => x != null).ToArray();
         }
 
         public void FocusOnWeb() => FocusOnModule(_root.WebModuleFacade, true);
 
         public void FocusOnCombat() => FocusOnModule(_root.CombatModuleFacade,false);
         public void FocusOnAdventureMap() => FocusOnModule(_root.AdventureMapModuleFacade, true);
+        public void FocusOnMainSpiderUpgrading() => FocusOnModule(_root.MainSpiderUpgradingModuleFacade, true);
 
         private void FocusOnModule(IFocusable module, bool showGeneralUI)
         {

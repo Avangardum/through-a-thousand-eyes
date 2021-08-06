@@ -25,7 +25,7 @@ namespace ThroughAThousandEyes.MainModule
         [field: SerializeField] public SaveMethod SaveMethod { get; private set; }
         public ActivitySwitcher ActivitySwitcher { get; private set; }
 
-        private List<IModuleFacade> _moduleFacades;
+        public List<IModuleFacade> ModuleFacades;
         private List<ISavable> _savableFacades;
         private List<ITickable> _tickableFacades;
         private List<IStartable> _startableFacades;
@@ -66,28 +66,28 @@ namespace ThroughAThousandEyes.MainModule
         public void InitializeGame(JObject saveData = null)
         {
             // Create module facades
-            _moduleFacades = new List<IModuleFacade>();
+            ModuleFacades = new List<IModuleFacade>();
             MainModuleFacade = new MainModuleFacade();
-            _moduleFacades.Add(MainModuleFacade);
+            ModuleFacades.Add(MainModuleFacade);
             WebModuleFacade = new WebModuleFacade();
-            _moduleFacades.Add(WebModuleFacade);
+            ModuleFacades.Add(WebModuleFacade);
             GeneralUIModuleFacade = new GeneralUIModuleFacade();
-            _moduleFacades.Add(GeneralUIModuleFacade);
+            ModuleFacades.Add(GeneralUIModuleFacade);
             CheatsModuleFacade = new CheatsModuleFacade();
-            _moduleFacades.Add(CheatsModuleFacade);
+            ModuleFacades.Add(CheatsModuleFacade);
             CombatModuleFacade = new CombatModuleFacade();
-            _moduleFacades.Add(CombatModuleFacade);
+            ModuleFacades.Add(CombatModuleFacade);
             AdventureMapModuleFacade = new AdventureMapModuleFacade();
-            _moduleFacades.Add(AdventureMapModuleFacade);
+            ModuleFacades.Add(AdventureMapModuleFacade);
             MainSpiderUpgradingModuleFacade = new MainSpiderUpgradingModuleFacade();
-            _moduleFacades.Add(MainSpiderUpgradingModuleFacade);
+            ModuleFacades.Add(MainSpiderUpgradingModuleFacade);
 
-            _savableFacades = _moduleFacades.Select(x => x as ISavable).Where(x => x != null).ToList();
-            _tickableFacades = _moduleFacades.Select(x => x as ITickable).Where(x => x != null).ToList();
-            _startableFacades = _moduleFacades.Select(x => x as IStartable).Where(x => x != null).ToList();
+            _savableFacades = ModuleFacades.Select(x => x as ISavable).Where(x => x != null).ToList();
+            _tickableFacades = ModuleFacades.Select(x => x as ITickable).Where(x => x != null).ToList();
+            _startableFacades = ModuleFacades.Select(x => x as IStartable).Where(x => x != null).ToList();
             
             // Initialize modules using facades
-            foreach (var facade in _moduleFacades)
+            foreach (var facade in ModuleFacades)
             {
                 JObject sd = facade is ISavable savableFacade
                     ? saveData?[savableFacade.GetJsonPropertyName()]?.ToObject<JObject>()
