@@ -54,6 +54,7 @@ namespace ThroughAThousandEyes.MainModule
                     break;
                 case SaveMethod.PlayerPrefs:
                     PlayerPrefs.SetString(SaveDataPlayerPrefsKey, save.ToString());
+                    PlayerPrefs.Save();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
