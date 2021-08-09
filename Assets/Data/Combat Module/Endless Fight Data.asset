@@ -28,3 +28,7 @@ MonoBehaviour:
     <ProgressionType>k__BackingField: 0
     <InitialTerm>k__BackingField: 1
     <CommonRatioOrDifference>k__BackingField: 0.2
+  <EnemyExpReward>k__BackingField:
+    <ProgressionType>k__BackingField: 0
+    <InitialTerm>k__BackingField: 20
+    <CommonRatioOrDifference>k__BackingField: 4
