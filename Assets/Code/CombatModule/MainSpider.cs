@@ -40,6 +40,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         public override void GiveExp(double amount)
         {
+            TteLogger.WriteMessage($"Main spider received {amount} exp in fight");
             _root.Facade.MainModuleFacade.MainSpiderStats.Experience += amount;
         }
     }

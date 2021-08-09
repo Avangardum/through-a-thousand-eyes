@@ -28,8 +28,6 @@ namespace ThroughAThousandEyes.CombatModule
         [SerializeField] private ArrayWithOccupiedFlags<Transform> enemyBackPositions;
         [SerializeField] private UnitViewPrefabLibrary unitViewPrefabs;
         [SerializeField] private EndlessFightData endlessFightData;
-        [Header("Logging")]
-        [SerializeField] private bool logToConsole;
         
         #endregion
 
@@ -415,15 +413,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         public Unit GetRandomFrontUnit() => GetRandomUnitFromCollection(FrontUnits);
 
-        public void Log(string message)
-        {
-            if (logToConsole)
-            {
-                Debug.Log(message);
-            }
-        }
-
-        public void Log(object message) => Log(message.ToString());
+        public void Log(object message) => TteLogger.WriteMessage(message);
         
         public void OnGetFocus()
         {

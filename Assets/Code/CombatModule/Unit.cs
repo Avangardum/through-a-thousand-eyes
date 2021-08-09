@@ -92,7 +92,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         public void ReceiveDamage(double damage, Unit source)
         {
-            _root.Log($"{Name} recieves {damage} damage from {source.Name}");
+            _root.Log($"{Name} receives {damage} damage from {source.Name}");
             damage = ApplyArmor(damage);
             damage = Math.Max(damage, 0);
             CurrentHp -= damage;

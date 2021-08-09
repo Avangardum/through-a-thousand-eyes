@@ -10,7 +10,7 @@ namespace ThroughAThousandEyes.MainModule
 {
     public class SaveManager
     {
-        private const string SaveFileName = "save.txt";
+        private const string SaveFileName = "Save.txt";
         private const string SaveDataPlayerPrefsKey = "SaveData";
         private const float AutosaveInterval = 60;
         
