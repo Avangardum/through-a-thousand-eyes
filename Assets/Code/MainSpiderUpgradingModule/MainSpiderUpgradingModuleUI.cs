@@ -41,27 +41,42 @@ namespace ThroughAThousandEyes.MainSpiderUpgradingModule
 
         private void UpgradeAttackSpeed()
         {
-            throw new NotImplementedException();
+            if (MainSpiderStats.SkillPoints <= 0)
+                throw new Exception("No skill points");
+            MainSpiderStats.SkillPoints--;
+            MainSpiderStats.AttackSpeed += _root.Data.AttackSpeedPerSkillPoint;
         }
 
         private void UpgradeSpeed()
         {
-            throw new NotImplementedException();
+            if (MainSpiderStats.SkillPoints <= 0)
+                throw new Exception("No skill points");
+            MainSpiderStats.SkillPoints--;
+            MainSpiderStats.Speed += _root.Data.SpeedPerSkillPoint;
         }
 
         private void UpgradeDamage()
         {
-            throw new NotImplementedException();
+            if (MainSpiderStats.SkillPoints <= 0)
+                throw new Exception("No skill points");
+            MainSpiderStats.SkillPoints--;
+            MainSpiderStats.Damage += _root.Data.DamagePerSkillPoint;
         }
 
         private void UpgradeArmor()
         {
-            throw new NotImplementedException();
+            if (MainSpiderStats.SkillPoints <= 0)
+                throw new Exception("No skill points");
+            MainSpiderStats.SkillPoints--;
+            MainSpiderStats.Armor += _root.Data.ArmorPerSkillPoint;
         }
 
         private void UpgradeHP()
         {
-            throw new NotImplementedException();
+            if (MainSpiderStats.SkillPoints <= 0)
+                throw new Exception("No skill points");
+            MainSpiderStats.SkillPoints--;
+            MainSpiderStats.MaxHp += _root.Data.MaxHpPerSkillPoint;
         }
 
         private void Update()

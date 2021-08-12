@@ -5,10 +5,11 @@ namespace ThroughAThousandEyes.MainSpiderUpgradingModule
     public class MainSpiderUpgradingModuleRoot : MonoBehaviour, IFocusable
     {
         public MainSpiderUpgradingModuleFacade Facade;
+        public MainSpiderUpgradingData Data;
         
         [SerializeField] private Transform _cameraPosition;
         [SerializeField] private MainSpiderUpgradingModuleUI _ui;
-        
+
         public void OnGetFocus()
         {
             _ui.gameObject.SetActive(true);
