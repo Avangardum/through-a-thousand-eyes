@@ -16,6 +16,7 @@ namespace ThroughAThousandEyes.MainModule
         private const string SkillPointsTokenName = "skillPoints";
 
         private MainModuleRoot _root;
+        private bool _isInitializing;
         
         private double _experience;
 
@@ -34,6 +35,9 @@ namespace ThroughAThousandEyes.MainModule
             set
             {
                 _experience = value;
+                if (_isInitializing)
+                    return;
+                
                 double expToLevelUp;
                 while (true)
                 {
@@ -56,16 +60,36 @@ namespace ThroughAThousandEyes.MainModule
             get => _level;
             set
             {
+                if (_isInitializing)
+                {
+                    _level = value;
+                    return;
+                }
+                
                 var delta = value - _level;
                 if (delta < 0)
                 {
                     throw new InvalidOperationException("Can't decrease level");
                 }
-                _level = value;
-                SkillPoints += delta;
+
+                while (_level < value)
+                {
+                    _level++;
+                    OnLevelUp(_level);
+                }
             }
         }
 
+        private void OnLevelUp(long newLevel)
+        {
+            long skillPointsDelta = Math.Max(
+                _root.Data.InitialSkillPointsPerLevel - newLevel / _root.Data.DecreaseSkillPointsPerLevelEveryNLevels, 
+                1
+                );
+            TteLogger.WriteMessage($"Main spider leveled up to level {newLevel} and gained {skillPointsDelta} skill points");
+            SkillPoints += skillPointsDelta;
+        }
+        
         public JObject SaveToJson()
         {
             return new JObject(
@@ -83,6 +107,8 @@ namespace ThroughAThousandEyes.MainModule
 
         public MainSpiderStats(MainModuleRoot root, JObject saveData = null)
         {
+            _isInitializing = true;
+            
             _root = root;
             
             if (saveData != null)
@@ -97,6 +123,8 @@ namespace ThroughAThousandEyes.MainModule
                 AttackSpeed = saveData[AttackSpeedTokenName]?.ToObject<double>() ?? AttackSpeed;
                 SkillPoints = saveData[SkillPointsTokenName]?.ToObject<long>() ?? SkillPoints;
             }
+
+            _isInitializing = false;
         }
     }
 }

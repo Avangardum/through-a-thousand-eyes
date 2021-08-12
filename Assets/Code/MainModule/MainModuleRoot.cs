@@ -65,6 +65,8 @@ namespace ThroughAThousandEyes.MainModule
 
         public void InitializeGame(JObject saveData = null)
         {
+            TteLogger.WriteMessage(saveData == null ? "Starting new game" : "Loading saved game");
+            
             // Create module facades
             ModuleFacades = new List<IModuleFacade>();
             MainModuleFacade = new MainModuleFacade();
@@ -94,6 +96,8 @@ namespace ThroughAThousandEyes.MainModule
                     : null;
                 facade.InitializeModule(MainModuleFacade, sd);
             }
+            
+            TteLogger.WriteMessage("Initialization finished");
         }
         
         private void FixedUpdate()
