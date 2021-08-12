@@ -10,6 +10,7 @@ namespace ThroughAThousandEyes.GeneralUIModule
     {
         [SerializeField] private TextMeshProUGUI _silkCounterNumber;
         [SerializeField] private Button _saveButton;
+        [SerializeField] private Button _mapButton;
 
         public GeneralUIModuleFacade Facade { get; private set; }
 
@@ -22,11 +23,17 @@ namespace ThroughAThousandEyes.GeneralUIModule
         {
             Facade = facade;
             _saveButton.onClick.AddListener(Save);
+            _mapButton.onClick.AddListener(GoToMap);
         }
 
         private void Save()
         {
             Facade.MainModuleFacade.SaveManager.SaveGame();
+        }
+
+        private void GoToMap()
+        {
+            Facade.MainModuleFacade.ActivitySwitcher.SwitchToAdventureMap();
         }
     }
 }
