@@ -61,6 +61,7 @@ namespace ThroughAThousandEyes.MainModule
         public void Tick(float deltaTime)
         {
             SaveManager.Tick(deltaTime);
+            MainSpiderStats.Tick(deltaTime);
         }
 
         public void InitializeGame(JObject saveData = null)

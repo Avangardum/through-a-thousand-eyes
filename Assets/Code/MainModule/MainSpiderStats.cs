@@ -126,5 +126,10 @@ namespace ThroughAThousandEyes.MainModule
 
             _isInitializing = false;
         }
+
+        public void Tick(float deltaTime)
+        {
+            CurrentHp = Math.Min(CurrentHp + _root.Data.MainSpiderRegenPercentagePerSeconds * deltaTime * MaxHp, MaxHp);
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace ThroughAThousandEyes.GeneralUIModule
         private void Update()
         {
             _silkCounterNumber.text = Facade.Inventory.Silk.ToString();
-            _hpText.text = $"Hp: {Facade.MainModuleFacade.MainSpiderStats.CurrentHp}/{Facade.MainModuleFacade.MainSpiderStats.MaxHp}";
+            _hpText.text = $"Hp: {Facade.MainModuleFacade.MainSpiderStats.CurrentHp:F0}/{Facade.MainModuleFacade.MainSpiderStats.MaxHp:F0}";
         }
 
         public void Initialize(GeneralUIModuleFacade facade, JObject saveData = null)
