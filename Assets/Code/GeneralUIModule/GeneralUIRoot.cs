@@ -11,12 +11,14 @@ namespace ThroughAThousandEyes.GeneralUIModule
         [SerializeField] private TextMeshProUGUI _silkCounterNumber;
         [SerializeField] private Button _saveButton;
         [SerializeField] private Button _mapButton;
+        [SerializeField] private TextMeshProUGUI _hpText;
 
         public GeneralUIModuleFacade Facade { get; private set; }
 
         private void Update()
         {
             _silkCounterNumber.text = Facade.Inventory.Silk.ToString();
+            _hpText.text = $"Hp: {Facade.MainModuleFacade.MainSpiderStats.CurrentHp}/{Facade.MainModuleFacade.MainSpiderStats.MaxHp}";
         }
 
         public void Initialize(GeneralUIModuleFacade facade, JObject saveData = null)

@@ -98,6 +98,7 @@ namespace ThroughAThousandEyes.CombatModule
             CurrentHp -= damage;
             if (CurrentHp <= 0)
             {
+                CurrentHp = 0;
                 Die(source);
             }
         }
