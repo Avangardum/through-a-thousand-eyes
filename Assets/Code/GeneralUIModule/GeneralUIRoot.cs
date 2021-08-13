@@ -17,6 +17,7 @@ namespace ThroughAThousandEyes.GeneralUIModule
 
         private void Update()
         {
+            _saveButton.interactable = Facade.MainModuleFacade.SaveManager.CanSave;
             _silkCounterNumber.text = Facade.Inventory.Silk.ToString();
             _hpText.text = $"Hp: {Facade.MainModuleFacade.MainSpiderStats.CurrentHp:F0}/{Facade.MainModuleFacade.MainSpiderStats.MaxHp:F0}";
         }

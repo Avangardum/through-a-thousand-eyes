@@ -19,7 +19,8 @@ namespace ThroughAThousandEyes.MainModule
         private readonly MainModuleRoot _root;
 
         private static string FullPath => Application.persistentDataPath + '/' + SaveFileName;
-
+        public bool CanSave => !_root.CombatModuleFacade.IsCombatActive;
+        
         public static bool SaveDataExists
         {
             get
@@ -44,6 +45,11 @@ namespace ThroughAThousandEyes.MainModule
 
         public void SaveGame()
         {
+            if (!CanSave)
+            {
+                throw new Exception("Saving failed. Can't save now");
+            }
+            
             JObject save = new JObject(
                 _savableFacades.Select(x => new JProperty(x.GetJsonPropertyName(), x.SaveModuleToJson()))
                 );
@@ -77,7 +83,7 @@ namespace ThroughAThousandEyes.MainModule
         public void Tick(float deltaTime)
         {
             _timeUntilAutosave -= deltaTime;
-            if (_timeUntilAutosave <= 0)
+            if (_timeUntilAutosave <= 0 && CanSave)
             {
                 SaveGame();
                 _timeUntilAutosave = AutosaveInterval;
