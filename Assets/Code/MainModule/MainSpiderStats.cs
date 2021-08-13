@@ -129,7 +129,10 @@ namespace ThroughAThousandEyes.MainModule
 
         public void Tick(float deltaTime)
         {
-            CurrentHp = Math.Min(CurrentHp + _root.Data.MainSpiderRegenPercentagePerSeconds * deltaTime * MaxHp, MaxHp);
+            if (!_root.CombatModuleFacade.IsCombatActive)
+            {
+                CurrentHp = Math.Min(CurrentHp + _root.Data.MainSpiderRegenPercentagePerSeconds * deltaTime * MaxHp, MaxHp);
+            }
         }
     }
 }

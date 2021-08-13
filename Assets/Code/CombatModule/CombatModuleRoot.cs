@@ -11,7 +11,7 @@ namespace ThroughAThousandEyes.CombatModule
     {
         public CombatModuleFacade Facade { get; private set; }
 
-        private bool _isCombatActive;
+        public bool IsCombatActive { get; private set; }
         private IEncounter _currentEncounter;
         private int _currentWaveNumber;
         private MainSpider _mainSpider;
@@ -74,7 +74,7 @@ namespace ThroughAThousandEyes.CombatModule
         private void StartEncounter(IEncounter encounter)
         {
             Log("Combat started");
-            _isCombatActive = true;
+            IsCombatActive = true;
             _currentEncounter = encounter;
             SpawnMainSpider();
             GoToWave(1);
@@ -297,7 +297,7 @@ namespace ThroughAThousandEyes.CombatModule
         private void EndCombat()
         {
             Log("Combat finished");
-            _isCombatActive = false;
+            IsCombatActive = false;
             ClearAllies();
             ClearEnemies();
             Facade.MainModuleFacade.ActivitySwitcher.SwitchToAdventureMap();
@@ -348,7 +348,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         public void Tick(float deltaTime)
         {
-            if (_isCombatActive)
+            if (IsCombatActive)
             {
                 foreach (var unit in ActiveUnits.ToList())
                 {

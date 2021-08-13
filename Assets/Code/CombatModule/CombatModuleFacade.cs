@@ -7,6 +7,7 @@ namespace ThroughAThousandEyes.CombatModule
     public class CombatModuleFacade : IModuleFacade, IFocusable, ITickable, ISavable
     {
         public MainModuleFacade MainModuleFacade;
+        public bool IsCombatActive => _root.IsCombatActive;
         
         private CombatModuleRoot _root;
         
