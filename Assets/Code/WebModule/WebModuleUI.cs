@@ -23,6 +23,12 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private Button foodChanceUpgradeButton;
         [SerializeField] private Button rareFoodChanceUpgradeButton;
         [SerializeField] private Button shinyFoodChanceUpgradeButton;
+        [SerializeField] private GameObject _webUpgradesPanel;
+        [SerializeField] private GameObject _spidersPanel;
+        [SerializeField] private GameObject _mainSpiderPanel;
+        [SerializeField] private Button _webUpgradesButton;
+        [SerializeField] private Button _spidersButton;
+        [SerializeField] private Button _mainSpiderButton;
 
         private UpgradeManager _upgradeManager;
         private WebModuleRoot _root;
@@ -81,9 +87,33 @@ namespace ThroughAThousandEyes.WebModule
             foodChanceUpgradeButton.onClick.AddListener(ShowFoodChanceUpgrade);
             rareFoodChanceUpgradeButton.onClick.AddListener(ShowRareFoodChanceUpgrade);
             shinyFoodChanceUpgradeButton.onClick.AddListener(ShowShinyFoodChanceUpgrade);
+            _webUpgradesButton.onClick.AddListener(ShowWebUpgradesPanel);
+            _spidersButton.onClick.AddListener(ShowSpidersPanel);
+            _mainSpiderButton.onClick.AddListener(ShowMainSpiderPanel);
             
             ShowNestingGrounds();
             _isInitialized = true;
+        }
+
+        private void ShowMainSpiderPanel()
+        {
+            _mainSpiderPanel.SetActive(true);
+            _spidersPanel.SetActive(false);
+            _webUpgradesPanel.SetActive(false);
+        }
+
+        private void ShowSpidersPanel()
+        {
+            _mainSpiderPanel.SetActive(false);
+            _spidersPanel.SetActive(true);
+            _webUpgradesPanel.SetActive(false);
+        }
+
+        private void ShowWebUpgradesPanel()
+        {
+            _mainSpiderPanel.SetActive(false);
+            _spidersPanel.SetActive(false);
+            _webUpgradesPanel.SetActive(true);
         }
     }
 }
