@@ -74,6 +74,10 @@ namespace ThroughAThousandEyes.CombatModule
         private void StartEncounter(IEncounter encounter)
         {
             Log("Combat started");
+            allyFrontPositions.MarkAllSlotsAsFree();
+            allyBackPositions.MarkAllSlotsAsFree();
+            enemyFrontPositions.MarkAllSlotsAsFree();
+            enemyBackPositions.MarkAllSlotsAsFree();
             IsCombatActive = true;
             _currentEncounter = encounter;
             SpawnMainSpider();
