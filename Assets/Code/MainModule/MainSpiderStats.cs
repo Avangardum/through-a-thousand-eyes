@@ -29,6 +29,8 @@ namespace ThroughAThousandEyes.MainModule
         public double AttackSpeed = 1;
         public long SkillPoints;
 
+        public double ExperienceToLevelUp => _root.Data.ExperienceToGetLevelN.GetElement(Level + 1);
+        
         public double Experience
         {
             get => _experience;
@@ -38,13 +40,11 @@ namespace ThroughAThousandEyes.MainModule
                 if (_isInitializing)
                     return;
                 
-                double expToLevelUp;
                 while (true)
                 {
-                    expToLevelUp = _root.Data.ExperienceToGetLevelN.GetElement(Level + 1);
-                    if (_experience >= expToLevelUp)
+                    if (_experience >= ExperienceToLevelUp)
                     {
-                        _experience -= expToLevelUp;
+                        _experience -= ExperienceToLevelUp;
                         Level++;
                     }
                     else

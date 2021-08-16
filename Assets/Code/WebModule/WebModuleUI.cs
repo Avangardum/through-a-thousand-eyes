@@ -1,4 +1,5 @@
 using System;
+using ThroughAThousandEyes.MainModule;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -29,6 +30,9 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private Button _webUpgradesButton;
         [SerializeField] private Button _spidersButton;
         [SerializeField] private Button _mainSpiderButton;
+        [SerializeField] private TextMeshProUGUI _mainSpiderLevelText;
+        [SerializeField] private TextMeshProUGUI _mainSpiderExpText;
+        [SerializeField] private TextMeshProUGUI _mainSpiderSkillPointsText;
 
         private UpgradeManager _upgradeManager;
         private WebModuleRoot _root;
@@ -36,6 +40,8 @@ namespace ThroughAThousandEyes.WebModule
         private Func<bool> _canAffordUpgrade;
         private bool _isInitialized;
         private Upgrade _currentUpgrade;
+
+        private MainSpiderStats MainSpiderStats => _root.Facade.MainSpiderStats;
         
         private void ShowNestingGrounds() => ShowUpgrade(_upgradeManager.NestingGrounds);
         private void ShowAcidicWeb() => ShowUpgrade(_upgradeManager.AcidicWeb);
@@ -63,8 +69,18 @@ namespace ThroughAThousandEyes.WebModule
         {
             if (!_isInitialized)
                 return;
-            
-            levelUpButton.interactable = _canAffordUpgrade();
+
+            if (_webUpgradesPanel)
+            {
+                levelUpButton.interactable = _canAffordUpgrade();
+            }
+
+            if (_mainSpiderPanel.activeInHierarchy)
+            {
+                _mainSpiderLevelText.text = $"Level\n{MainSpiderStats.Level}";
+                _mainSpiderExpText.text = $"Experience\n{MainSpiderStats.Experience}/{MainSpiderStats.ExperienceToLevelUp}";
+                _mainSpiderSkillPointsText.text = $"Skill Points\n{MainSpiderStats.SkillPoints}";
+            }
         }
 
         private void LevelUp()
