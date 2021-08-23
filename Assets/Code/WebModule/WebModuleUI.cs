@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ThroughAThousandEyes.MainModule;
 using TMPro;
 using UnityEngine;
@@ -33,6 +34,8 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private TextMeshProUGUI _mainSpiderLevelText;
         [SerializeField] private TextMeshProUGUI _mainSpiderExpText;
         [SerializeField] private TextMeshProUGUI _mainSpiderSkillPointsText;
+        [SerializeField] private SpidersSubpanel _spidersSubpanelPrefab;
+        [SerializeField] private Transform _spidersSubpanelParent;
 
         private UpgradeManager _upgradeManager;
         private WebModuleRoot _root;
@@ -40,6 +43,7 @@ namespace ThroughAThousandEyes.WebModule
         private Func<bool> _canAffordUpgrade;
         private bool _isInitialized;
         private Upgrade _currentUpgrade;
+        private List<SpidersSubpanel> _spidersSubpanels = new List<SpidersSubpanel>();
 
         private MainSpiderStats MainSpiderStats => _root.Facade.MainSpiderStats;
         
@@ -81,6 +85,22 @@ namespace ThroughAThousandEyes.WebModule
                 _mainSpiderExpText.text = $"Experience\n{MainSpiderStats.Experience}/{MainSpiderStats.ExperienceToLevelUp}";
                 _mainSpiderSkillPointsText.text = $"Skill Points\n{MainSpiderStats.SkillPoints}";
             }
+
+            if (_spidersPanel.activeInHierarchy)
+            {
+                // Create lacking subpanels
+                for (int i = _spidersSubpanels.Count; i < _root._spiders.Count; i++)
+                {
+                    var spiderSubpanel = Instantiate(_spidersSubpanelPrefab, _spidersSubpanelParent);
+                    _spidersSubpanels.Add(spiderSubpanel);
+                }
+                // Update panels data
+                for (int i = 0; i < _spidersSubpanels.Count; i++)
+                {
+                    _spidersSubpanels[i].Name = _root._spiders[i].IsMainSpider ? "Main spider" : "Common spider";
+                    _spidersSubpanels[i].Level = _root._spiders[i].Level;
+                }
+            }
         }
 
         private void LevelUp()
@@ -90,6 +110,18 @@ namespace ThroughAThousandEyes.WebModule
         }
 
         public void Initialize(WebModuleRoot webModuleRoot)
+        {
+            InitializeUpgrades(webModuleRoot);
+            InitializeSpidersPanel(webModuleRoot);
+            _isInitialized = true;
+        }
+
+        private void InitializeSpidersPanel(WebModuleRoot webModuleRoot)
+        {
+            
+        }
+
+        private void InitializeUpgrades(WebModuleRoot webModuleRoot)
         {
             _root = webModuleRoot;
             _upgradeManager = _root.UpgradeManager;
@@ -106,9 +138,7 @@ namespace ThroughAThousandEyes.WebModule
             _webUpgradesButton.onClick.AddListener(ShowWebUpgradesPanel);
             _spidersButton.onClick.AddListener(ShowSpidersPanel);
             _mainSpiderButton.onClick.AddListener(ShowMainSpiderPanel);
-            
             ShowNestingGrounds();
-            _isInitialized = true;
         }
 
         private void ShowMainSpiderPanel()
