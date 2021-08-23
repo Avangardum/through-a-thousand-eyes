@@ -8,6 +8,13 @@ namespace ThroughAThousandEyes.WebModule
 {
     public class Spider : MonoBehaviour
     {
+        public enum StateEnum
+        {
+            None = 0,
+            Weaving = 1,
+            Feeding = 2
+        }
+        
         [SerializeField] private TextMeshPro levelText;
         
         private WebModuleRoot _root;
@@ -19,6 +26,7 @@ namespace ThroughAThousandEyes.WebModule
         private double _experience; // Only for small spiders
         private double _silk = 0;
         public bool IsMainSpider { get; private set; }
+        public StateEnum State = StateEnum.Feeding;
 
         private double ExperienceNeededForNextLevel =>
             _root.Facade.MainModuleFacade.Data.ExperienceToGetLevelN.GetElement(Level + 1);
@@ -69,6 +77,29 @@ namespace ThroughAThousandEyes.WebModule
 
         private void FixedUpdate()
         {
+            switch (State)
+            {
+                case StateEnum.Weaving:
+                    WeavingFixedUpdate();
+                    break;
+                case StateEnum.Feeding:
+                    FeedingFixedUpdate();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            _currentAttackCooldown -= Time.fixedDeltaTime;
+            levelText.text = Level.ToString();
+
+            if (IsMainSpider)
+            {
+                AcidicWebFixedUpdate();
+            }
+        }
+
+        private void FeedingFixedUpdate()
+        {
             if (!_hasTarget)
             {
                 GetTarget();
@@ -92,14 +123,16 @@ namespace ThroughAThousandEyes.WebModule
                         double damage = Level * _root.UpgradeManager.FeedingGrounds.DamageMultiplier;
                         if (_target.IsBig)
                         {
-                            damage *= 1 + 
-                                (_root.UpgradeManager.CollectiveFeeding.DamageIncreasePerSpider * (_target.AttackingSpidersCount - 1));
+                            damage *= 1 + (_root.UpgradeManager.CollectiveFeeding.DamageIncreasePerSpider * (_target.AttackingSpidersCount - 1));
                         }
                         Attack(_target, damage);
                     }
                 }
             }
+        }
 
+        private void WeavingFixedUpdate()
+        {
             _silk += (double)(Level * Time.deltaTime);
             if (_silk >= 1)
             {
@@ -107,17 +140,11 @@ namespace ThroughAThousandEyes.WebModule
                 _silk -= silkToTransfer;
                 _root.Facade.Inventory.Silk += silkToTransfer;
             }
-            
-            
-            _currentAttackCooldown -= Time.fixedDeltaTime;
-            levelText.text = Level.ToString();
-
-            AcidicWebFixedUpdate();
         }
 
         private void AcidicWebFixedUpdate()
         {
-            foreach (var food in _root._foods)
+            foreach (var food in _root._foods.ToArray())
             {
                 Attack(food, _root.UpgradeManager.AcidicWeb.DamagePerSecond * Time.fixedDeltaTime, true);
             }
@@ -125,7 +152,7 @@ namespace ThroughAThousandEyes.WebModule
 
         private void GetTarget()
         {
-            var availableTargets = // Target is available if it is not targeted by other spiders or if is is big
+            var availableTargets = // Target is available if it is not targeted by other spiders or if it is big
                 _root._foods.Where(x => _root._spiders.All(y => y._target != x) || x.IsBig);
             if (availableTargets.Any())
             {
