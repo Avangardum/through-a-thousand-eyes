@@ -82,7 +82,7 @@ namespace ThroughAThousandEyes.WebModule
             if (_mainSpiderPanel.activeInHierarchy)
             {
                 _mainSpiderLevelText.text = $"Level\n{MainSpiderStats.Level}";
-                _mainSpiderExpText.text = $"Experience\n{MainSpiderStats.Experience}/{MainSpiderStats.ExperienceToLevelUp}";
+                _mainSpiderExpText.text = $"Experience\n{MainSpiderStats.Experience:F0}/{MainSpiderStats.ExperienceToLevelUp:F0}";
                 _mainSpiderSkillPointsText.text = $"Skill Points\n{MainSpiderStats.SkillPoints}";
             }
 
