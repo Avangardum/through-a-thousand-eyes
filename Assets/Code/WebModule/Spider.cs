@@ -8,6 +8,8 @@ namespace ThroughAThousandEyes.WebModule
 {
     public class Spider : MonoBehaviour
     {
+        private const float AttackRangeAcceptableInaccuracy = 0.001f;
+        
         public enum StateEnum
         {
             None = 0,
@@ -25,8 +27,27 @@ namespace ThroughAThousandEyes.WebModule
         private float _currentAttackCooldown;
         private double _experience; // Only for small spiders
         private double _silk = 0;
+        private StateEnum _state = StateEnum.Feeding;
         public bool IsMainSpider { get; private set; }
-        public StateEnum State = StateEnum.Feeding;
+
+        public StateEnum State
+        {
+            get => _state;
+            set
+            {
+                _state = value;
+                switch (State)
+                {
+                    case StateEnum.Weaving:
+                        RemoveCurrentTarget();
+                        break;
+                    case StateEnum.Feeding:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
 
         private double ExperienceNeededForNextLevel =>
             _root.Facade.MainModuleFacade.Data.ExperienceToGetLevelN.GetElement(Level + 1);
@@ -110,7 +131,7 @@ namespace ThroughAThousandEyes.WebModule
                 var vectorToTarget = _target.transform.position - this.transform.position;
                 var distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
                 var extraDistance = Mathf.Max(distanceToTarget - _root.Data.AttackRange, 0);
-                if (extraDistance > 0)
+                if (extraDistance > AttackRangeAcceptableInaccuracy)
                 {
                     var movement = Mathf.Min(_speed * Time.fixedDeltaTime, extraDistance);
                     var movementVector = vectorToTarget.normalized * movement;
@@ -153,7 +174,7 @@ namespace ThroughAThousandEyes.WebModule
         private void GetTarget()
         {
             var availableTargets = // Target is available if it is not targeted by other spiders or if it is big
-                _root._foods.Where(x => _root._spiders.All(y => y._target != x) || x.IsBig);
+                _root._foods.Where(x => _root.Spiders.All(y => y._target != x) || x.IsBig);
             if (availableTargets.Any())
             {
                 Food closestTarget = null;
@@ -170,18 +191,26 @@ namespace ThroughAThousandEyes.WebModule
 
                 _target = closestTarget;
                 _hasTarget = true;
-                _target.EDeath += OnTargetDeletion;
-                _target.EEscape += OnTargetDeletion;
+                _target.EDeath += RemoveTarget;
+                _target.EEscape += RemoveTarget;
             }
         }
 
-        private void OnTargetDeletion(Food target)
+        private void RemoveTarget(Food target)
         {
-            _target.EDeath -= OnTargetDeletion;
-            _target.EEscape -= OnTargetDeletion;
+            _target.EDeath -= RemoveTarget;
+            _target.EEscape -= RemoveTarget;
 
             _target = null;
             _hasTarget = false;
+        }
+
+        private void RemoveCurrentTarget()
+        {
+            if (!_hasTarget)
+                return;
+
+            RemoveTarget(_target);
         }
 
         private void Attack(Food target, double damage, bool isAcidicWeb = false)

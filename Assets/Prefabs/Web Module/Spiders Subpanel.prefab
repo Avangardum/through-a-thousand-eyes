@@ -96,7 +96,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -353,6 +353,8 @@ MonoBehaviour:
   _weaveButton: {fileID: 5916321933012039264}
   _nameText: {fileID: 7134045594536754103}
   _levelText: {fileID: 1680199438711882852}
+  _pressedButtonColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  _normalButtonColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3172263588714505647
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +719,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}

@@ -74,7 +74,7 @@ namespace ThroughAThousandEyes.WebModule
             if (!_isInitialized)
                 return;
 
-            if (_webUpgradesPanel)
+            if (_webUpgradesPanel.activeInHierarchy)
             {
                 levelUpButton.interactable = _canAffordUpgrade();
             }
@@ -89,16 +89,17 @@ namespace ThroughAThousandEyes.WebModule
             if (_spidersPanel.activeInHierarchy)
             {
                 // Create lacking subpanels
-                for (int i = _spidersSubpanels.Count; i < _root._spiders.Count; i++)
+                for (int i = _spidersSubpanels.Count; i < _root.Spiders.Count; i++)
                 {
                     var spiderSubpanel = Instantiate(_spidersSubpanelPrefab, _spidersSubpanelParent);
+                    spiderSubpanel.Name = _root.Spiders[i].IsMainSpider ? "Main spider" : "Common spider";
+                    spiderSubpanel.Spider = _root.Spiders[i];
                     _spidersSubpanels.Add(spiderSubpanel);
                 }
                 // Update panels data
                 for (int i = 0; i < _spidersSubpanels.Count; i++)
                 {
-                    _spidersSubpanels[i].Name = _root._spiders[i].IsMainSpider ? "Main spider" : "Common spider";
-                    _spidersSubpanels[i].Level = _root._spiders[i].Level;
+                    _spidersSubpanels[i].Level = _root.Spiders[i].Level;
                 }
             }
         }

@@ -13,6 +13,7 @@ namespace ThroughAThousandEyes.WebModule
     {
         private const string UpgradeManagerJsonTokenName = "upgrades";
         private const string CommonSpidersLevelsJsonTokenName = "commonSpidersLevels";
+        private const string SpiderStatesJsonTokenName = "spiderStates";
         
         [field: SerializeField] public WebModuleData Data { get; private set; }
         [SerializeField] private GameObject mainSpiderPrefab;
@@ -24,7 +25,7 @@ namespace ThroughAThousandEyes.WebModule
         [SerializeField] private Transform cameraPosition;
 
         public WebModuleFacade Facade;
-        public readonly List<Spider> _spiders = new List<Spider>();
+        public readonly List<Spider> Spiders = new List<Spider>();
         public readonly List<Food> _foods = new List<Food>();
         private Spider _mainSpider;
         private float _timeUntilNewWave;
@@ -45,6 +46,15 @@ namespace ThroughAThousandEyes.WebModule
                 {
                     var spider = SpawnCommonSpider();
                     spider.Level = i;
+                }
+            }
+
+            if (saveData?[SpiderStatesJsonTokenName] != null)
+            {
+                Spider.StateEnum[] states = saveData?[SpiderStatesJsonTokenName].ToObject<Spider.StateEnum[]>();
+                for (int i = 0; i < states.Length; i++)
+                {
+                    Spiders[i].State = states[i];
                 }
             }
         }
@@ -115,7 +125,7 @@ namespace ThroughAThousandEyes.WebModule
             _mainSpider = Instantiate(mainSpiderPrefab, transform).GetComponent<Spider>();
             _mainSpider.Initialize(this, true);
             _mainSpider.transform.position = GetRandomPosition();
-            _spiders.Add(_mainSpider);
+            Spiders.Add(_mainSpider);
         }
 
         public Spider SpawnCommonSpider()
@@ -123,7 +133,7 @@ namespace ThroughAThousandEyes.WebModule
             var spider = Instantiate(commonSpiderPrefab, transform).GetComponent<Spider>();
             spider.Initialize(this, false);
             spider.transform.position = GetRandomPosition();
-            _spiders.Add(spider);
+            Spiders.Add(spider);
             return spider;
         }
         
@@ -148,7 +158,8 @@ namespace ThroughAThousandEyes.WebModule
             (
                 new JProperty(UpgradeManagerJsonTokenName, UpgradeManager.SaveToJson()),
                 new JProperty(CommonSpidersLevelsJsonTokenName, 
-                    new JArray(_spiders.Where(x => !x.IsMainSpider).Select(x => x.Level)))
+                    new JArray(Spiders.Where(x => !x.IsMainSpider).Select(x => x.Level))),
+                new JProperty(SpiderStatesJsonTokenName, new JArray(Spiders.Select(x => x.State)))
             );
         }
 
