@@ -10,6 +10,7 @@ namespace ThroughAThousandEyes.CombatModule
     public class CombatModuleRoot : MonoBehaviour, IFocusable
     {
         public CombatModuleFacade Facade { get; private set; }
+        public int KingdomDefenceStagesPassed;
 
         public bool IsCombatActive { get; private set; }
         private IEncounter _currentEncounter;
@@ -28,6 +29,7 @@ namespace ThroughAThousandEyes.CombatModule
         [SerializeField] private ArrayWithOccupiedFlags<Transform> enemyBackPositions;
         [SerializeField] private UnitViewPrefabLibrary unitViewPrefabs;
         [SerializeField] private EndlessFightData endlessFightData;
+        [SerializeField] private KingdomDefenceData _kingdomDefenceData;
         
         #endregion
 
@@ -453,6 +455,12 @@ namespace ThroughAThousandEyes.CombatModule
                     side: Side.Allies
                     ));
             }
+        }
+
+        public void StartKingdomDefence()
+        {
+            int stage = KingdomDefenceStagesPassed + 1;
+            StartEncounter(new KingdomDefence(this, _kingdomDefenceData, stage));
         }
 
         #endregion

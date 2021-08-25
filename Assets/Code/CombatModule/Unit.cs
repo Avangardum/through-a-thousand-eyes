@@ -24,9 +24,9 @@ namespace ThroughAThousandEyes.CombatModule
         private bool _isDead;
 
         private double AttackInterval => 1 / AttackSpeed;
-        public virtual string Name => GetType().ToString().Split('.').Last();
+        protected virtual string Name => GetType().ToString().Split('.').Last();
 
-        public Unit(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, Side side)
+        protected Unit(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, Side side)
         {
             _root = root;
             MaxHp = maxHp;
@@ -37,10 +37,16 @@ namespace ThroughAThousandEyes.CombatModule
             Side = side;
         }
 
-        public Unit(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, Side side, long expReward)
+        protected Unit(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, Side side, long expReward)
         : this(root, maxHp, armor, damage, attackSpeed, side)
         {
             ExpReward = expReward;
+        }
+
+        protected Unit(CombatModuleRoot root, UnitStats stats, Side side) 
+            : this(root, stats.MaxHp, stats.Armor, stats.Damage, stats.AttackSpeed, side, stats.ExpReward)
+        {
+            
         }
 
         /// <summary>

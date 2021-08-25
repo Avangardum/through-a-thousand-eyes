@@ -11,6 +11,9 @@ namespace ThroughAThousandEyes.CombatModule
         [SerializeField] private GameObject mainSpider;
         [SerializeField] private GameObject endlessFightEnemy;
         [SerializeField] private GameObject testUnit;
+        [SerializeField] private GameObject kingdomWarrior;
+        [SerializeField] private GameObject knight;
+        [SerializeField] private GameObject king;
 
         private Dictionary<Type, GameObject> _dictionary;
         
@@ -33,7 +36,8 @@ namespace ThroughAThousandEyes.CombatModule
             {
                 {typeof(EndlessFightEnemy), endlessFightEnemy},
                 {typeof(MainSpider), mainSpider},
-                {typeof(TestUnit), testUnit}
+                {typeof(TestUnit), testUnit},
+                {typeof(KingdomWarrior), kingdomWarrior}
             };
         }
         

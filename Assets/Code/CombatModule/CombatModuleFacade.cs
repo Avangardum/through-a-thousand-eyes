@@ -51,5 +51,7 @@ namespace ThroughAThousandEyes.CombatModule
         public void StartEndlessFight() => _root.StartEndlessFight();
 
         public void StartStressTest() => _root.StartStressTest();
+
+        public void StartKingdomDefence() => _root.StartKingdomDefence();
     }
 }
