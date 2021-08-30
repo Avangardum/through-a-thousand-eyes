@@ -1,4 +1,6 @@
+using System;
 using ThroughAThousandEyes.MainModule;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +14,7 @@ namespace ThroughAThousandEyes.AdventureMapModule
         [SerializeField] private Button mainSpiderUpgradingButton;
         [SerializeField] private Button _kingdomAttackButton;
         [SerializeField] private Button _kingdomDefenceButton;
+        [SerializeField] private TextMeshProUGUI _kingdomDefenceStagesPassedText;
 
         private AdventureMapModuleRoot _root;
         
@@ -56,6 +59,12 @@ namespace ThroughAThousandEyes.AdventureMapModule
             mainSpiderUpgradingButton.onClick.AddListener(OnClickMainSpiderUpgradingButton);
             _kingdomAttackButton.onClick.AddListener(OnClickKingdomAttack);
             _kingdomDefenceButton.onClick.AddListener(OnClickKingdomDefence);
+        }
+
+        private void Update()
+        {
+            _kingdomDefenceStagesPassedText.text = $"Kingdom defence stages passed (weakens enemies in kingdom attack):" +
+                                                   $" {_root.Facade.MainModuleFacade.KingdomDefenceStagesPassed}";
         }
     }
 }

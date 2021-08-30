@@ -8,6 +8,7 @@ namespace ThroughAThousandEyes.CombatModule
     {
         public MainModuleFacade MainModuleFacade;
         public bool IsCombatActive => _root.IsCombatActive;
+        public int KingdomDefenceStagePassed => _root.KingdomDefenceStagesPassed;
         
         private CombatModuleRoot _root;
         
@@ -18,10 +19,7 @@ namespace ThroughAThousandEyes.CombatModule
             _root.Initialize(this, saveData);
         }
 
-        public JObject SaveModuleToJson()
-        {
-            return new JObject();
-        }
+        public JObject SaveModuleToJson() => _root.SaveModuleToJson();
 
         public string GetJsonPropertyName()
         {

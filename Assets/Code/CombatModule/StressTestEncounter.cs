@@ -1,6 +1,6 @@
 namespace ThroughAThousandEyes.CombatModule
 {
-    public class StressTestEncounter : IEncounter
+    public class StressTestEncounter : Encounter
     {
         private const int Waves = 1;
         private const int AllyCount = 105;
@@ -8,8 +8,8 @@ namespace ThroughAThousandEyes.CombatModule
 
         private CombatModuleRoot _root;
         
-        public int LastWaveNumber => Waves; 
-        public Wave GetWave(int waveNumber)
+        public override int LastWaveNumber => Waves; 
+        public override Wave GetWave(int waveNumber)
         {
             var wave = new Wave();
             for (int i = 0; i < EnemyCount; i++)

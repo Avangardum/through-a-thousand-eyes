@@ -1,4 +1,4 @@
-1. Create a class implementing IEncounter
+1. Create a class inheriting Encounter
 2. In CombatModuleRoot add a method to start your encounter. In should create an instance of it and call StartEncounter 
 with that instance as the argument
 3. In CombatModuleFacade create a module that starts your encounter by calling the method created in step 2

@@ -2,12 +2,12 @@ using System;
 
 namespace ThroughAThousandEyes.CombatModule
 {
-    public class EndlessFight : IEncounter
+    public class EndlessFight : Encounter
     {
         private CombatModuleRoot _root;
         private EndlessFightData _data;
 
-        public int LastWaveNumber => -1;
+        public override int LastWaveNumber => -1;
         
         public EndlessFight(CombatModuleRoot root, EndlessFightData data)
         {
@@ -21,7 +21,7 @@ namespace ThroughAThousandEyes.CombatModule
         /// <param name="waveNumber"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public Wave GetWave(int waveNumber)
+        public override Wave GetWave(int waveNumber)
         {
             if (waveNumber < 1)
             {

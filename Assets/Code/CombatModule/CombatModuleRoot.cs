@@ -9,11 +9,13 @@ namespace ThroughAThousandEyes.CombatModule
 {
     public class CombatModuleRoot : MonoBehaviour, IFocusable
     {
+        private const string KingdomDefenceStagesPassedJsonProprertyName = "kingdomDefenceStagesPassed";
+        
         public CombatModuleFacade Facade { get; private set; }
         public int KingdomDefenceStagesPassed;
 
         public bool IsCombatActive { get; private set; }
-        private IEncounter _currentEncounter;
+        private Encounter _currentEncounter;
         private int _currentWaveNumber;
         private MainSpider _mainSpider;
         
@@ -73,7 +75,7 @@ namespace ThroughAThousandEyes.CombatModule
 
         #region Private methods
 
-        private void StartEncounter(IEncounter encounter)
+        private void StartEncounter(Encounter encounter)
         {
             Log("Combat started");
             allyFrontPositions.MarkAllSlotsAsFree();
@@ -300,9 +302,14 @@ namespace ThroughAThousandEyes.CombatModule
             SpawnUnit(_mainSpider);
         }
 
-        private void EndCombat()
+        private void EndCombat(bool win)
         {
-            Log("Combat finished");
+            Log($"Combat {(win ? "won" : "lost")}");
+            if (win)
+                _currentEncounter.OnWin();
+            else
+                _currentEncounter.OnLose();
+            _currentEncounter.OnEnd();
             IsCombatActive = false;
             ClearAllies();
             ClearEnemies();
@@ -350,6 +357,7 @@ namespace ThroughAThousandEyes.CombatModule
             enemyFrontPositions.InitializeSerialized();
             enemyBackPositions.InitializeSerialized();
             ui.Initialize(this);
+            KingdomDefenceStagesPassed = saveData?[KingdomDefenceStagesPassedJsonProprertyName]?.ToObject<int>() ?? default;
         }
 
         public void Tick(float deltaTime)
@@ -394,21 +402,21 @@ namespace ThroughAThousandEyes.CombatModule
                     }
                 } while (wasAnyUnitMoved);
                 
+                if (!AllAllies.Any())
+                {
+                    EndCombat(false);
+                }
+                
                 if (!AllEnemies.Any())
                 {
                     if (_currentWaveNumber == _currentEncounter.LastWaveNumber)
                     {
-                        EndCombat();
+                        EndCombat(true);
                     }
                     else
                     {
                         GoToNextWave();
                     }
-                }
-
-                if (!AllAllies.Any())
-                {
-                    EndCombat();
                 }
             }
         }
@@ -461,6 +469,13 @@ namespace ThroughAThousandEyes.CombatModule
         {
             int stage = KingdomDefenceStagesPassed + 1;
             StartEncounter(new KingdomDefence(this, _kingdomDefenceData, stage));
+        }
+
+        public JObject SaveModuleToJson()
+        {
+            return new JObject(
+                new JProperty(KingdomDefenceStagesPassedJsonProprertyName, KingdomDefenceStagesPassed)
+                );
         }
 
         #endregion

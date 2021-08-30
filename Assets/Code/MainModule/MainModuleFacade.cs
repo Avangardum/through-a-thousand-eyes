@@ -18,6 +18,7 @@ namespace ThroughAThousandEyes.MainModule
         public ActivitySwitcher ActivitySwitcher => _root.ActivitySwitcher;
         public SaveManager SaveManager => _root.SaveManager;
         public MainModuleData Data => _root.Data;
+        public int KingdomDefenceStagesPassed => _root.CombatModuleFacade.KingdomDefenceStagePassed;
 
         private MainModuleRoot _root;
 
