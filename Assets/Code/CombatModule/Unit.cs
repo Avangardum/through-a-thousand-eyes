@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -21,10 +22,11 @@ namespace ThroughAThousandEyes.CombatModule
         protected readonly CombatModuleRoot _root;
         public double TimeUntilAttack { get; private set; }
         private bool _wasStartCalled;
-        private bool _isDead;
+        protected bool IsDead;
 
         private double AttackInterval => 1 / AttackSpeed;
         protected virtual string Name => GetType().ToString().Split('.').Last();
+        public virtual List<CombatSkill> CombatSkills => new List<CombatSkill>();
 
         protected Unit(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, Side side)
         {
@@ -60,7 +62,7 @@ namespace ThroughAThousandEyes.CombatModule
         
         public virtual void Tick(float deltaTime)
         {
-            if (_isDead)
+            if (IsDead)
             {
                 return;
             }
@@ -96,7 +98,7 @@ namespace ThroughAThousandEyes.CombatModule
             TimeUntilAttack = AttackInterval;
         }
 
-        public void ReceiveDamage(double damage, Unit source)
+        public virtual void ReceiveDamage(double damage, Unit source)
         {
             _root.Log($"{Name} receives {damage} damage from {source.Name}");
             damage = ApplyArmor(damage);
@@ -112,7 +114,7 @@ namespace ThroughAThousandEyes.CombatModule
         private void Die(Unit killer)
         {
             _root.Log($"{Name} died, killer is {killer.Name}");
-            _isDead = true;
+            IsDead = true;
             if (Side == Side.Enemies)
             {
                 killer.GiveExp(ExpReward);
@@ -153,5 +155,7 @@ namespace ThroughAThousandEyes.CombatModule
         {
             
         }
+
+        public bool HasCombatSkill(CombatSkill skill) => CombatSkills.Contains(skill);
     }
 }

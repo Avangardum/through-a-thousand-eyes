@@ -195,53 +195,6 @@ namespace ThroughAThousandEyes.CombatModule
             unit.Line = Line.Back;
             CreateViewForUnit(unit);
         }
-        
-        private void SpawnUnit(Unit unit)
-        {
-            unit.Death += OnUnitDeath;
-            
-            // Define front back and idle lists
-            List<Unit> front;
-            List<Unit> back;
-            List<Unit> idle;
-            switch (unit.Side)
-            {
-                case Side.Allies:
-                    front = _frontAllies;
-                    back = _backAllies;
-                    idle = _idleAllies;
-                    break;
-                case Side.Enemies:
-                    front = _frontEnemies;
-                    back = _backEnemies;
-                    idle = _idleEnemies;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            
-            // Find a line for the unit and place it there
-            List<Unit> targetList;
-            if (front.Count < frontLineCapacity)
-            {
-                unit.Line = Line.Front;
-                targetList = front;
-            }
-            else if (back.Count < backLineCapacity)
-            {
-                unit.Line = Line.Back;
-                targetList = back;
-            }
-            else
-            {
-                unit.Line = Line.Idle;
-                targetList = idle;
-            }
-            targetList.Add(unit);
-            
-            if(unit.Line != Line.Idle)
-                CreateViewForUnit(unit);
-        }
 
         private void CreateViewForUnit(Unit unit)
         {
@@ -339,14 +292,69 @@ namespace ThroughAThousandEyes.CombatModule
             }
         }
 
-        private Unit GetRandomUnitFromCollection(IEnumerable<Unit> collection)
+        private Unit GetRandomUnitFromCollection(IEnumerable<Unit> collection, bool ignoreProvocation = false)
         {
+            if (!ignoreProvocation)
+            {
+                var unitsWithProvocation = collection.Where(x => x.HasCombatSkill(CombatSkill.Provocation));
+                if (unitsWithProvocation.Any())
+                {
+                    return GetRandomUnitFromCollection(unitsWithProvocation, true);
+                }
+            }
             return collection.ElementAtOrDefault(Random.Range(0, collection.Count()));
         }
 
         #endregion
 
         #region Public methods
+
+        public void SpawnUnit(Unit unit)
+        {
+            unit.Death += OnUnitDeath;
+            
+            // Define front back and idle lists
+            List<Unit> front;
+            List<Unit> back;
+            List<Unit> idle;
+            switch (unit.Side)
+            {
+                case Side.Allies:
+                    front = _frontAllies;
+                    back = _backAllies;
+                    idle = _idleAllies;
+                    break;
+                case Side.Enemies:
+                    front = _frontEnemies;
+                    back = _backEnemies;
+                    idle = _idleEnemies;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            // Find a line for the unit and place it there
+            List<Unit> targetList;
+            if (front.Count < frontLineCapacity)
+            {
+                unit.Line = Line.Front;
+                targetList = front;
+            }
+            else if (back.Count < backLineCapacity)
+            {
+                unit.Line = Line.Back;
+                targetList = back;
+            }
+            else
+            {
+                unit.Line = Line.Idle;
+                targetList = idle;
+            }
+            targetList.Add(unit);
+            
+            if(unit.Line != Line.Idle)
+                CreateViewForUnit(unit);
+        }
 
         public void Initialize(CombatModuleFacade facade, JObject saveData)
         {
