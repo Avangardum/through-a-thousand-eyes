@@ -17,6 +17,8 @@ namespace ThroughAThousandEyes.CombatModule
         {
             _enemies = enemies.ToList();
         }
+
+        public Wave(params Unit[] enemies) : this((IEnumerable<Unit>) enemies) { }
         
         public IEnumerator<Unit> GetEnumerator()
         {

@@ -5,13 +5,15 @@ namespace ThroughAThousandEyes.CombatModule
 {
     public class KingdomAttack : Encounter
     {
-        private KingdomAttackData _data;
-        private CombatModuleRoot _root;
+        private readonly KingdomAttackData _data;
+        private readonly CombatModuleRoot _root;
+        private readonly int _defenceStagesPassed;
 
-        public KingdomAttack(KingdomAttackData data, CombatModuleRoot root)
+        public KingdomAttack(KingdomAttackData data, CombatModuleRoot root, int defenceStagesPassed)
         {
             _data = data;
             _root = root;
+            _defenceStagesPassed = defenceStagesPassed;
         }
 
         public override int LastWaveNumber => _data.CommonWavesAmount + 1;
@@ -26,14 +28,16 @@ namespace ThroughAThousandEyes.CombatModule
                 var units = new List<Unit>();
                 for (int i = 0; i < _data.KingdomWarriorsInCommonWaveByWaveNumber.GetElement(waveNumber); i++)
                 {
-                    units.Add(new KingdomWarrior(_root, _data.KingdomWarriorStats, Side.Enemies));
+                    units.Add(new KingdomWarrior
+                        (_root, _data.KingdomWarriorStatsAfterDecrease(_defenceStagesPassed), Side.Enemies));
                 }
 
                 return new Wave(units);
             }
             else
             {
-                throw new NotImplementedException();
+                return new Wave(new King(_root, _data.KingStatsAfterDecrease(_defenceStagesPassed),
+                    _data.KnightStatsAfterDecrease(_defenceStagesPassed)));
             }
         }
     }

@@ -6261,9 +6261,10 @@ MonoBehaviour:
     testUnit: {fileID: 4305128788532774792, guid: ac6544cca486c194dbddb4f9a8d50a51, type: 3}
     kingdomWarrior: {fileID: 4305128788532774792, guid: ac6544cca486c194dbddb4f9a8d50a51, type: 3}
     knight: {fileID: 4305128788532774792, guid: ac6544cca486c194dbddb4f9a8d50a51, type: 3}
-    king: {fileID: 4305128788532774792, guid: ac6544cca486c194dbddb4f9a8d50a51, type: 3}
+    king: {fileID: 1504216996676046521, guid: 676f9b0e3a35eb044839cfc89d1375f8, type: 3}
   endlessFightData: {fileID: 11400000, guid: 8c701fee998dd45459cd28af41734889, type: 2}
   _kingdomDefenceData: {fileID: 11400000, guid: 6a3014e067431864f99e5372cb938ab7, type: 2}
+  _kingdomAttackData: {fileID: 11400000, guid: 236210484a7c9694597925f7cd9b4d4d, type: 2}
 --- !u!1 &790219528
 GameObject:
   m_ObjectHideFlags: 0

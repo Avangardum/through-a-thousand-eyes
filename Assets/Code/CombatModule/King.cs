@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace ThroughAThousandEyes.CombatModule
 {
@@ -19,9 +20,9 @@ namespace ThroughAThousandEyes.CombatModule
             base.ReceiveDamage(damage, source);
             if (IsDead) return;
 
-            while (_summonKnightThresholds.Any(x => x >= CurrentHp))
+            while (_summonKnightThresholds.Any(x => x >= CurrentHpPercentage))
             {
-                _summonKnightThresholds.Remove(_summonKnightThresholds.First(x => x >= CurrentHp));
+                _summonKnightThresholds.Remove(_summonKnightThresholds.First(x => x >= CurrentHpPercentage));
                 _root.SpawnUnit(new Knight(_root, _knightStats));
             }
         }

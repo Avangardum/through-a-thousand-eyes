@@ -39,15 +39,15 @@ namespace ThroughAThousandEyes.AdventureMapModule
         {
             ActivitySwitcher.SwitchToMainSpiderUpgrading();
         }
-
-        private void OnClickKingdomAttack()
-        {
-            
-        }
-
+        
         private void OnClickKingdomDefence()
         {
             _root.Facade.MainModuleFacade.ActivitySwitcher.StartKingdomDefence();
+        }
+
+        private void OnClickKingdomAttack()
+        {
+            _root.Facade.MainModuleFacade.ActivitySwitcher.StartKingdomAttack();
         }
 
         public void Initialize(AdventureMapModuleRoot root)

@@ -7,10 +7,10 @@ namespace ThroughAThousandEyes
 {
     public static class TteLogger
     {
-        private const bool LogToConsole = true;
-        private const bool LogToFile = true;
-        private const bool OverrideLog = true;
-        private const string LogPath = "Log.txt";
+        private static bool LogToConsole = true;
+        private static bool LogToFile = true;
+        private static bool OverrideLog = true;
+        private static string LogPath = "Log.txt";
 
         private static readonly string FullPath = Application.persistentDataPath + '\\' + LogPath;
         

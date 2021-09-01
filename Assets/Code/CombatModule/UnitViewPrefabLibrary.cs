@@ -37,7 +37,9 @@ namespace ThroughAThousandEyes.CombatModule
                 {typeof(EndlessFightEnemy), endlessFightEnemy},
                 {typeof(MainSpider), mainSpider},
                 {typeof(TestUnit), testUnit},
-                {typeof(KingdomWarrior), kingdomWarrior}
+                {typeof(KingdomWarrior), kingdomWarrior},
+                {typeof(King), king},
+                {typeof(Knight), knight}
             };
         }
         

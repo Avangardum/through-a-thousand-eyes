@@ -41,5 +41,11 @@ namespace ThroughAThousandEyes.MainModule
             _root.FocusManager.FocusOnCombat();
             _root.CombatModuleFacade.StartKingdomDefence();
         }
+
+        public void StartKingdomAttack()
+        {
+            _root.FocusManager.FocusOnCombat();
+            _root.CombatModuleFacade.StartKingdomAttack();
+        }
     }
 }

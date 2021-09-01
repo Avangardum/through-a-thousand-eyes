@@ -32,6 +32,7 @@ namespace ThroughAThousandEyes.CombatModule
         [SerializeField] private UnitViewPrefabLibrary unitViewPrefabs;
         [SerializeField] private EndlessFightData endlessFightData;
         [SerializeField] private KingdomDefenceData _kingdomDefenceData;
+        [SerializeField] private KingdomAttackData _kingdomAttackData;
         
         #endregion
 
@@ -477,6 +478,11 @@ namespace ThroughAThousandEyes.CombatModule
         {
             int stage = KingdomDefenceStagesPassed + 1;
             StartEncounter(new KingdomDefence(this, _kingdomDefenceData, stage));
+        }
+
+        public void StartKingdomAttack()
+        {
+            StartEncounter(new KingdomAttack(_kingdomAttackData, this, KingdomDefenceStagesPassed));
         }
 
         public JObject SaveModuleToJson()

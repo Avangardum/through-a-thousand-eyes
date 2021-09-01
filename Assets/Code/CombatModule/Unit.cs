@@ -27,6 +27,7 @@ namespace ThroughAThousandEyes.CombatModule
         private double AttackInterval => 1 / AttackSpeed;
         protected virtual string Name => GetType().ToString().Split('.').Last();
         public virtual List<CombatSkill> CombatSkills => new List<CombatSkill>();
+        public float CurrentHpPercentage => (float) (CurrentHp / MaxHp);
 
         protected Unit(CombatModuleRoot root, double maxHp, double armor, double damage, double attackSpeed, Side side)
         {
