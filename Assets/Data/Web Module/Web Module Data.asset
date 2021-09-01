@@ -17,7 +17,7 @@ MonoBehaviour:
   <FoodWaveInterval>k__BackingField: 1
   <AttackRange>k__BackingField: 0.5
   <AttackInterval>k__BackingField: 1
-  <ExperienceToLevelUpBase>k__BackingField: 100
+  <ExperienceToLevelUpBase>k__BackingField: 30
   <ExperienceToLevelUpAddition>k__BackingField: 10
   <NormalFoodBaseHp>k__BackingField: 10
   <BigFoodBaseHp>k__BackingField: 100
@@ -32,8 +32,8 @@ MonoBehaviour:
     <Description>k__BackingField: Adds more spiders
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 1
-      <InitialTerm>k__BackingField: 1000
-      <CommonRatioOrDifference>k__BackingField: 2
+      <InitialTerm>k__BackingField: 500
+      <CommonRatioOrDifference>k__BackingField: 3
     <SpidersPerLevel>k__BackingField: 1
   <AcidicWeb>k__BackingField:
     <Name>k__BackingField: Acidic Web
@@ -41,12 +41,12 @@ MonoBehaviour:
       to the main spider)
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 1
-      <InitialTerm>k__BackingField: 10000
+      <InitialTerm>k__BackingField: 100000
       <CommonRatioOrDifference>k__BackingField: 2
     <DpsPerLevel>k__BackingField: 1
   <FeedingGrounds>k__BackingField:
     <Name>k__BackingField: Feeding Grounds
-    <Description>k__BackingField: Increases damage dealt by spiders
+    <Description>k__BackingField: Increases damage dealt to food
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 100
@@ -54,12 +54,12 @@ MonoBehaviour:
     <DamageIncreasePercentagePerLevel>k__BackingField: 0.05
   <FattyInsects>k__BackingField:
     <Name>k__BackingField: Fatty Insects
-    <Description>k__BackingField: Increases food's health
+    <Description>k__BackingField: Increase Exp awarded but also increases Health of the food
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 100
       <CommonRatioOrDifference>k__BackingField: 50
-    <HpIncreasePercentagePerLevel>k__BackingField: 0.05
+    <HpIncreasePercentagePerLevel>k__BackingField: 0.25
   <CollectiveFeeding>k__BackingField:
     <Name>k__BackingField: Collective Feeding
     <Description>k__BackingField: Increases damage dealt to food per each spider
@@ -68,7 +68,7 @@ MonoBehaviour:
       <ProgressionType>k__BackingField: 0
       <InitialTerm>k__BackingField: 1000
       <CommonRatioOrDifference>k__BackingField: 500
-    <DamageIncreasePercentagePerSpiderPerLevel>k__BackingField: 0.1
+    <DamageIncreasePercentagePerSpiderPerLevel>k__BackingField: 0.2
   <StickierWeb>k__BackingField:
     <Name>k__BackingField: Stickier Web
     <Description>k__BackingField: Large food remains for extra time before fleeing.
@@ -82,22 +82,22 @@ MonoBehaviour:
     <Description>k__BackingField: Increases food spawn chance
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
-      <InitialTerm>k__BackingField: 0
-      <CommonRatioOrDifference>k__BackingField: 0
+      <InitialTerm>k__BackingField: 200
+      <CommonRatioOrDifference>k__BackingField: 100
     <ChanceIncreasePerLevel>k__BackingField: 0.1
   <RareFoodSpawnChanceUpgrade>k__BackingField:
     <Name>k__BackingField: 
     <Description>k__BackingField: Increases rare food spawn chance
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
-      <InitialTerm>k__BackingField: 0
-      <CommonRatioOrDifference>k__BackingField: 0
+      <InitialTerm>k__BackingField: 500
+      <CommonRatioOrDifference>k__BackingField: 50
     <ChancePerLevel>k__BackingField: 0.0001
   <ShinyFoodSpawnChanceUpgrade>k__BackingField:
     <Name>k__BackingField: 
     <Description>k__BackingField: Increases shiny food spawn chance
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
-      <InitialTerm>k__BackingField: 0
-      <CommonRatioOrDifference>k__BackingField: 0
+      <InitialTerm>k__BackingField: 1000
+      <CommonRatioOrDifference>k__BackingField: 150
     <ChancePerLevel>k__BackingField: 0.0001
