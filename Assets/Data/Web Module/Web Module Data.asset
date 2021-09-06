@@ -22,14 +22,14 @@ MonoBehaviour:
   <NormalFoodBaseHp>k__BackingField: 10
   <BigFoodBaseHp>k__BackingField: 100
   <NormalFoodBaseEscapeTime>k__BackingField: 15
-  <BigFoodBaseEscapeTime>k__BackingField: 20
+  <BigFoodBaseEscapeTime>k__BackingField: 5
   <BigFoodBaseChance>k__BackingField: 0.1
   <BaseFoodSpawnChance>k__BackingField: 0.5
   <RareFoodExpMultiplier>k__BackingField: 3
   <ShinyFoodExpMultiplier>k__BackingField: 10
   <NestingGrounds>k__BackingField:
     <Name>k__BackingField: Nesting Grounds
-    <Description>k__BackingField: Adds +1 spider
+    <Description>k__BackingField: Adds +1 spiders
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 1
       <InitialTerm>k__BackingField: 250
@@ -37,7 +37,7 @@ MonoBehaviour:
     <SpidersPerLevel>k__BackingField: 1
   <AcidicWeb>k__BackingField:
     <Name>k__BackingField: Acidic Web
-    <Description>k__BackingField: Deals 1 dmg/s to all food in the net
+    <Description>k__BackingField: Deals 1 dmg/s to all food in the web
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 1
       <InitialTerm>k__BackingField: 100000
@@ -85,17 +85,17 @@ MonoBehaviour:
     <ChanceIncreasePerLevel>k__BackingField: 0.1
   <RareFoodSpawnChanceUpgrade>k__BackingField:
     <Name>k__BackingField: 
-    <Description>k__BackingField: Increases rare food spawn chance by 0.01%
+    <Description>k__BackingField: Increases rare food chance by 0.01% [Rare food gives 3x exp]
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
-      <InitialTerm>k__BackingField: 50
-      <CommonRatioOrDifference>k__BackingField: 50
+      <InitialTerm>k__BackingField: 25
+      <CommonRatioOrDifference>k__BackingField: 25
     <ChancePerLevel>k__BackingField: 0.0001
   <ShinyFoodSpawnChanceUpgrade>k__BackingField:
     <Name>k__BackingField: 
-    <Description>k__BackingField: Increases shiny food spawn chance by 0.01%
+    <Description>k__BackingField: Increases shiny food chance by 0.01% [Shiny food gives 10x exp]
     <Price>k__BackingField:
       <ProgressionType>k__BackingField: 0
-      <InitialTerm>k__BackingField: 150
-      <CommonRatioOrDifference>k__BackingField: 150
+      <InitialTerm>k__BackingField: 100
+      <CommonRatioOrDifference>k__BackingField: 50
     <ChancePerLevel>k__BackingField: 0.0001
